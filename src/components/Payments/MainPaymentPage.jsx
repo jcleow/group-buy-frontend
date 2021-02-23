@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import NavbarComponent from '../NavbarComponent.jsx';
 import PurchaseSummary from './PurchaseSummary.jsx';
+import PaymentInstructions from './PaymentInstructions.jsx';
+import ConfirmationOfReceipt from './ConfirmationOfReceipt.jsx';
 
 const PAGE_NAMES = {
   PURCHASE_SUMMARY: 'see purchase summary',
@@ -28,13 +30,13 @@ export default function MainPaymentPage() {
         <PurchaseSummary setMode={setMode} PAGE_NAMES={PAGE_NAMES} />;
         break;
       case PAYMENT_INSTRUCTIONS:
-        <PaymentInstructions />;
+        <PaymentInstructions setMode={setMode} PAGE_NAMES={PAGE_NAMES} />;
         break;
       case UPLOAD_RECEIPT:
-        <UploadReceipt />;
+        <UploadReceipt setMode={setMode} PAGE_NAMES={PAGE_NAMES} />;
         break;
       case CONFIRMATION_OF_RECEIPT:
-        <ConfirmationOfReceipt />;
+        <ConfirmationOfReceipt setMode={setMode} PAGE_NAMES={PAGE_NAMES} />;
         break;
 
       default:

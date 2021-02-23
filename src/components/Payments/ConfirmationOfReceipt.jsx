@@ -2,11 +2,11 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 
-export default function PurchaseSummary({setMode, PAGE_NAMES}) {
+export default function ConfirmationOfReceipt({setMode, PAGE_NAMES}) {
   const handleBtnClick = () => {
     // save the state to the cookie
     // updateMode to switch to next page
-    setMode(PAGE_NAMES.PAYMENT_INSTRUCTIONS);
+    // setMode(CONFIRMATION_OF_RECEIPT);
   };
 
   return (
@@ -19,8 +19,9 @@ export default function PurchaseSummary({setMode, PAGE_NAMES}) {
       <div className="row">
         <div className="col terms-n-conditions">
           <div>
-            By proceeding, you agree that you have read, and abide
-            Group-Buy%apos;s terms and conditions.
+            Thank you for your purchase. Please give us up to 3 working days to
+            confirm your payment. If needed, our staff will get in touch via
+            email.
           </div>
         </div>
       </div>
@@ -35,7 +36,7 @@ export default function PurchaseSummary({setMode, PAGE_NAMES}) {
   );
 }
 
-PurchaseSummary.propTypes = {
+ConfirmationOfReceipt.propTypes = {
   setMode: PropTypes.func.isRequired,
   PAGE_NAMES: PropTypes.objectOf.isRequired,
 };
