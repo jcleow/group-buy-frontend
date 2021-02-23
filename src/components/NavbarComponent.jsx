@@ -1,10 +1,11 @@
 import React, { useContext, useEffect } from 'react';
 import {
-  Navbar, Nav,
+  Navbar, Nav, DropdownButton, Dropdown,
 } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import SignInModal from './SignInModal.jsx';
 import { GroupBuyContext, setLoggedInUsername } from '../store.jsx';
+import UsernameBtn from './UsernameBtn.jsx';
 import { getInfoFromCookie } from '../helper.js';
 
 export default function NavbarComponent() {
@@ -40,7 +41,9 @@ export default function NavbarComponent() {
           </Nav>
           <Nav className="ml-auto">
             {store.loggedInUsername
-              ? <Nav.Link>{store.loggedInUsername}</Nav.Link>
+              ? (
+                <UsernameBtn />
+              )
               : (
                 <SignInModal />
               )}
