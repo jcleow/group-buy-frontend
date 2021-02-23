@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import {
   Button, Form,
 } from 'react-bootstrap';
+import NumberFormat from 'react-number-format';
+import BACKEND_URL from '../helper.js';
+import { GroupBuyContext, setLoggedInUsername } from '../store.jsx';
 
 export default function RegistrationForm() {
   // const { setLoggedIn, setUsername } = registrationFormProps;
   const [usernameInput, setUsernameInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
+  const [emailInput, setEmailInput] = useState('');
+  const [handphoneNumInput, setHandphoneNumInput] = useState('');
+
+  const { dispatch } = useContext(GroupBuyContext);
 
   function handleUsernameInput(event) {
     setUsernameInput(event.target.value);
@@ -17,12 +24,27 @@ export default function RegistrationForm() {
     setPasswordInput(event.target.value);
   }
 
+  function handleEmailInput(event) {
+    setEmailInput(event.target.value);
+  }
+
+  function handleHandphoneNumInput(event) {
+    setHandphoneNumInput(event.target.value);
+  }
+
   function handleRegistration() {
-    axios.post('/register', { username: usernameInput, password: passwordInput })
+    axios.post(`${BACKEND_URL}/register`,
+      {
+        username: usernameInput,
+        password: passwordInput,
+        email: emailInput,
+        handphoneNum: handphoneNumInput,
+      },
+      { withCredentials: true })
       .then((result) => {
         setUsernameInput('');
         setPasswordInput('');
-        setUsername(result.data.user.username);
+        dispatch(setLoggedInUsername(result.data.user.username));
       })
       .catch((err) => console.log(err));
   }
@@ -39,6 +61,22 @@ export default function RegistrationForm() {
             onChange={handleUsernameInput}
             required
           />
+        </Form.Group>
+
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            placeholder="Email"
+            type="email"
+            value={emailInput}
+            onChange={handleEmailInput}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formHandphoneNumber">
+          <Form.Label>Paynow Handphone Number</Form.Label>
+          <NumberFormat className="form-control" format="+65 #### ####" mask="_" onChange={handleHandphoneNumInput} required />
         </Form.Group>
 
         <Form.Group controlId="formBasicPassword">
