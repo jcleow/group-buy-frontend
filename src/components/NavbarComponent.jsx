@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import { LinkContainer } from 'react-router-bootstrap';
+import { getInfoFromCookie } from '../helper.js';
 
 export default function NavbarComponent() {
+  const [loggedInUsername, setLoggedInUsername] = useState(null);
+
+  useEffect(() => {
+    const currUsername = getInfoFromCookie();
+    if (currUsername) {
+      setLoggedInUsername(currUsername);
+    }
+  });
   return (
     <>
       <Navbar bg="light" expand="lg">
@@ -22,6 +31,13 @@ export default function NavbarComponent() {
             <LinkContainer to="/viewAll">
               <Nav.Link>View All</Nav.Link>
             </LinkContainer>
+            {loggedInUsername
+              ? <Nav.Link>{loggedInUsername}</Nav.Link>
+              : (
+                <LinkContainer to="/login">
+                  <Nav.Link>Login</Nav.Link>
+                </LinkContainer>
+              )}
           </Nav>
         </Navbar.Collapse>
       </Navbar>

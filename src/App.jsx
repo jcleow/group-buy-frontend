@@ -6,6 +6,7 @@ import {
   Route,
 } from 'react-router-dom';
 import NavbarComponent from './components/NavbarComponent.jsx';
+import LoginForm from './components/LoginForm.jsx';
 
 function App() {
   return (
@@ -15,6 +16,10 @@ function App() {
         {/* <Route path="/home" component={HomePage} />
         <Route path="/viewAll" component={ViewAll} />
         <Route path="/createNewTrip" component={NewTripHolder} /> */}
+        <Route
+          path="/login"
+          component={LoginForm}
+        />
       </Switch>
     </Router>
   );
