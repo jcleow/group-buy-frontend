@@ -7,6 +7,8 @@ export const initialState = {
   listings: [],
   categories: [],
   currentListingIndex: null,
+  loggedInUsername: null,
+  loggedInUserId: null,
 };
 
 // just like the todo app, define each action we want to do on the
@@ -18,19 +20,30 @@ const DELETE_LISTING = 'DELETE_LISTING';
 const LOAD_LISTINGS = 'LOAD_LISTINGS';
 const SELECT_LISTING = 'SELECT_LISTING';
 
+// Used for tracking currUsername and currUserId
+const SET_USERNAME = 'SET_USERNAME';
+const SET_USERID = 'SET_USERID';
+
 // define the matching reducer function
 export function groupBuyReducer(state, action) {
+  let newListings;
+  let currentListingIndex;
+
   switch (action.type) {
     case ADD_LISTING:
       return { ...state, listings: [...state.listings, action.payload.listing] };
     case DELETE_LISTING:
-      const newListings = state.filter((_item, i) => action.payload.listingIndex !== i);
+      newListings = state.filter((_item, i) => action.payload.listingIndex !== i);
       return { ...state, listings: newListings };
     case LOAD_LISTINGS:
       return { ...state, listings: action.payload.listings };
     case SELECT_LISTING:
-      const currentListingIndex = action.payload.listingIndex;
+      currentListingIndex = action.payload.listingIndex;
       return { ...state, currentListingIndex };
+    case SET_USERNAME:
+      return { ...state, loggedInUsername: action.payload.username };
+    case SET_USERID:
+      return { ...state, loggedInUserId: action.payload.userId };
     default:
       return state;
   }
@@ -72,6 +85,24 @@ export function selectListingAction(listingIndex) {
     type: SELECT_LISTING,
     payload: {
       listingIndex,
+    },
+  };
+}
+
+export function setLoggedInUsername(username) {
+  return {
+    type: SET_USERNAME,
+    payload: {
+      username,
+    },
+  };
+}
+
+export function setLoggedInUserId(userId) {
+  return {
+    type: SET_USERID,
+    payload: {
+      userId,
     },
   };
 }

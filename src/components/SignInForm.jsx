@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { Button, Form } from 'react-bootstrap';
 import BACKEND_URL from '../helper.js';
+import { GroupBuyContext, setLoggedInUsername, setLoggedInUserId } from '../store.jsx';
 
-export default function LoginForm() {
+export default function SignInForm({ handleClose }) {
   const [usernameInput, setUsernameInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
+  const { store, dispatch } = useContext(GroupBuyContext);
 
   function handleUsernameInput(event) {
     setUsernameInput(event.target.value);
@@ -21,12 +23,11 @@ export default function LoginForm() {
       .then((result) => {
         setUsernameInput('');
         setPasswordInput('');
-        console.log(result, 'result');
         if (result.data.auth) {
-          console.log(result.data);
-          // setUsername(result.data.user.username);
-          window.location = '/';
+          console.log(result.data.user.username, 'from backend');
+          dispatch(setLoggedInUsername(result.data.user.username));
         }
+        handleClose();
       })
       .catch((error) => console.log(error));
   }
