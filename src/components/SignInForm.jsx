@@ -4,7 +4,7 @@ import { Button, Form } from 'react-bootstrap';
 import BACKEND_URL from '../helper.js';
 import { GroupBuyContext, setLoggedInUsername, setLoggedInUserId } from '../store.jsx';
 
-export default function SignInForm({ handleClose }) {
+export default function SignInForm({ handleClose, setFormDisplay }) {
   const [usernameInput, setUsernameInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
   const { store, dispatch } = useContext(GroupBuyContext);
@@ -32,7 +32,7 @@ export default function SignInForm({ handleClose }) {
       .catch((error) => console.log(error));
   }
   function handleRegistration() {
-    // setFormDisplay('registration');
+    setFormDisplay('registration');
   }
   return (
     <div className="login-form">

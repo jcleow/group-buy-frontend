@@ -4,7 +4,7 @@ import {
   Button, Form,
 } from 'react-bootstrap';
 
-export default function RegistrationForm({ showRegistration }) {
+export default function RegistrationForm() {
   // const { setLoggedIn, setUsername } = registrationFormProps;
   const [usernameInput, setUsernameInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');

@@ -5,7 +5,7 @@ import RegistrationForm from './RegistrationForm.jsx';
 
 export default function SignInModal() {
   const [show, setShow] = useState(false);
-  const [showRegistration, setShowRegistration] = useState(null);
+  const [formDisplay, setFormDisplay] = useState('signin');
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -17,9 +17,9 @@ export default function SignInModal() {
           <Modal.Title>Sign In to Group Buy</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {!showRegistration
-            ? <SignInForm handleClose={handleClose} />
-            : <RegistrationForm showRegistration={showRegistration} />}
+          {formDisplay === 'signin'
+            ? <SignInForm handleClose={handleClose} setFormDisplay={setFormDisplay} />
+            : <RegistrationForm />}
         </Modal.Body>
       </Modal>
     </>
