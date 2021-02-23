@@ -20,6 +20,9 @@ const DELETE_LISTING = 'DELETE_LISTING';
 const LOAD_LISTINGS = 'LOAD_LISTINGS';
 const SELECT_LISTING = 'SELECT_LISTING';
 
+// Used to load the intial category list. Returned as part of load listings
+const LOAD_CATEGORIES = 'LOAD_CATEGORIES';
+
 // Used for tracking currUsername and currUserId
 const SET_USERNAME = 'SET_USERNAME';
 const SET_USERID = 'SET_USERID';
@@ -40,6 +43,8 @@ export function groupBuyReducer(state, action) {
     case SELECT_LISTING:
       currentListingIndex = action.payload.listingIndex;
       return { ...state, currentListingIndex };
+    case LOAD_CATEGORIES:
+      return { ...state, categories: [...action.payload.categories] };
     case SET_USERNAME:
       return { ...state, loggedInUsername: action.payload.username };
     case SET_USERID:
@@ -80,11 +85,22 @@ export function loadListingsAction(listings) {
     },
   };
 }
+
 export function selectListingAction(listingIndex) {
   return {
     type: SELECT_LISTING,
     payload: {
       listingIndex,
+    },
+  };
+}
+
+// Action function that sets the returned list of categories to state
+export function loadCategoriesAction(categories) {
+  return {
+    type: LOAD_CATEGORIES,
+    payload: {
+      categories,
     },
   };
 }
@@ -156,6 +172,7 @@ const BACKEND_URL = 'http://localhost:3004';
 export function loadListings(dispatch) {
   axios.get(`${BACKEND_URL}/listings`).then((result) => {
     dispatch(loadListingsAction(result.data.listings));
+    dispatch(loadCategoriesAction(result.data.categories));
   });
 }
 
