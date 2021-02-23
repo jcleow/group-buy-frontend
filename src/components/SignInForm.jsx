@@ -24,7 +24,6 @@ export default function SignInForm({ handleClose, setFormDisplay }) {
         setUsernameInput('');
         setPasswordInput('');
         if (result.data.auth) {
-          console.log(result.data.user.username, 'from backend');
           dispatch(setLoggedInUsername(result.data.user.username));
         }
         handleClose();
