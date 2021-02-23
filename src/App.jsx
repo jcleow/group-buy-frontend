@@ -6,17 +6,20 @@ import {
   Route,
 } from 'react-router-dom';
 import NavbarComponent from './components/NavbarComponent.jsx';
+import { GroupBuyProvider } from './store.jsx';
 
 function App() {
   return (
-    <Router>
-      <NavbarComponent />
-      <Switch>
-        {/* <Route path="/home" component={HomePage} />
+    <GroupBuyProvider>
+      <Router>
+        <NavbarComponent />
+        <Switch>
+          {/* <Route path="/home" component={HomePage} />
         <Route path="/viewAll" component={ViewAll} />
         <Route path="/createNewTrip" component={NewTripHolder} /> */}
-      </Switch>
-    </Router>
+        </Switch>
+      </Router>
+    </GroupBuyProvider>
   );
 }
 
