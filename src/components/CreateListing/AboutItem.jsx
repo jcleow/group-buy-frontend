@@ -1,9 +1,12 @@
-import React, { useContext } from 'react';
-import { Form, Button } from 'react-bootstrap';
-import { CreateListingContext } from '../../createListingStore.jsx';
+import React, { useState, useContext, useEffect } from 'react';
+import {
+  Form, Button, Dropdown, DropdownButton,
+} from 'react-bootstrap';
+import { CreateListingContext, loadCategories } from '../../createListingStore.jsx';
 
 export default function AboutItem({ setMode }) {
-  const { formStore, handleOnChange } = useContext(CreateListingContext);
+  const [allCategories, setAllCategories] = useState([]);
+  const { formStore, dispatchListingForm, handleOnChange } = useContext(CreateListingContext);
 
   const handleNextPage = () => {
     setMode('QTY_AND_PRICE');
@@ -12,6 +15,26 @@ export default function AboutItem({ setMode }) {
   const handleCancelForm = () => {
     // setMode('ABOUT_ITEMS');
   };
+
+  // Change the title of the dropdown button when a category is selected
+  const handleSelectCategory = (category) => {
+    dispatchListingForm({ field: 'category', value: category });
+  };
+
+  const arrOfCategoriesDropDown = allCategories.map((category, i) => (
+    <Dropdown.Item
+      name="category"
+      key={category}
+      onClick={() => { handleSelectCategory(category); }}
+    >
+      {category}
+    </Dropdown.Item>
+  ));
+
+  // Load all categories available in the database
+  useEffect(() => {
+    loadCategories(setAllCategories);
+  }, []);
 
   return (
     <Form>
@@ -39,7 +62,12 @@ export default function AboutItem({ setMode }) {
           onChange={handleOnChange}
         />
       </Form.Group>
-      <div className="d-flex flex-row justify-content-between">
+
+      <DropdownButton id="dropdown-basic-button" title={formStore.category} variant="outline-dark">
+        {arrOfCategoriesDropDown}
+      </DropdownButton>
+
+      <div className="d-flex flex-row justify-content-between mt-3">
         <Button variant="primary" type="submit" onClick={handleNextPage}>
           Next
         </Button>

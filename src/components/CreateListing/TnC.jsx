@@ -19,7 +19,7 @@ export default function TnC({ setMode }) {
     };
 
     axios.post(`${BACKEND_URL}/createListing`, { updatedFormStore })
-      .then((result) => {
+      .then(() => {
         setMode('SUBMITTED');
       })
       .catch((error) => console.log(error));

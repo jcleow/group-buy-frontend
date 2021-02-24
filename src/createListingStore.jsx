@@ -17,6 +17,8 @@ export const initialFormState = {
   deliveryDate: null,
   deliveryMode: null,
   tnc: null,
+  category: 'Select Category',
+  categories: [],
 };
 
 // just like the todo app, define each action we want to do on the
@@ -56,8 +58,12 @@ export function CreateListingProvider({ children }) {
   const handleOnChange = (e) => {
     dispatchListingForm({ field: e.target.name, value: e.target.value });
   };
+
   return (
-    <Provider value={{ formStore, dispatchListingForm, handleOnChange }}>
+    <Provider value={{
+      formStore, dispatchListingForm, handleOnChange,
+    }}
+    >
       {children}
     </Provider>
   );
@@ -94,3 +100,9 @@ const BACKEND_URL = 'http://localhost:3004';
 //     return result.data.listing.id;
 //   });
 // }
+
+export function loadCategories(setAllCategories) {
+  axios.get(`${BACKEND_URL}/listings`).then((result) => {
+    setAllCategories(result.data.categories);
+  });
+}
