@@ -36,3 +36,8 @@
 #time-left-number {
   font-weight: bold;
 }
+
+.order-progress-label {
+  font-size: 0.65rem;
+  margin-top: 0.5%;
+}
