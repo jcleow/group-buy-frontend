@@ -32,7 +32,7 @@ export default function NavbarComponent() {
             <LinkContainer to="/home">
               <Nav.Link> HomePage</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/createNewTrip">
+            <LinkContainer to="/createListing">
               <Nav.Link>Add</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/viewAll">
