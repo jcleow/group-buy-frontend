@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 
 const SAMPLE_PHONE_NUM = '93342121';
-export default function PaymentInstructions({setMode, PAGE_NAMES}) {
+export default function PaymentInstructions({ setMode, PAGE_NAMES }) {
   const handleBtnClick = () => {
     // save the state to the cookie
     // updateMode to switch to next page
@@ -18,7 +18,9 @@ export default function PaymentInstructions({setMode, PAGE_NAMES}) {
           <ol>
             <li>
               Currently, the only accepted payment mode is PayNow, and all
-              payments should be made to {SAMPLE_PHONE_NUM}
+              payments should be made to
+              {' '}
+              {SAMPLE_PHONE_NUM}
             </li>
             <li>
               Please make payment based on the bill indicated in your order
@@ -31,11 +33,18 @@ export default function PaymentInstructions({setMode, PAGE_NAMES}) {
           </ol>
         </div>
       </div>
+      <div className="row">
+        <div className="col">
+          <Button className="btn btn-primary" onClick={handleBtnClick}>
+            Next
+          </Button>
+        </div>
+      </div>
     </>
   );
 }
 
-PaymentInstructions.propTypes = {
-  setMode: PropTypes.func.isRequired,
-  PAGE_NAMES: PropTypes.objectOf.isRequired,
-};
+// PaymentInstructions.propTypes = {
+//   setMode: PropTypes.func.isRequired,
+//   PAGE_NAMES: PropTypes.objectOf.isRequired,
+// };

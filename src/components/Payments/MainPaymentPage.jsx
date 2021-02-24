@@ -1,14 +1,15 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import NavbarComponent from '../NavbarComponent.jsx';
 import PurchaseSummary from './PurchaseSummary.jsx';
-import PaymentInstructions from './PaymentInstructions.jsx';
 import ConfirmationOfReceipt from './ConfirmationOfReceipt.jsx';
+import UploadReceipt from './UploadReceipt.jsx';
+import PaymentInstructions from './PaymentInstructions.jsx';
 
 const PAGE_NAMES = {
-  PURCHASE_SUMMARY: 'see purchase summary',
-  PAYMENT_INSTRUCTIONS: 'see payment instructions',
-  UPLOAD_RECEIPT: 'see upload receipt',
-  CONFIRMATION_OF_RECEIPT: 'see confirmation of receipt',
+  PURCHASE_SUMMARY: 'PURCHASE_SUMMARY',
+  PAYMENT_INSTRUCTIONS: 'PAYMENT_INSTRUCTIONS',
+  UPLOAD_RECEIPT: 'UPLOAD_RECEIPT',
+  CONFIRMATION_OF_RECEIPT: 'CONFIRMATION_OF_RECEIPT',
 };
 const {
   PURCHASE_SUMMARY,
@@ -27,27 +28,24 @@ export default function MainPaymentPage() {
   const managePageDisplay = () => {
     switch (mode) {
       case PURCHASE_SUMMARY:
-        <PurchaseSummary setMode={setMode} PAGE_NAMES={PAGE_NAMES} />;
-        break;
+        return <PurchaseSummary setMode={setMode} PAGE_NAMES={PAGE_NAMES} />;
       case PAYMENT_INSTRUCTIONS:
-        <PaymentInstructions setMode={setMode} PAGE_NAMES={PAGE_NAMES} />;
-        break;
+        return <PaymentInstructions setMode={setMode} PAGE_NAMES={PAGE_NAMES} />;
       case UPLOAD_RECEIPT:
-        <UploadReceipt setMode={setMode} PAGE_NAMES={PAGE_NAMES} />;
-        break;
+        return <UploadReceipt setMode={setMode} PAGE_NAMES={PAGE_NAMES} />;
+
       case CONFIRMATION_OF_RECEIPT:
-        <ConfirmationOfReceipt setMode={setMode} PAGE_NAMES={PAGE_NAMES} />;
-        break;
+        return <ConfirmationOfReceipt setMode={setMode} PAGE_NAMES={PAGE_NAMES} />;
 
       default:
-        <PurchaseSummary />;
+        return <PurchaseSummary />;
     }
   };
   return (
     <div>
       <NavbarComponent />
       <div className="container page-container" />
-      {managePageDisplay}
+      {managePageDisplay()}
     </div>
   );
 }

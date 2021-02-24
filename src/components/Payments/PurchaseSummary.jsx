@@ -2,7 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 
-export default function PurchaseSummary({setMode, PAGE_NAMES}) {
+export default function PurchaseSummary({ setMode, PAGE_NAMES }) {
   const handleBtnClick = () => {
     // save the state to the cookie
     // updateMode to switch to next page
@@ -35,7 +35,7 @@ export default function PurchaseSummary({setMode, PAGE_NAMES}) {
   );
 }
 
-PurchaseSummary.propTypes = {
-  setMode: PropTypes.func.isRequired,
-  PAGE_NAMES: PropTypes.objectOf.isRequired,
-};
+// PurchaseSummary.propTypes = {
+//   setMode: PropTypes.func.isRequired,
+//   PAGE_NAMES: PropTypes.objectOf.isRequired,
+// };

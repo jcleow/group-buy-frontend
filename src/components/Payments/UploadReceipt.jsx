@@ -2,11 +2,11 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 
-export default function UploadReceipt({setMode, PAGE_NAMES}) {
+export default function UploadReceipt({ setMode, PAGE_NAMES }) {
   const handleBtnClick = () => {
     // save the state to the cookie
     // updateMode to switch to next page
-    setMode(CONFIRMATION_OF_RECEIPT);
+    setMode(PAGE_NAMES.CONFIRMATION_OF_RECEIPT);
   };
 
   return (
@@ -19,8 +19,7 @@ export default function UploadReceipt({setMode, PAGE_NAMES}) {
       <div className="row">
         <div className="col terms-n-conditions">
           <div>
-            By proceeding, you agree that you have read, and abide Group-Buy
-            terms and conditions.
+            Photo upload
           </div>
         </div>
       </div>
@@ -35,7 +34,7 @@ export default function UploadReceipt({setMode, PAGE_NAMES}) {
   );
 }
 
-UploadReceipt.propTypes = {
-  setMode: PropTypes.func.isRequired,
-  PAGE_NAMES: PropTypes.objectOf.isRequired,
-};
+// UploadReceipt.propTypes = {
+//   setMode: PropTypes.func.isRequired,
+//   PAGE_NAMES: PropTypes.objectOf.isRequired,
+// };

@@ -2,7 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 
-export default function ConfirmationOfReceipt({setMode, PAGE_NAMES}) {
+export default function ConfirmationOfReceipt({ setMode, PAGE_NAMES }) {
   const handleBtnClick = () => {
     // save the state to the cookie
     // updateMode to switch to next page
@@ -36,7 +36,7 @@ export default function ConfirmationOfReceipt({setMode, PAGE_NAMES}) {
   );
 }
 
-ConfirmationOfReceipt.propTypes = {
-  setMode: PropTypes.func.isRequired,
-  PAGE_NAMES: PropTypes.objectOf.isRequired,
-};
+// ConfirmationOfReceipt.propTypes = {
+//   setMode: PropTypes.func.isRequired,
+//   PAGE_NAMES: PropTypes.objectOf.isRequired,
+// };
