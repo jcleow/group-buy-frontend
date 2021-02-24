@@ -3,11 +3,7 @@ import { Form, Button } from 'react-bootstrap';
 import { CreateListingContext } from '../../createListingStore.jsx';
 
 export default function AboutItem({ setMode }) {
-  const { formStore, dispatchListingForm, handleOnChange } = useContext(CreateListingContext);
-
-  // const handleOnChange = (e) => {
-  //   dispatchListingForm({ field: e.target.name, value: e.target.value });
-  // };
+  const { formStore, handleOnChange } = useContext(CreateListingContext);
 
   const handleNextPage = () => {
     setMode('QTY_AND_PRICE');

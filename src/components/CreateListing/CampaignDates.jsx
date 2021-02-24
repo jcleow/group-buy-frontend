@@ -15,10 +15,6 @@ export default function CampaignDates({ setMode }) {
   const [rangeFocus, setRangeFocus] = useState(false);
   const [deliveryFocus, setDeliveryFocus] = useState(false);
 
-  // const handleOnChange = (e) => {
-  //   dispatchListingForm({ field: e.target.name, value: e.target.value });
-  // };
-
   const handleDatesChange = ({ startDate, endDate }) => {
     if (startDate) {
       dispatchListingForm({
@@ -32,6 +28,10 @@ export default function CampaignDates({ setMode }) {
         value: endDate,
       });
     }
+  };
+
+  const handlePrevPage = () => {
+    setMode('CAMPAIGN_DATES');
   };
 
   const handleDeliveryDateChange = (newDeliveryDate) => {
@@ -82,10 +82,14 @@ export default function CampaignDates({ setMode }) {
           <Form.Check inline label="Electronic" name="deliveryMode" value="electronic" type="radio" id="inline-radio-electronic" onClick={handleOnChange} />
         </div>
       </Form.Group>
-
-      <Button variant="primary" type="submit" onClick={handleNextPage}>
-        Next
-      </Button>
+      <div className="d-flex flex-row justify-content-between">
+        <Button variant="primary" type="submit" onClick={handleNextPage}>
+          Next
+        </Button>
+        <Button variant="primary" type="submit" onClick={handlePrevPage}>
+          Previous
+        </Button>
+      </div>
     </Form>
   );
 }

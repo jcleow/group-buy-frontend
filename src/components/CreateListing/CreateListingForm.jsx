@@ -3,6 +3,7 @@ import AboutItem from './AboutItem.jsx';
 import CampaignDates from './CampaignDates.jsx';
 import QtyAndPrice from './QtyAndPrice.jsx';
 import TnCs from './TnCs.jsx';
+import SubmittedListing from './SubmittedListing.jsx';
 import { CreateListingProvider } from '../../createListingStore.jsx';
 
 export default function CreateListingForm() {
@@ -10,6 +11,7 @@ export default function CreateListingForm() {
   const CAMPAIGN_DATES = 'CAMPAIGN_DATES';
   const QTY_AND_PRICE = 'QTY_AND_PRICE';
   const TERMS_AND_CONDITIONS = 'TERMS_AND_CONDITIONS';
+  const SUBMITTED = 'SUBMITTED';
 
   const [mode, setMode] = useState(ABOUT_ITEM);
 
@@ -23,6 +25,8 @@ export default function CreateListingForm() {
         return <QtyAndPrice setMode={setMode} />;
       case TERMS_AND_CONDITIONS:
         return <TnCs setMode={setMode} />;
+      case SUBMITTED:
+        return <SubmittedListing />;
       default:
         return null;
     }

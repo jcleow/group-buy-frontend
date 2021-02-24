@@ -16,6 +16,7 @@ export const initialFormState = {
   endDate: null,
   deliveryDate: null,
   deliveryMode: null,
+  tncs: null,
 };
 
 // just like the todo app, define each action we want to do on the

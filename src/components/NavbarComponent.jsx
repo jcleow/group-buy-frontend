@@ -3,9 +3,9 @@ import {
   Navbar, Nav, DropdownButton, Dropdown,
 } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import SignInModal from './SignInModal.jsx';
+import SignInModal from './SignInAndRegistration/SignInModal.jsx';
 import { GroupBuyContext, setLoggedInUsername } from '../store.jsx';
-import UsernameBtn from './UsernameBtn.jsx';
+import UsernameBtn from './SignInAndRegistration/UsernameBtn.jsx';
 import { getInfoFromCookie } from '../helper.js';
 
 export default function NavbarComponent() {

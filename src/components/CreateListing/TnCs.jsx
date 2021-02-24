@@ -1,20 +1,26 @@
 import React, { useContext } from 'react';
+import axios from 'axios';
 import { Form, Button } from 'react-bootstrap';
 import { CreateListingContext } from '../../createListingStore.jsx';
+import BACKEND_URL from '../../helper.js';
 
+axios.defaults.withCredentials = true;
 export default function TnCs({ setMode }) {
-  const { formStore, dispatchListingForm, handleOnChange } = useContext(CreateListingContext);
-
-  // const handleOnChange = (e) => {
-  //   dispatchListingForm({ field: e.target.name, value: e.target.value });
-  // };
-
-  const handleNextPage = () => {
-    setMode('CAMPAIGN_DATES');
-  };
+  const { formStore, handleOnChange } = useContext(CreateListingContext);
 
   const handleSubmitForm = () => {
-    setMode('ABOUT_ITEM');
+    console.log('submitform');
+    axios.post(`${BACKEND_URL}/createListing`, { formStore })
+      .then((result) => {
+        console.log(result, 'result');
+        setMode('SUBMITTED');
+      })
+      .catch((error) => console.log(error));
+  };
+  console.log(formStore, 'formStore');
+
+  const handlePrevPage = () => {
+    setMode('CAMPAIGN_DATES');
   };
 
   return (
@@ -22,18 +28,18 @@ export default function TnCs({ setMode }) {
       <Form.Group controlId="exampleForm.ControlTextarea1">
         <Form.Label>Terms and Conditions</Form.Label>
         <Form.Control
-          name="description"
+          name="tncs"
           as="textarea"
           rows={3}
-          value={formStore.description}
+          value={formStore.tncs}
           onChange={handleOnChange}
         />
       </Form.Group>
       <div className="d-flex flex-row justify-content-between">
-        <Button variant="primary" type="submit" onClick={handleNextPage}>
-          Next
+        <Button variant="primary" type="submit" onClick={handlePrevPage}>
+          Previous
         </Button>
-        <Button variant="danger" type="submit" onClick={handleSubmitForm}>
+        <Button variant="info" onClick={handleSubmitForm}>
           Submit New Listing
         </Button>
       </div>
