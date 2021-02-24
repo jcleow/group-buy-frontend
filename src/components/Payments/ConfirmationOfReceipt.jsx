@@ -12,7 +12,7 @@ export default function ConfirmationOfReceipt({ setMode, PAGE_NAMES }) {
   return (
     <>
       <div className="row">
-        <div className="col summary">
+        <div className="col">
           {/* insert the summary of item purchased, qty, price per unit, and total price */}
         </div>
       </div>
@@ -28,7 +28,7 @@ export default function ConfirmationOfReceipt({ setMode, PAGE_NAMES }) {
       <div className="row">
         <div className="col">
           <Button className="btn btn-primary" onClick={handleBtnClick}>
-            Next
+            Back to home
           </Button>
         </div>
       </div>

@@ -19,8 +19,8 @@ export default function PurchaseSummary({ setMode, PAGE_NAMES }) {
       <div className="row">
         <div className="col terms-n-conditions">
           <div>
-            By proceeding, you agree that you have read, and abide
-            Group-Buy%apos;s terms and conditions.
+            By proceeding, you agree that you have read, and abide by
+            Group-Buy&apos;s terms and conditions.
           </div>
         </div>
       </div>

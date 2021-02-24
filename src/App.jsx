@@ -1,7 +1,6 @@
 import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import MainPaymentPage from './components/Payments/MainPaymentPage.jsx';
 
 import NavbarComponent from './components/NavbarComponent.jsx';
 import { GroupBuyProvider } from './store.jsx';
@@ -12,7 +11,6 @@ function App() {
       <Router>
         <NavbarComponent />
         <Switch>
-          <MainPaymentPage />
           {/* <Route path="/home" component={HomePage} />
         <Route path="/viewAll" component={ViewAll} />
         <Route path="/createNewTrip" component={NewTripHolder} /> */}
