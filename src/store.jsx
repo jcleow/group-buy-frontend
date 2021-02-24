@@ -19,6 +19,7 @@ const DELETE_LISTING = 'DELETE_LISTING';
 // Used to load initial listings and also to reload edited listings
 const LOAD_LISTINGS = 'LOAD_LISTINGS';
 const SELECT_LISTING = 'SELECT_LISTING';
+const SORT_LISTINGS_BY_END_DATE = 'SORT_LISTINGS_BY_END_DATE';
 
 // Used to load the intial category list. Returned as part of load listings
 const LOAD_CATEGORIES = 'LOAD_CATEGORIES';
@@ -40,6 +41,21 @@ export function groupBuyReducer(state, action) {
       return { ...state, listings: newListings };
     case LOAD_LISTINGS:
       return { ...state, listings: action.payload.listings };
+    case SORT_LISTINGS_BY_END_DATE: {
+      //  * Function to sort the listings based on ending date of the listing
+      // Before sorting make a copy of the listings by splicing
+      // should not mutate the original state in the reducer
+      const sortedListings = state.listings.slice().sort((firstListing, secondListing) => {
+        const firstListEndingDate = new Date(firstListing.endDate);
+        const secondListEndingDate = new Date(secondListing.endDate);
+        // if first less than second, return -1
+        // if first greater than second, return 1
+        // if first is equal to second, return 0
+        return (firstListEndingDate - secondListEndingDate);
+      });
+      console.log(sortedListings);
+      return { ...state, listings: [...sortedListings] };
+    }
     case SELECT_LISTING:
       currentListingIndex = action.payload.listingIndex;
       return { ...state, currentListingIndex };
@@ -83,6 +99,12 @@ export function loadListingsAction(listings) {
     payload: {
       listings,
     },
+  };
+}
+
+export function sortListingsByEndDateAction() {
+  return {
+    type: SORT_LISTINGS_BY_END_DATE,
   };
 }
 

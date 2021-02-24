@@ -1,0 +1,38 @@
+.img-fluid.ending-soon-image {
+  border-radius: calc(2rem - 1px);
+  height: 10rem;
+}
+
+.listings-card-row {
+  /* flex-wrap: nowrap; */
+  overflow: auto;
+}
+
+@media screen and (min-width: 750px) {
+  .listings-card-row {
+    overflow: hidden;
+  }
+}
+
+.figure-caption::first-letter {
+  text-transform: capitalize;
+}
+
+#img-overlay {
+  position: absolute;
+  bottom: 35%;
+  background: rgb(255, 255, 255);
+  color: black;
+  width: fit-content;
+  transition: 0.5s ease;
+  font-size: 0.55rem;
+  text-align: left;
+  padding: 0 5px 0 5px;
+  border-radius: 4px;
+  align-self: center;
+  margin-left: 10%;
+}
+
+#time-left-number {
+  font-weight: bold;
+}
