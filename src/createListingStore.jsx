@@ -52,8 +52,11 @@ const { Provider } = CreateListingContext;
 // any child component will be able to alter the state of the app
 export function CreateListingProvider({ children }) {
   const [formStore, dispatchListingForm] = useReducer(createListingReducer, initialFormState);
+  const handleOnChange = (e) => {
+    dispatchListingForm({ field: e.target.name, value: e.target.value });
+  };
   return (
-    <Provider value={{ formStore, dispatchListingForm }}>
+    <Provider value={{ formStore, dispatchListingForm, handleOnChange }}>
       {children}
     </Provider>
   );

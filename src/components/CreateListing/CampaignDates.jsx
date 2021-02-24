@@ -1,20 +1,23 @@
 import React, { useState, useContext } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import NumberFormat from 'react-number-format';
 import { DateRangePicker, SingleDatePicker } from 'react-dates';
 import { CreateListingContext } from '../../createListingStore.jsx';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 
 export default function CampaignDates({ setMode }) {
-  const { formStore, dispatchListingForm } = useContext(CreateListingContext);
-  const { startDate, endDate, deliveryDate } = formStore;
-  const [focus, setFocus] = useState({ focus: false });
+  const { formStore, dispatchListingForm, handleOnChange } = useContext(CreateListingContext);
+  const {
+    startDate, endDate, deliveryDate,
+  } = formStore;
+
+  // Focus states for dateRangePicker and singleDatePicker
+  const [rangeFocus, setRangeFocus] = useState(false);
   const [deliveryFocus, setDeliveryFocus] = useState(false);
 
-  const handleOnChange = (e) => {
-    dispatchListingForm({ field: e.target.name, value: e.target.value });
-  };
+  // const handleOnChange = (e) => {
+  //   dispatchListingForm({ field: e.target.name, value: e.target.value });
+  // };
 
   const handleDatesChange = ({ startDate, endDate }) => {
     if (startDate) {
@@ -31,22 +34,21 @@ export default function CampaignDates({ setMode }) {
     }
   };
 
-  const handleDeliveryDateChange = (deliverDate) => {
+  const handleDeliveryDateChange = (newDeliveryDate) => {
     dispatchListingForm({
       field: 'deliveryDate',
-      value: deliverDate,
+      value: newDeliveryDate,
     });
   };
 
   const handleNextPage = () => {
-    setMode('TnCs');
+    setMode('TERMS_AND_CONDITIONS');
   };
 
   return (
     <Form>
       <Form.Group controlId="qtyAvailable">
         <Form.Label>Campaign Start and End Date</Form.Label>
-        {/* <Form.Control type="number" placeholder="Enter the max number of units" /> */}
         <div>
           <DateRangePicker
             startDate={startDate}
@@ -54,45 +56,31 @@ export default function CampaignDates({ setMode }) {
             endDate={endDate}
             endDateId={`${endDate}id`}
             onDatesChange={handleDatesChange}
-            focusedInput={focus}
-            onFocusChange={(focus) => setFocus(focus)}
+            focusedInput={rangeFocus}
+            onFocusChange={(focus) => setRangeFocus(focus)}
           />
         </div>
       </Form.Group>
 
       <Form.Group controlId="minOrderQty">
         <Form.Label>Delivery Date</Form.Label>
-        <SingleDatePicker
-          date={deliveryDate} // momentPropTypes.momentObj or null
-          onDateChange={handleDeliveryDateChange} // PropTypes.func.isRequired
-          focused={deliveryFocus} // PropTypes.bool
-          onFocusChange={({ focused }) => {
-            console.log(focused, 'focused');
-            setDeliveryFocus(focused); }}
-        // PropTypes.func.isRequired
-          id="delivery-dates"
-        />
+        <div>
+          <SingleDatePicker
+            date={deliveryDate}
+            onDateChange={handleDeliveryDateChange}
+            focused={deliveryFocus}
+            onFocusChange={({ focused }) => {
+              setDeliveryFocus(focused); }}
+            id="delivery-dates"
+          />
+        </div>
       </Form.Group>
-
       <Form.Group controlId="usualPrice">
-        <Form.Label>Usual Price</Form.Label>
-        <NumberFormat className="form-control" thousandSeparator prefix="$" fixedDecimalScale />
-        <Form.Text className="text-muted">
-          Usual Price or MSRP of item sold
-        </Form.Text>
-      </Form.Group>
-
-      <Form.Group controlId="usualPrice">
-        <Form.Label>Discounted Price (per unit)</Form.Label>
-        <NumberFormat className="form-control" thousandSeparator prefix="$" fixedDecimalScale />
-        <Form.Text className="text-muted">
-          Discount Percentage will be calculated for you.
-        </Form.Text>
-      </Form.Group>
-      <Form.Group controlId="discountedPrice">
-        <Form.Label>Discounted Price %</Form.Label>
-        <Form.Label>Discounted Price %</Form.Label>
-
+        <Form.Label>Delivery Mode</Form.Label>
+        <div>
+          <Form.Check inline label="Pick Up" name="deliveryMode" value="pickup" type="radio" id="inline-radio-pickup" onClick={handleOnChange} />
+          <Form.Check inline label="Electronic" name="deliveryMode" value="electronic" type="radio" id="inline-radio-electronic" onClick={handleOnChange} />
+        </div>
       </Form.Group>
 
       <Button variant="primary" type="submit" onClick={handleNextPage}>
