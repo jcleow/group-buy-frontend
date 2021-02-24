@@ -1,6 +1,7 @@
 .btn-category::first-letter {
   text-transform: capitalize;
 }
+
 /* 
 .category .btn-category:nth-of-type(odd) {
   background-color: yellow;
