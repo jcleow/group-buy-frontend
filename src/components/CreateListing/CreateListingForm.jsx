@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import AboutItem from './AboutItem.jsx';
 import CampaignDates from './CampaignDates.jsx';
 import QtyAndPrice from './QtyAndPrice.jsx';
-import TnCs from './TnCs.jsx';
+import TnC from './TnC.jsx';
 import SubmittedListing from './SubmittedListing.jsx';
 import { CreateListingProvider } from '../../createListingStore.jsx';
 
@@ -24,7 +24,7 @@ export default function CreateListingForm() {
       case QTY_AND_PRICE:
         return <QtyAndPrice setMode={setMode} />;
       case TERMS_AND_CONDITIONS:
-        return <TnCs setMode={setMode} />;
+        return <TnC setMode={setMode} />;
       case SUBMITTED:
         return <SubmittedListing />;
       default:

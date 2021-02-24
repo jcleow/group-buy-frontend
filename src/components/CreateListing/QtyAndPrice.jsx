@@ -23,10 +23,10 @@ export default function QtyAndPrice({ setMode }) {
       <Form.Group controlId="qtyAvailable">
         <Form.Label>Quantity Available</Form.Label>
         <Form.Control
-          name="maxQty"
+          name="quantity"
           type="number"
           placeholder="Enter the max number of units"
-          value={formStore.maxQty}
+          value={formStore.quantity}
           onChange={handleOnChange}
         />
         <Form.Text className="text-muted">
@@ -45,13 +45,13 @@ export default function QtyAndPrice({ setMode }) {
 
       <Form.Group controlId="minOrderQty">
         <Form.Label>Minimum Order Quantity (MOQ)</Form.Label>
-        <Form.Control type="number" />
-        <Form.Text
-          className="text-muted"
-          name="Moq"
+        <Form.Control
+          type="number"
+          name="moq"
           value={formStore.moq}
           onChange={handleOnChange}
-        >
+        />
+        <Form.Text>
           Minimum subscription quantity to begin fulfillment.
         </Form.Text>
       </Form.Group>

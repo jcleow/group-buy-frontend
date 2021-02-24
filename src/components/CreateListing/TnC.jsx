@@ -1,18 +1,25 @@
 import React, { useContext } from 'react';
 import axios from 'axios';
+import moment from 'moment';
 import { Form, Button } from 'react-bootstrap';
 import { CreateListingContext } from '../../createListingStore.jsx';
 import BACKEND_URL from '../../helper.js';
 
 axios.defaults.withCredentials = true;
-export default function TnCs({ setMode }) {
+export default function TnC({ setMode }) {
   const { formStore, handleOnChange } = useContext(CreateListingContext);
 
   const handleSubmitForm = () => {
-    console.log('submitform');
-    axios.post(`${BACKEND_URL}/createListing`, { formStore })
+    let updatedFormStore = formStore;
+    updatedFormStore = {
+      ...formStore,
+      startDate: moment(formStore.startDate).toDate(),
+      endDate: moment(formStore.endDate).toDate(),
+      deliveryDate: moment(formStore.endDate).toDate(),
+    };
+
+    axios.post(`${BACKEND_URL}/createListing`, { updatedFormStore })
       .then((result) => {
-        console.log(result, 'result');
         setMode('SUBMITTED');
       })
       .catch((error) => console.log(error));
@@ -28,10 +35,10 @@ export default function TnCs({ setMode }) {
       <Form.Group controlId="exampleForm.ControlTextarea1">
         <Form.Label>Terms and Conditions</Form.Label>
         <Form.Control
-          name="tncs"
+          name="tnc"
           as="textarea"
           rows={3}
-          value={formStore.tncs}
+          value={formStore.tnc}
           onChange={handleOnChange}
         />
       </Form.Group>

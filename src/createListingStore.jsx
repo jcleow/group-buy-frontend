@@ -7,7 +7,7 @@ import axios from 'axios';
 export const initialFormState = {
   title: '',
   description: '',
-  maxQty: null,
+  quantity: null,
   moq: null,
   overSubscription: false,
   usualPrice: null,
@@ -16,7 +16,7 @@ export const initialFormState = {
   endDate: null,
   deliveryDate: null,
   deliveryMode: null,
-  tncs: null,
+  tnc: null,
 };
 
 // just like the todo app, define each action we want to do on the
