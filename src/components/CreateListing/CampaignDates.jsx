@@ -63,9 +63,9 @@ export default function CampaignDates({ setMode }) {
         <Form.Label>Campaign Start and End Date</Form.Label>
         <div>
           <DateRangePicker
-            startDate={startDate}
+            startDate={formLocalStorage.startDate ? formLocalStorage.startDate : startDate}
             startDateId={`${startDate}id`}
-            endDate={endDate}
+            endDate={formLocalStorage.endDate ? formLocalStorage.endDate : endDate}
             endDateId={`${endDate}id`}
             onDatesChange={handleDatesChange}
             focusedInput={rangeFocus}
@@ -78,7 +78,7 @@ export default function CampaignDates({ setMode }) {
         <Form.Label>Delivery Date</Form.Label>
         <div>
           <SingleDatePicker
-            date={deliveryDate}
+            date={formLocalStorage.deliveryDate ? formLocalStorage.deliveryDate : deliveryDate}
             onDateChange={handleDeliveryDateChange}
             focused={deliveryFocus}
             onFocusChange={({ focused }) => {
@@ -90,8 +90,28 @@ export default function CampaignDates({ setMode }) {
       <Form.Group controlId="usualPrice">
         <Form.Label>Delivery Mode</Form.Label>
         <div>
-          <Form.Check inline label="Pick Up" name="deliveryMode" value="pickup" type="radio" id="inline-radio-pickup" onClick={handleOnChange} />
-          <Form.Check inline label="Electronic" name="deliveryMode" value="electronic" type="radio" id="inline-radio-electronic" onClick={handleOnChange} />
+          <label htmlFor="pickup">Pick Up</label>
+          <input
+            inline
+            className="ml-1"
+            name="deliveryMode"
+            value="pickup"
+            type="radio"
+            id="pickup"
+            checked={(formLocalStorage.deliveryMode === 'pickup' || formStore.deliveryMode === 'pickup')}
+            onClick={handleOnChange}
+          />
+          <label className="ml-2" htmlFor="electronic">Electronic</label>
+          <input
+            inline
+            className="ml-1"
+            name="deliveryMode"
+            value="electronic"
+            type="radio"
+            id="electronic"
+            checked={(formLocalStorage.deliveryMode === 'electronic' || formStore.deliveryMode === 'electronic')}
+            onClick={handleOnChange}
+          />
         </div>
       </Form.Group>
       <div className="d-flex flex-row justify-content-between">

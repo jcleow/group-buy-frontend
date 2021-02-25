@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { writeStorage, useLocalStorage } from '@rehooks/local-storage';
 import AboutItem from './AboutItem.jsx';
 import CampaignDates from './CampaignDates.jsx';
 import QtyAndPrice from './QtyAndPrice.jsx';
 import TnC from './TnC.jsx';
 import SubmittedListing from './SubmittedListing.jsx';
-import { CreateListingProvider, formModes, CREATE_LISTING_FORM } from '../../createListingStore.jsx';
+import {
+  CreateListingProvider, formModes, CREATE_LISTING_FORM, CreateListingContext,
+} from '../../createListingStore.jsx';
 
 export default function CreateListingForm() {
   // Modes of the form
@@ -13,6 +15,7 @@ export default function CreateListingForm() {
     ABOUT_ITEM, CAMPAIGN_DATES, QTY_AND_PRICE, TERMS_AND_CONDITIONS, SUBMITTED,
   } = formModes;
 
+  // Control the state of the multi-step form
   const [mode, setMode] = useState(ABOUT_ITEM);
 
   // Track which mode the form is at

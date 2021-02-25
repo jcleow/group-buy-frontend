@@ -61,7 +61,7 @@ export default function AboutItem({ setMode }) {
           name="title"
           type="text"
           placeholder="Title of Campaign"
-          value={formStore.title}
+          value={formLocalStorage.title ? formLocalStorage.title : formStore.title}
           onChange={handleOnChange}
           required
         />
@@ -76,13 +76,17 @@ export default function AboutItem({ setMode }) {
           name="description"
           as="textarea"
           rows={3}
-          value={formStore.description}
+          value={formLocalStorage.description ? formLocalStorage.description : formStore.description}
           onChange={handleOnChange}
           required
         />
       </Form.Group>
 
-      <DropdownButton id="dropdown-basic-button" title={formStore.category} variant="outline-dark">
+      <DropdownButton
+        id="dropdown-basic-button"
+        title={formLocalStorage.category ? formLocalStorage.category : formStore.category}
+        variant="outline-dark"
+      >
         {arrOfCategoriesDropDown}
       </DropdownButton>
 

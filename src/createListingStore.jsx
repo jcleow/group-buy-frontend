@@ -83,6 +83,9 @@ const { Provider } = CreateListingContext;
 export function CreateListingProvider({ children }) {
   const [formStore, dispatchListingForm] = useReducer(createListingReducer, initialFormState);
   const [formLocalStorage] = useLocalStorage(CREATE_LISTING_FORM);
+  if (!formLocalStorage) {
+    writeStorage(CREATE_LISTING_FORM, {});
+  }
 
   const handleOnChange = (e) => {
     dispatchListingForm({ field: e.target.name, value: e.target.value });

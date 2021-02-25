@@ -46,7 +46,7 @@ export default function QtyAndPrice({ setMode }) {
           name="quantity"
           type="number"
           placeholder="Enter the max number of units"
-          value={formStore.quantity}
+          value={formLocalStorage.quantity ? formLocalStorage.quantity : formStore.quantity}
           onChange={handleOnChange}
           required
         />
@@ -59,7 +59,7 @@ export default function QtyAndPrice({ setMode }) {
           id="default-checkbox"
           label="Allow oversubscription"
           className="mt-3"
-          value={formStore.allowOverSubscription}
+          value={formLocalStorage.allowOversubscription ? formLocalStorage.allowOversubscription : formStore.allowOversubscription}
           onChange={handleOversubscriptionStatus}
           required
         />
@@ -70,7 +70,7 @@ export default function QtyAndPrice({ setMode }) {
         <Form.Control
           type="number"
           name="moq"
-          value={formStore.moq}
+          value={formLocalStorage.moq ? formLocalStorage.moq : formStore.moq}
           onChange={handleOnChange}
           required
         />
@@ -87,7 +87,7 @@ export default function QtyAndPrice({ setMode }) {
           thousandSeparator
           prefix="$"
           fixedDecimalScale
-          value={formStore.usualPrice}
+          value={formLocalStorage.usualPrice ? formLocalStorage.usualPrice : formStore.usualPrice}
           onChange={handleOnChange}
           required
         />
@@ -104,7 +104,7 @@ export default function QtyAndPrice({ setMode }) {
           thousandSeparator
           prefix="$"
           fixedDecimalScale
-          value={formStore.discountedPrice}
+          value={formLocalStorage.discountedPrice ? formLocalStorage.discountedPrice : formStore.discountedPrice}
           onChange={handleOnChange}
           required
         />
