@@ -53,7 +53,6 @@ export function groupBuyReducer(state, action) {
         // if first is equal to second, return 0
         return (firstListEndingDate - secondListEndingDate);
       });
-      console.log(sortedListings);
       return { ...state, listings: [...sortedListings] };
     }
     case SELECT_LISTING:
@@ -194,7 +193,14 @@ const BACKEND_URL = 'http://localhost:3004';
 export function loadListings(dispatch) {
   axios.get(`${BACKEND_URL}/listings`).then((result) => {
     dispatch(loadListingsAction(result.data.listings));
+    dispatch(sortListingsByEndDateAction());
     dispatch(loadCategoriesAction(result.data.categories));
+  });
+}
+
+export function findPurchaseCountPerListing(listingId, setProgressPercent) {
+  axios.get(`${BACKEND_URL}/purchases/count/${listingId}`).then((result) => {
+    setProgressPercent(result.data.purchaseCount);
   });
 }
 
