@@ -5,23 +5,23 @@ import CampaignDates from './CampaignDates.jsx';
 import QtyAndPrice from './QtyAndPrice.jsx';
 import TnC from './TnC.jsx';
 import SubmittedListing from './SubmittedListing.jsx';
-import { CreateListingProvider } from '../../createListingStore.jsx';
+import { CreateListingProvider, formModes, CREATE_LISTING_FORM } from '../../createListingStore.jsx';
 
 export default function CreateListingForm() {
-  const ABOUT_ITEM = 'ABOUT_ITEM';
-  const CAMPAIGN_DATES = 'CAMPAIGN_DATES';
-  const QTY_AND_PRICE = 'QTY_AND_PRICE';
-  const TERMS_AND_CONDITIONS = 'TERMS_AND_CONDITIONS';
-  const SUBMITTED = 'SUBMITTED';
+  // Modes of the form
+  const {
+    ABOUT_ITEM, CAMPAIGN_DATES, QTY_AND_PRICE, TERMS_AND_CONDITIONS, SUBMITTED,
+  } = formModes;
 
   const [mode, setMode] = useState(ABOUT_ITEM);
-  const [existingMode] = useLocalStorage('formstep');
-  console.log(existingMode, 'existingMode-1');
 
+  // Track which mode the form is at
+  const [existingMode] = useLocalStorage('formstep');
+
+  // If the existing mode suggets a different mode, switch to that mode
   useEffect(() => {
     if (existingMode !== ABOUT_ITEM && existingMode) {
       setMode(existingMode);
-      console.log('setting to next page');
     }
   }, []);
 

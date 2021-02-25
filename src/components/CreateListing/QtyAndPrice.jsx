@@ -2,20 +2,27 @@ import React, { useContext } from 'react';
 import { writeStorage } from '@rehooks/local-storage';
 import { Form, Button } from 'react-bootstrap';
 import NumberFormat from 'react-number-format';
-import { CreateListingContext } from '../../createListingStore.jsx';
+import { CreateListingContext, CREATE_LISTING_FORM, formModes } from '../../createListingStore.jsx';
 
 export default function QtyAndPrice({ setMode }) {
-  const { formStore, dispatchListingForm, handleOnChange } = useContext(CreateListingContext);
-
+  // Constant for allowing oversubs in form
   const ALLOW_OVERSUBSCRIPTION = 'allowOversubscription';
+
+  // Relevant form modes
+  const { CAMPAIGN_DATES } = formModes;
+
+  const {
+    formStore, dispatchListingForm, handleOnChange, formLocalStorage,
+  } = useContext(CreateListingContext);
+
   const handleOversubscriptionStatus = () => {
     dispatchListingForm({ field: ALLOW_OVERSUBSCRIPTION, value: !formStore.allowOversubscription });
-    writeStorage(ALLOW_OVERSUBSCRIPTION, !formStore.allowOversubscription);
+    writeStorage(CREATE_LISTING_FORM, { ...formLocalStorage, [ALLOW_OVERSUBSCRIPTION]: !formStore.allowOversubscription });
   };
   console.log(formStore, 'formStore');
   const handleNextPage = () => {
     setMode('CAMPAIGN_DATES');
-    writeStorage('formstep', 'CAMPAIGN_DATES');
+    writeStorage('formstep', CAMPAIGN_DATES);
   };
 
   const handlePrevPage = () => {

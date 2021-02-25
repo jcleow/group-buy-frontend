@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { writeStorage } from '@rehooks/local-storage';
 import { Form, Button } from 'react-bootstrap';
 import { DateRangePicker, SingleDatePicker } from 'react-dates';
-import { CreateListingContext } from '../../createListingStore.jsx';
+import { CreateListingContext, CREATE_LISTING_FORM } from '../../createListingStore.jsx';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 
@@ -12,7 +12,9 @@ export default function CampaignDates({ setMode }) {
   const END_DATE = 'endDate';
   const DELIVERY_DATE = 'deliveryDate';
 
-  const { formStore, dispatchListingForm, handleOnChange } = useContext(CreateListingContext);
+  const {
+    formStore, dispatchListingForm, handleOnChange, formLocalStorage,
+  } = useContext(CreateListingContext);
   const {
     startDate, endDate, deliveryDate,
   } = formStore;
@@ -27,14 +29,14 @@ export default function CampaignDates({ setMode }) {
         field: START_DATE,
         value: startDate,
       });
-      writeStorage(START_DATE, startDate);
+      writeStorage(CREATE_LISTING_FORM, { ...formLocalStorage, [START_DATE]: startDate });
     }
     if (endDate) {
       dispatchListingForm({
         field: END_DATE,
         value: endDate,
       });
-      writeStorage(END_DATE, endDate);
+      writeStorage(CREATE_LISTING_FORM, { ...formLocalStorage, [END_DATE]: endDate });
     }
   };
 
@@ -43,7 +45,7 @@ export default function CampaignDates({ setMode }) {
       field: DELIVERY_DATE,
       value: newDeliveryDate,
     });
-    writeStorage(DELIVERY_DATE, newDeliveryDate);
+    writeStorage(CREATE_LISTING_FORM, { ...formLocalStorage, [DELIVERY_DATE]: newDeliveryDate });
   };
 
   const handleNextPage = () => {

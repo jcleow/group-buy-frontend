@@ -3,18 +3,20 @@ import { writeStorage } from '@rehooks/local-storage';
 import {
   Form, Button, Dropdown, DropdownButton,
 } from 'react-bootstrap';
-import { CreateListingContext, loadCategories } from '../../createListingStore.jsx';
+import { CreateListingContext, CREATE_LISTING_FORM, loadCategories } from '../../createListingStore.jsx';
 import { getUserIdFromCookie } from '../../helper.js';
 
 export default function AboutItem({ setMode }) {
   const CATEGORY = 'category';
   const [allCategories, setAllCategories] = useState([]);
-  const { formStore, dispatchListingForm, handleOnChange } = useContext(CreateListingContext);
+  const {
+    formStore, dispatchListingForm, handleOnChange, formLocalStorage,
+  } = useContext(CreateListingContext);
 
-  const handleNextPage = () => {
-    setMode('QTY_AND_PRICE');
-    writeStorage('formstep', 'QTY_AND_PRICE');
-  };
+  // If there is no storage relating to the form, create one now
+  if (!formLocalStorage) {
+    writeStorage(CREATE_LISTING_FORM, {});
+  }
 
   const handleCancelForm = () => {
     // setMode('ABOUT_ITEMS');
@@ -23,7 +25,12 @@ export default function AboutItem({ setMode }) {
   // Change the title of the dropdown button when a category is selected
   const handleSelectCategory = (category) => {
     dispatchListingForm({ field: CATEGORY, value: category });
-    writeStorage(CATEGORY, category);
+    writeStorage(CREATE_LISTING_FORM, { ...formLocalStorage, [CATEGORY]: category });
+  };
+
+  const handleNextPage = () => {
+    setMode('QTY_AND_PRICE');
+    writeStorage('formstep', 'QTY_AND_PRICE');
   };
 
   useEffect(() => {
