@@ -14,11 +14,11 @@ export default function EndingSoonContainer() {
   return (
     <div className="container-sm mt-4">
       <div className="row ml-auto ">
-        <div className="col">
+        <div className="col-8">
           <h6>Ending Soon</h6>
         </div>
-        <div className="col ml-auto text-right">
-          <button type="button" className="btn btn-sm ">more</button>
+        <div className="col-2 mr-auto text-right">
+          <button type="button" className="btn btn-sm">more</button>
         </div>
       </div>
       <div className="row listings-card-row flex-nowrap">
