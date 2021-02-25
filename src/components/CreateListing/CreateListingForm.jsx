@@ -39,7 +39,7 @@ export default function CreateListingForm() {
       case TERMS_AND_CONDITIONS:
         return <TnC setMode={setMode} />;
       case SUBMITTED:
-        return <SubmittedListing />;
+        return <SubmittedListing setMode={setMode} />;
       default:
         return null;
     }
