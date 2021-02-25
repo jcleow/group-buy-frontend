@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { writeStorage } from '@rehooks/local-storage';
 import NavbarComponent from '../NavbarComponent.jsx';
 import PurchaseSummary from './PurchaseSummary.jsx';
 import ConfirmationOfReceipt from './ConfirmationOfReceipt.jsx';
@@ -24,6 +25,10 @@ const {
 // const CONFIRMATION_OF_RECEIPT = 'see confirmation of receipt';
 export default function MainPaymentPage() {
   const [mode, setMode] = useState(PURCHASE_SUMMARY);
+
+  React.useEffect(() => {
+    writeStorage('mode', mode);
+  }, [mode]);
 
   const managePageDisplay = () => {
     switch (mode) {

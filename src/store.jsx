@@ -204,3 +204,12 @@ export function createListing(dispatch, listing) {
     return result.data.listing.id;
   });
 }
+
+export function saveReceiptToDb(dispatch, uploadedFile) {
+  return axios.post(`${BACKEND_URL}/addReceipt`, uploadedFile)
+    .then((results) => {
+      // what to do after store the img?
+      // perhaps save to state and display to user?
+      console.log(results);
+    });
+}
