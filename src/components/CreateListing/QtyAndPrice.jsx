@@ -99,12 +99,11 @@ export default function QtyAndPrice({ setMode }) {
       </Form.Group>
 
       <div className="d-flex flex-row justify-content-between">
-        <Button variant="primary" onClick={handleNextPage}>
-          Next
-        </Button>
-
         <Button variant="primary" onClick={handlePrevPage}>
           Previous
+        </Button>
+        <Button variant="primary" onClick={handleNextPage}>
+          Next
         </Button>
       </div>
     </Form>
