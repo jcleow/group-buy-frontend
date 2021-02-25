@@ -75,12 +75,11 @@ export default function AboutItem({ setMode }) {
       </DropdownButton>
 
       <div className="d-flex flex-row justify-content-between mt-3">
-        <Button variant="primary" onClick={handleNextPage}>
-          Next
-        </Button>
-
         <Button variant="danger" onClick={handleCancelForm}>
           Cancel
+        </Button>
+        <Button variant="primary" onClick={handleNextPage}>
+          Next
         </Button>
       </div>
     </Form>
