@@ -34,9 +34,11 @@ export default function NavbarComponent() {
             <LinkContainer to="/home">
               <Nav.Link> HomePage</Nav.Link>
             </LinkContainer>
+            {store.loggedInUsername && (
             <LinkContainer to="/createListing">
               <Nav.Link>Add</Nav.Link>
             </LinkContainer>
+            )}
             <LinkContainer to="/viewAll">
               <Nav.Link>View All</Nav.Link>
             </LinkContainer>
