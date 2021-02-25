@@ -23,6 +23,7 @@ module.exports = {
     'react/prop-types': 'warn',
     'max-len': 'warn',
     'no-undef': 'warn',
+    'jsx-a11y/label-has-associated-control':'off',
     // Don't enforce control flow closing curly brace needs to be
     // on same line as next control flow opening statement.
     // This is so we can add comments above control flow statements such as else if or else.
