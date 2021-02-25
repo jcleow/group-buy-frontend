@@ -45,7 +45,7 @@ export function groupBuyReducer(state, action) {
       //  * Function to sort the listings based on ending date of the listing
       // Before sorting make a copy of the listings by splicing
       // should not mutate the original state in the reducer
-      state.listings.slice().sort((firstListing, secondListing) => {
+      const sortedListings = state.listings.slice().sort((firstListing, secondListing) => {
         const firstListEndingDate = new Date(firstListing.endDate);
         const secondListEndingDate = new Date(secondListing.endDate);
         // if first less than second, return -1
@@ -53,9 +53,7 @@ export function groupBuyReducer(state, action) {
         // if first is equal to second, return 0
         return (firstListEndingDate - secondListEndingDate);
       });
-      // console.log(sortedListings);
-      // return { ...state, listings: [...sortedListings] };
-      return { ...state };
+      return { ...state, listings: [...sortedListings] };
     }
     case SELECT_LISTING:
       currentListingIndex = action.payload.listingIndex;
@@ -195,6 +193,7 @@ const BACKEND_URL = 'http://localhost:3004';
 export function loadListings(dispatch) {
   axios.get(`${BACKEND_URL}/listings`).then((result) => {
     dispatch(loadListingsAction(result.data.listings));
+    dispatch(sortListingsByEndDateAction());
     dispatch(loadCategoriesAction(result.data.categories));
   });
 }

@@ -7,17 +7,26 @@ import { GroupBuyContext, findPurchaseCountPerListing } from '../store.jsx';
 
 export default function ListCardWithImage({ singleListing }) {
   const [progressPercent, setProgressPercent] = useState(0);
+  const [isImagesPresent, setIsImagesPresent] = useState(singleListing.images === undefined
+    || singleListing.images == null);
   const { store, dispatch } = useContext(GroupBuyContext);
+  const { listings } = store;
+  console.log({ isImagesPresent }, 'isImagesPresent');
 
   // Calculate the progress of order
   useEffect(() => {
     findPurchaseCountPerListing(singleListing.id, setProgressPercent);
   }, []);
-
   return (
     <div className="col-6 col-md-3 ml-auto">
       <figure className="figure">
-        <img src={singleListing.images?.img1} className="figure-img img-fluid ending-soon-image" alt="..." />
+        { !isImagesPresent && (
+          <img src="black.jpg" className="figure-img img-fluid ending-soon-image" alt="..." />
+        )}
+        { isImagesPresent && (
+          <img src={singleListing.images?.img1} className="figure-img img-fluid ending-soon-image" alt="..." />
+        )}
+
         <div id="img-overlay">
           <span id="time-left-number">{moment(new Date(singleListing.endDate)).fromNow(true)}</span>
           {' '}

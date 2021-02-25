@@ -1,15 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import moment from 'moment';
-import { GroupBuyContext, sortListingsByEndDateAction } from '../store.jsx';
+import { GroupBuyContext } from '../store.jsx';
 import ListCardWithImage from './ListCardWithImage.jsx';
 
 export default function EndingSoonContainer() {
   const { store, dispatch } = useContext(GroupBuyContext);
   const { listings } = store;
-
-  useEffect(() => {
-    dispatch(sortListingsByEndDateAction());
-  }, []);
 
   return (
     <div className="container-sm mt-4">
