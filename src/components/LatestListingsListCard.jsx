@@ -9,7 +9,6 @@ import './LatestListingsCard.css';
 
 export default function LatestListingListCard({ singleListing }) {
   const [progressPercent, setProgressPercent] = useState(0);
-  console.log('singleListing.images', singleListing.images);
   const [isImagesPresent, setIsImagesPresent] = useState(false);
   const { store, dispatch } = useContext(GroupBuyContext);
 
@@ -23,17 +22,32 @@ export default function LatestListingListCard({ singleListing }) {
     }
   }, []);
   return (
-    <div className="row mb-1">
-      <div className="col-4">
+    <div className="col mb-4">
+      <div className="card h-100">
         { !isImagesPresent && (
-        <img src="black.jpg" className="latest-list-image rounded" alt="..." />
+        <img src="no-image-available-icon_m.jpg" className="latest-list-image rounded card-img-top" alt="..." />
         )}
         { isImagesPresent && (
-        <img src={singleListing.images?.img1} className="latest-list-image rounded" alt="..." />
+        <img src={singleListing.images?.img1} className="latest-list-image rounded card-img-top" alt="..." />
         )}
-      </div>
-      <div className="col-8">
-        <h6>{singleListing.title}</h6>
+        <div className="card-body">
+          <h6 className="card-title">{singleListing.title}</h6>
+          <p className="card-text overflow-hidden">
+            <small className="text-muted">Discount Price: </small>
+            {singleListing.discountedPrice}
+            <br />
+            <small className="text-muted">Usual Price: </small>
+            {singleListing.usualPrice}
+            <br />
+            <span className="text-muted text-truncate ">{singleListing.description}</span>
+            <br />
+            <small className="text-muted">
+              Posted
+              {' '}
+              {moment(singleListing.createdAt).fromNow()}
+            </small>
+          </p>
+        </div>
       </div>
     </div>
   );

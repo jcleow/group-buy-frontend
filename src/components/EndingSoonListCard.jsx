@@ -20,7 +20,7 @@ export default function EndingSoonListCard({ singleListing }) {
     <div className="col-6 col-md-3 ml-auto">
       <figure className="figure">
         { !isImagesPresent && (
-          <img src="no-image-available-icon_m.jpg" className="figure-img img-fluid ending-soon-image" alt="..." />
+          <img src="no-image-available-icon_m.jpg" className="figure-img img-fluid ending-soon-image border" alt="..." />
         )}
         { isImagesPresent && (
           <img src={singleListing.images?.img1} className="figure-img img-fluid ending-soon-image" alt="..." />

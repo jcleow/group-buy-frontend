@@ -1,4 +1,15 @@
 .latest-list-image {
   width: 100%;
-  height: 90%;
+  height: auto;
+}
+
+.latest-listings-card-row {
+  /* flex-wrap: nowrap; */
+  overflow: auto;
+}
+
+@media screen and (min-width: 750px) {
+  .latest-listings-card-row {
+    overflow: hidden;
+  }
 }
