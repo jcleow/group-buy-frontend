@@ -22,6 +22,15 @@ export default function QtyAndPrice({ setMode }) {
     setMode('ABOUT_ITEM');
   };
 
+  const calcDiscountPct = () => {
+    const discountDecimals = 100 - (Number(formStore.discountedPrice?.replace(/[$,]/g, '')) / Number(formStore.usualPrice?.replace(/[$,]/g, ''))) * 100;
+    const discountPct = discountDecimals.toFixed(2);
+    if (discountPct !== Infinity && discountPct !== 'NaN') {
+      return discountPct;
+    }
+    return '0.00';
+  };
+
   return (
     <Form>
       <Form.Group controlId="qtyAvailable">
@@ -100,7 +109,7 @@ export default function QtyAndPrice({ setMode }) {
         <Form.Label>
           Discount:
           {' '}
-          {(Number(formStore.usualPrice?.replace(/[$,]/g, '')) / Number(formStore.discountedPrice?.replace(/[$,]/g, '')) - 1) * 100}
+          {calcDiscountPct()}
           {' '}
           %
         </Form.Label>
