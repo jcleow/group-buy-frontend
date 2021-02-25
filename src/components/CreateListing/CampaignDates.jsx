@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import moment from 'moment';
+import { writeStorage } from '@rehooks/local-storage';
 import { Form, Button } from 'react-bootstrap';
 import { DateRangePicker, SingleDatePicker } from 'react-dates';
 import { CreateListingContext } from '../../createListingStore.jsx';
@@ -7,6 +7,11 @@ import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 
 export default function CampaignDates({ setMode }) {
+  // constant field names
+  const START_DATE = 'startDate';
+  const END_DATE = 'endDate';
+  const DELIVERY_DATE = 'deliveryDate';
+
   const { formStore, dispatchListingForm, handleOnChange } = useContext(CreateListingContext);
   const {
     startDate, endDate, deliveryDate,
@@ -19,27 +24,31 @@ export default function CampaignDates({ setMode }) {
   const handleDatesChange = ({ startDate, endDate }) => {
     if (startDate) {
       dispatchListingForm({
-        field: 'startDate',
+        field: START_DATE,
         value: startDate,
       });
+      writeStorage(START_DATE, startDate);
     }
     if (endDate) {
       dispatchListingForm({
-        field: 'endDate',
+        field: END_DATE,
         value: endDate,
       });
+      writeStorage(END_DATE, endDate);
     }
   };
 
   const handleDeliveryDateChange = (newDeliveryDate) => {
     dispatchListingForm({
-      field: 'deliveryDate',
+      field: DELIVERY_DATE,
       value: newDeliveryDate,
     });
+    writeStorage(DELIVERY_DATE, newDeliveryDate);
   };
 
   const handleNextPage = () => {
     setMode('TERMS_AND_CONDITIONS');
+    writeStorage('formstep', 'TERMS_AND_CONDITIONS');
   };
 
   const handlePrevPage = () => {

@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import { writeStorage } from '@rehooks/local-storage';
 import axios from 'axios';
 
 const BACKEND_URL = 'http://localhost:3004';
@@ -58,6 +59,7 @@ export function CreateListingProvider({ children }) {
   const [formStore, dispatchListingForm] = useReducer(createListingReducer, initialFormState);
   const handleOnChange = (e) => {
     dispatchListingForm({ field: e.target.name, value: e.target.value });
+    writeStorage(e.target.name, e.target.value);
     console.log(formStore, 'formStore');
   };
 

@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { writeStorage } from '@rehooks/local-storage';
 import { Form, Button } from 'react-bootstrap';
 import NumberFormat from 'react-number-format';
 import { CreateListingContext } from '../../createListingStore.jsx';
@@ -6,12 +7,15 @@ import { CreateListingContext } from '../../createListingStore.jsx';
 export default function QtyAndPrice({ setMode }) {
   const { formStore, dispatchListingForm, handleOnChange } = useContext(CreateListingContext);
 
+  const ALLOW_OVERSUBSCRIPTION = 'allowOversubscription';
   const handleOversubscriptionStatus = () => {
-    dispatchListingForm({ field: 'allowOversubscription', value: !formStore.allowOversubscription });
+    dispatchListingForm({ field: ALLOW_OVERSUBSCRIPTION, value: !formStore.allowOversubscription });
+    writeStorage(ALLOW_OVERSUBSCRIPTION, !formStore.allowOversubscription);
   };
   console.log(formStore, 'formStore');
   const handleNextPage = () => {
     setMode('CAMPAIGN_DATES');
+    writeStorage('formstep', 'CAMPAIGN_DATES');
   };
 
   const handlePrevPage = () => {

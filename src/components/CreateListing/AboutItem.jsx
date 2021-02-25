@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { writeStorage } from '@rehooks/local-storage';
 import {
   Form, Button, Dropdown, DropdownButton,
 } from 'react-bootstrap';
@@ -6,11 +7,13 @@ import { CreateListingContext, loadCategories } from '../../createListingStore.j
 import { getUserIdFromCookie } from '../../helper.js';
 
 export default function AboutItem({ setMode }) {
+  const CATEGORY = 'category';
   const [allCategories, setAllCategories] = useState([]);
   const { formStore, dispatchListingForm, handleOnChange } = useContext(CreateListingContext);
 
   const handleNextPage = () => {
     setMode('QTY_AND_PRICE');
+    writeStorage('formstep', 'QTY_AND_PRICE');
   };
 
   const handleCancelForm = () => {
@@ -19,14 +22,14 @@ export default function AboutItem({ setMode }) {
 
   // Change the title of the dropdown button when a category is selected
   const handleSelectCategory = (category) => {
-    dispatchListingForm({ field: 'category', value: category });
+    dispatchListingForm({ field: CATEGORY, value: category });
+    writeStorage(CATEGORY, category);
   };
 
   useEffect(() => {
     const currUserId = getUserIdFromCookie();
     dispatchListingForm({ field: 'lister_id', value: currUserId });
   }, []);
-  console.log(formStore, 'formStore');
 
   const arrOfCategoriesDropDown = allCategories.map((category, i) => (
     <Dropdown.Item

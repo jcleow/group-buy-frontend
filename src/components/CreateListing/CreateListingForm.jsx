@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { writeStorage, useLocalStorage } from '@rehooks/local-storage';
 import AboutItem from './AboutItem.jsx';
 import CampaignDates from './CampaignDates.jsx';
 import QtyAndPrice from './QtyAndPrice.jsx';
@@ -14,6 +15,15 @@ export default function CreateListingForm() {
   const SUBMITTED = 'SUBMITTED';
 
   const [mode, setMode] = useState(ABOUT_ITEM);
+  const [existingMode] = useLocalStorage('formstep');
+  console.log(existingMode, 'existingMode-1');
+
+  useEffect(() => {
+    if (existingMode !== ABOUT_ITEM && existingMode) {
+      setMode(existingMode);
+      console.log('setting to next page');
+    }
+  }, []);
 
   const manageListingCreationForm = () => {
     switch (mode) {
