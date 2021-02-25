@@ -7,7 +7,6 @@ import { GroupBuyContext, findPurchaseCountPerListing } from '../store.jsx';
 
 export default function EndingSoonListCard({ singleListing }) {
   const [progressPercent, setProgressPercent] = useState(0);
-  console.log('singleListing.images', singleListing.images);
   const [isImagesPresent, setIsImagesPresent] = useState(singleListing.images === undefined
     || singleListing.images == null);
   const { store, dispatch } = useContext(GroupBuyContext);
