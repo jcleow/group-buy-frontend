@@ -1,7 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import { GroupBuyContext, loadListings } from '../store.jsx';
-import CategoriesDisplay from './CategoriesDisplay.jsx';
-import CreateListingForm from './CreateListing/CreateListingForm.jsx';
+// import CategoriesDisplay from './CategoriesDisplay.jsx';
+// import CreateListingForm from './CreateListing/CreateListingForm.jsx';
+import CategoriesContainer from './CategoriesContainer.jsx';
+import EndingSoonContainer from './EndingSoonContainer.jsx';
 
 export default function HomePage() {
   const { store, dispatch } = useContext(GroupBuyContext);
@@ -12,7 +14,8 @@ export default function HomePage() {
 
   return (
     <div>
-      <CategoriesDisplay />
+      <CategoriesContainer />
+      <EndingSoonContainer />
     </div>
   );
 }
