@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { writeStorage } from '@rehooks/local-storage';
+import { writeStorage, useLocalStorage } from '@rehooks/local-storage';
 import NavbarComponent from '../NavbarComponent.jsx';
 import PurchaseSummary from './PurchaseSummary.jsx';
 import ConfirmationOfReceipt from './ConfirmationOfReceipt.jsx';
@@ -29,6 +29,11 @@ export default function MainPaymentPage() {
   React.useEffect(() => {
     writeStorage('mode', mode);
   }, [mode]);
+  const determineInitialState = () => {
+    if (useLocalStorage('mode') !== PURCHASE_SUMMARY) {
+      setMode(useLocalStorage('mode'));
+    }
+  };
 
   const managePageDisplay = () => {
     switch (mode) {
