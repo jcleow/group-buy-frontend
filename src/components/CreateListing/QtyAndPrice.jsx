@@ -32,6 +32,7 @@ export default function QtyAndPrice({ setMode }) {
           placeholder="Enter the max number of units"
           value={formStore.quantity}
           onChange={handleOnChange}
+          required
         />
         <Form.Text className="text-muted">
           Total goods you want to sell. Can be oversubscribed by checking the box below.
@@ -44,6 +45,7 @@ export default function QtyAndPrice({ setMode }) {
           className="mt-3"
           value={formStore.allowOverSubscription}
           onChange={handleOversubscriptionStatus}
+          required
         />
       </Form.Group>
 
@@ -54,6 +56,7 @@ export default function QtyAndPrice({ setMode }) {
           name="moq"
           value={formStore.moq}
           onChange={handleOnChange}
+          required
         />
         <Form.Text>
           Minimum subscription quantity to begin fulfillment.
@@ -70,6 +73,7 @@ export default function QtyAndPrice({ setMode }) {
           fixedDecimalScale
           value={formStore.usualPrice}
           onChange={handleOnChange}
+          required
         />
         <Form.Text className="text-muted">
           Usual Price or MSRP of item sold
@@ -86,6 +90,7 @@ export default function QtyAndPrice({ setMode }) {
           fixedDecimalScale
           value={formStore.discountedPrice}
           onChange={handleOnChange}
+          required
         />
         <Form.Text className="text-muted">
           Discount Percentage will be calculated for you.
@@ -93,8 +98,9 @@ export default function QtyAndPrice({ setMode }) {
       </Form.Group>
       <Form.Group controlId="discountPct">
         <Form.Label>
-          Discount
-          {formStore.usualPrice / formStore.discountedPrice - 1}
+          Discount:
+          {' '}
+          {(Number(formStore.usualPrice?.replace(/[$,]/g, '')) / Number(formStore.discountedPrice?.replace(/[$,]/g, '')) - 1) * 100}
           {' '}
           %
         </Form.Label>

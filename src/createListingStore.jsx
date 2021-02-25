@@ -60,7 +60,6 @@ export function CreateListingProvider({ children }) {
   const handleOnChange = (e) => {
     dispatchListingForm({ field: e.target.name, value: e.target.value });
     writeStorage(e.target.name, e.target.value);
-    console.log(formStore, 'formStore');
   };
 
   return (

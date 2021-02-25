@@ -56,6 +56,7 @@ export default function AboutItem({ setMode }) {
           placeholder="Title of Campaign"
           value={formStore.title}
           onChange={handleOnChange}
+          required
         />
         <Form.Text className="text-muted">
           {'Enter a catchy title to grab people\'s attentions!'}
@@ -70,6 +71,7 @@ export default function AboutItem({ setMode }) {
           rows={3}
           value={formStore.description}
           onChange={handleOnChange}
+          required
         />
       </Form.Group>
 
