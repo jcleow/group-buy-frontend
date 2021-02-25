@@ -12,7 +12,7 @@ export default function ListCardWithImage({ singleListing }) {
   return (
     <div className="col-6 col-md-3 ml-auto">
       <figure className="figure">
-        <img src={singleListing.images.img1} className="figure-img img-fluid ending-soon-image" alt="..." />
+        <img src={singleListing.images?.img1} className="figure-img img-fluid ending-soon-image" alt="..." />
         <div id="img-overlay">
           <span id="time-left-number">{moment(new Date(singleListing.endDate)).fromNow(true)}</span>
           {' '}

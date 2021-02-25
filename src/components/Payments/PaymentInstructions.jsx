@@ -1,9 +1,12 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
+import { writeStorage } from '@rehooks/local-storage';
 
 const SAMPLE_PHONE_NUM = '93342121';
 export default function PaymentInstructions({ setMode, PAGE_NAMES }) {
+  writeStorage('mode', PAGE_NAMES.PAYMENT_INSTRUCTIONS);
+
   const handleBtnClick = () => {
     // save the state to the cookie
     // updateMode to switch to next page

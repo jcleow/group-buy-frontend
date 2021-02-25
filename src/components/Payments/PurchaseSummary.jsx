@@ -1,12 +1,14 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+import PAGE_NAMES from '../utility/paymentPageNames.js';
 
-export default function PurchaseSummary({ setMode, PAGE_NAMES }) {
+export default function PurchaseSummary({ setMode }) {
+  const { PAYMENT_INSTRUCTIONS } = PAGE_NAMES;
   const handleBtnClick = () => {
     // save the state to the cookie
     // updateMode to switch to next page
-    setMode(PAGE_NAMES.PAYMENT_INSTRUCTIONS);
+    setMode(PAYMENT_INSTRUCTIONS);
   };
 
   return (
@@ -37,5 +39,4 @@ export default function PurchaseSummary({ setMode, PAGE_NAMES }) {
 
 // PurchaseSummary.propTypes = {
 //   setMode: PropTypes.func.isRequired,
-//   PAGE_NAMES: PropTypes.objectOf.isRequired,
 // };
