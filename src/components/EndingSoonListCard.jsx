@@ -5,7 +5,7 @@ import moment from 'moment';
 import './EndingSoonContainer.css';
 import { GroupBuyContext, findPurchaseCountPerListing } from '../store.jsx';
 
-export default function ListCardWithImage({ singleListing }) {
+export default function EndingSoonListCard({ singleListing }) {
   const [progressPercent, setProgressPercent] = useState(0);
   console.log('singleListing.images', singleListing.images);
   const [isImagesPresent, setIsImagesPresent] = useState(singleListing.images === undefined
@@ -20,7 +20,7 @@ export default function ListCardWithImage({ singleListing }) {
     <div className="col-6 col-md-3 ml-auto">
       <figure className="figure">
         { !isImagesPresent && (
-          <img src="black.jpg" className="figure-img img-fluid ending-soon-image" alt="..." />
+          <img src="no-image-available-icon_m.jpg" className="figure-img img-fluid ending-soon-image" alt="..." />
         )}
         { isImagesPresent && (
           <img src={singleListing.images?.img1} className="figure-img img-fluid ending-soon-image" alt="..." />
