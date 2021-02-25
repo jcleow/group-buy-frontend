@@ -1,21 +1,23 @@
 import React, { useContext, useEffect } from 'react';
 import {
-  Navbar, Nav, DropdownButton, Dropdown,
+  Navbar, Nav,
 } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import SignInModal from './SignInAndRegistration/SignInModal.jsx';
-import { GroupBuyContext, setLoggedInUsername } from '../store.jsx';
+import { GroupBuyContext, setLoggedInUsername, setLoggedInUserId } from '../store.jsx';
 import UsernameBtn from './SignInAndRegistration/UsernameBtn.jsx';
-import { getInfoFromCookie } from '../helper.js';
+import { getUsernameFromCookie, getUserIdFromCookie } from '../helper.js';
 
 export default function NavbarComponent() {
   const { store, dispatch } = useContext(GroupBuyContext);
 
   useEffect(() => {
-    const currUsername = getInfoFromCookie();
+    const currUsername = getUsernameFromCookie();
+    const currUserId = getUserIdFromCookie();
 
     if (currUsername) {
       dispatch(setLoggedInUsername(currUsername));
+      dispatch(setLoggedInUserId(currUserId));
     }
   }, []);
 

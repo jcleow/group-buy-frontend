@@ -31,10 +31,6 @@ export default function CampaignDates({ setMode }) {
     }
   };
 
-  const handlePrevPage = () => {
-    setMode('CAMPAIGN_DATES');
-  };
-
   const handleDeliveryDateChange = (newDeliveryDate) => {
     dispatchListingForm({
       field: 'deliveryDate',
@@ -44,6 +40,10 @@ export default function CampaignDates({ setMode }) {
 
   const handleNextPage = () => {
     setMode('TERMS_AND_CONDITIONS');
+  };
+
+  const handlePrevPage = () => {
+    setMode('QTY_AND_PRICE');
   };
 
   return (
@@ -84,10 +84,10 @@ export default function CampaignDates({ setMode }) {
         </div>
       </Form.Group>
       <div className="d-flex flex-row justify-content-between">
-        <Button variant="primary" type="submit" onClick={handleNextPage}>
+        <Button variant="primary" onClick={handleNextPage}>
           Next
         </Button>
-        <Button variant="primary" type="submit" onClick={handlePrevPage}>
+        <Button variant="primary" onClick={handlePrevPage}>
           Previous
         </Button>
       </div>

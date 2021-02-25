@@ -16,7 +16,7 @@ export default function SubmittedListing({ setMode }) {
       :
       {(key === 'startDate' || key === 'endDate' || key === 'deliveryDate')
         ? moment(value).format('DD-MM-YYYY')
-        : value}
+        : value.toString()}
     </div>
   ));
 

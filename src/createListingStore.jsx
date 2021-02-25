@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react';
 import axios from 'axios';
 
+const BACKEND_URL = 'http://localhost:3004';
 // create an object that represents all the data contained in the app
 // we moved all of this data from the app component into the store
 
@@ -9,7 +10,7 @@ export const initialFormState = {
   description: '',
   quantity: null,
   moq: null,
-  overSubscription: false,
+  allowOversubscription: false,
   usualPrice: null,
   discountedPrice: null,
   startDate: null,
@@ -18,7 +19,7 @@ export const initialFormState = {
   deliveryMode: null,
   tnc: null,
   category: 'Select Category',
-  categories: [],
+  lister_id: null,
 };
 
 // just like the todo app, define each action we want to do on the
@@ -57,6 +58,7 @@ export function CreateListingProvider({ children }) {
   const [formStore, dispatchListingForm] = useReducer(createListingReducer, initialFormState);
   const handleOnChange = (e) => {
     dispatchListingForm({ field: e.target.name, value: e.target.value });
+    console.log(formStore, 'formStore');
   };
 
   return (
@@ -84,8 +86,6 @@ export function CreateListingProvider({ children }) {
 // code that makes requests to the backend
 //
 // these functions must be passed the dispatch from the current context
-
-const BACKEND_URL = 'http://localhost:3004';
 
 // export function loadListings(dispatch) {
 //   axios.get(`${BACKEND_URL}/listings`).then((result) => {

@@ -24,7 +24,6 @@ export default function TnC({ setMode }) {
       })
       .catch((error) => console.log(error));
   };
-  console.log(formStore, 'formStore');
 
   const handlePrevPage = () => {
     setMode('CAMPAIGN_DATES');
@@ -43,7 +42,7 @@ export default function TnC({ setMode }) {
         />
       </Form.Group>
       <div className="d-flex flex-row justify-content-between">
-        <Button variant="primary" type="submit" onClick={handlePrevPage}>
+        <Button variant="primary" onClick={handlePrevPage}>
           Previous
         </Button>
         <Button variant="info" onClick={handleSubmitForm}>

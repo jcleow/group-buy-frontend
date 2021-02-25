@@ -3,6 +3,7 @@ import {
   Form, Button, Dropdown, DropdownButton,
 } from 'react-bootstrap';
 import { CreateListingContext, loadCategories } from '../../createListingStore.jsx';
+import { getUserIdFromCookie } from '../../helper.js';
 
 export default function AboutItem({ setMode }) {
   const [allCategories, setAllCategories] = useState([]);
@@ -20,6 +21,12 @@ export default function AboutItem({ setMode }) {
   const handleSelectCategory = (category) => {
     dispatchListingForm({ field: 'category', value: category });
   };
+
+  useEffect(() => {
+    const currUserId = getUserIdFromCookie();
+    dispatchListingForm({ field: 'lister_id', value: currUserId });
+  }, []);
+  console.log(formStore, 'formStore');
 
   const arrOfCategoriesDropDown = allCategories.map((category, i) => (
     <Dropdown.Item
@@ -68,11 +75,11 @@ export default function AboutItem({ setMode }) {
       </DropdownButton>
 
       <div className="d-flex flex-row justify-content-between mt-3">
-        <Button variant="primary" type="submit" onClick={handleNextPage}>
+        <Button variant="primary" onClick={handleNextPage}>
           Next
         </Button>
 
-        <Button variant="danger" type="submit" onClick={handleCancelForm}>
+        <Button variant="danger" onClick={handleCancelForm}>
           Cancel
         </Button>
       </div>

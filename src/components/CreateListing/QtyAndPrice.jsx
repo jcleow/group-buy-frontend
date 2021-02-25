@@ -4,12 +4,12 @@ import NumberFormat from 'react-number-format';
 import { CreateListingContext } from '../../createListingStore.jsx';
 
 export default function QtyAndPrice({ setMode }) {
-  const { formStore, dispatchListingForm } = useContext(CreateListingContext);
+  const { formStore, dispatchListingForm, handleOnChange } = useContext(CreateListingContext);
 
-  const handleOnChange = (e) => {
-    dispatchListingForm({ field: e.target.name, value: e.target.value });
+  const handleOversubscriptionStatus = () => {
+    dispatchListingForm({ field: 'allowOversubscription', value: !formStore.allowOversubscription });
   };
-
+  console.log(formStore, 'formStore');
   const handleNextPage = () => {
     setMode('CAMPAIGN_DATES');
   };
@@ -33,13 +33,13 @@ export default function QtyAndPrice({ setMode }) {
           Total goods you want to sell. Can be oversubscribed by checking the box below.
         </Form.Text>
         <Form.Check
-          name="overSubscription"
+          name="allowOversubscription"
           type="checkbox"
           id="default-checkbox"
           label="Allow oversubscription"
           className="mt-3"
-          value={formStore.overSubscription}
-          onChange={handleOnChange}
+          value={formStore.allowOverSubscription}
+          onChange={handleOversubscriptionStatus}
         />
       </Form.Group>
 
@@ -99,11 +99,11 @@ export default function QtyAndPrice({ setMode }) {
       </Form.Group>
 
       <div className="d-flex flex-row justify-content-between">
-        <Button variant="primary" type="submit" onClick={handleNextPage}>
+        <Button variant="primary" onClick={handleNextPage}>
           Next
         </Button>
 
-        <Button variant="primary" type="submit" onClick={handlePrevPage}>
+        <Button variant="primary" onClick={handlePrevPage}>
           Previous
         </Button>
       </div>
