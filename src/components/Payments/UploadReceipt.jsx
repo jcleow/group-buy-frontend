@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
+import { GroupBuyContext, saveReceiptToDb } from '../../store.jsx';
 
 export default function UploadReceipt({ setMode, PAGE_NAMES }) {
+// create a state that saves the img of the paynow receipt
   const [selectedFile, setSelectedFile] = useState(null);
+  // destructuring to get dispatch
+  const { dispatch } = useContext(GroupBuyContext);
+
   const handleBtnClick = () => {
     // save the state to the cookie
     // updateMode to switch to next page
@@ -13,13 +18,14 @@ export default function UploadReceipt({ setMode, PAGE_NAMES }) {
   const handleFileSelection = (e) => {
     console.log('uploading file');
     console.log(e.target.files);
-    setSelectedFile(e.target.files[0]);
     // e.target.files is an array; file is in index 0
+    setSelectedFile(e.target.files[0]);
   };
 
   const handleFileUpload = () => {
     const data = new FormData();
-    data.append('file', selectedFile);
+    data.append('receiptImg', selectedFile);
+    saveReceiptToDb(dispatch, data);
   };
   return (
     <>
@@ -31,10 +37,12 @@ export default function UploadReceipt({ setMode, PAGE_NAMES }) {
       <div className="row">
         <div className="col">
 
-          <form method="post" action="#" id="#">
+          <form method="/addReceipt" action="#" id="#" encType="multipart/form-data">
             <div className="form-group files">
-              <label>Upload Your File </label>
-              <input type="file" name="receiptImg" className="form-control" onChange={(e) => handleFileSelection(e)} />
+              <label htmlFor="receiptImg">
+                Upload Your File
+                <input type="file" id="receiptImg" name="receiptImg" className="" onChange={(e) => handleFileSelection(e)} />
+              </label>
             </div>
           </form>
           <Button type="button" className="btn btn-secorndary" onClick={handleFileUpload}>
@@ -54,6 +62,7 @@ export default function UploadReceipt({ setMode, PAGE_NAMES }) {
       <div className="row">
         <div className="col">
           <Button className="btn btn-primary" onClick={handleBtnClick}>
+            {/* <Button> */}
             Next
           </Button>
         </div>

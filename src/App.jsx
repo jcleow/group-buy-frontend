@@ -6,11 +6,14 @@ import NavbarComponent from './components/NavbarComponent.jsx';
 import { GroupBuyProvider } from './store.jsx';
 import HomePage from './components/HomePage.jsx';
 
+import MainPaymentPage from './components/Payments/MainPaymentPage.jsx';
+
 function App() {
   return (
     <GroupBuyProvider>
       <Router>
         <NavbarComponent />
+        <MainPaymentPage />
         <Switch>
           <Route path="/home" component={HomePage} />
           {/* <Route path="/viewAll" component={ViewAll} />
