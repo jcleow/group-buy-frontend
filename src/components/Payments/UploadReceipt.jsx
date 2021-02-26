@@ -1,9 +1,11 @@
 import React, { useState, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
+import { writeStorage } from '@rehooks/local-storage';
 import { GroupBuyContext, saveReceiptToDb } from '../../store.jsx';
+import PAGE_NAMES from '../utility/paymentPageNames.js';
 
-export default function UploadReceipt({ setMode, PAGE_NAMES }) {
+export default function UploadReceipt({ setMode }) {
 // create a state that saves the img of the paynow receipt
   const [selectedFile, setSelectedFile] = useState(null);
   // destructuring to get dispatch
@@ -13,6 +15,7 @@ export default function UploadReceipt({ setMode, PAGE_NAMES }) {
     // save the state to the cookie
     // updateMode to switch to next page
     setMode(PAGE_NAMES.CONFIRMATION_OF_RECEIPT);
+    writeStorage('mode', PAGE_NAMES.CONFIRMATION_OF_RECEIPT);
   };
 
   const handleFileSelection = (e) => {

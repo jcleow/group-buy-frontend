@@ -90,28 +90,32 @@ export default function CampaignDates({ setMode }) {
       <Form.Group controlId="usualPrice">
         <Form.Label>Delivery Mode</Form.Label>
         <div>
-          <label htmlFor="pickup">Pick Up</label>
-          <input
-            inline
-            className="ml-1"
-            name="deliveryMode"
-            value="pickup"
-            type="radio"
-            id="pickup"
-            checked={(formLocalStorage.deliveryMode === 'pickup' || formStore.deliveryMode === 'pickup')}
-            onClick={handleOnChange}
-          />
-          <label className="ml-2" htmlFor="electronic">Electronic</label>
-          <input
-            inline
-            className="ml-1"
-            name="deliveryMode"
-            value="electronic"
-            type="radio"
-            id="electronic"
-            checked={(formLocalStorage.deliveryMode === 'electronic' || formStore.deliveryMode === 'electronic')}
-            onClick={handleOnChange}
-          />
+          <label htmlFor="pickup">
+            Pick Up
+            <input
+              inline
+              className="ml-1"
+              name="deliveryMode"
+              value="pickup"
+              type="radio"
+              id="pickup"
+              checked={(formLocalStorage.deliveryMode === 'pickup' || formStore.deliveryMode === 'pickup')}
+              onClick={handleOnChange}
+            />
+          </label>
+          <label className="ml-2" htmlFor="electronic">
+            Electronic
+            <input
+              inline
+              className="ml-1"
+              name="deliveryMode"
+              value="electronic"
+              type="radio"
+              id="electronic"
+              checked={(formLocalStorage.deliveryMode === 'electronic' || formStore.deliveryMode === 'electronic')}
+              onClick={handleOnChange}
+            />
+          </label>
         </div>
       </Form.Group>
       <div className="d-flex flex-row justify-content-between">
