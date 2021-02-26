@@ -6,6 +6,7 @@ import { GroupBuyProvider } from './store.jsx';
 import HomePage from './components/HomePage.jsx';
 import CreateListingForm from './components/CreateListing/CreateListingForm.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import MainPaymentPage from './components/Payments/MainPaymentPage.jsx';
 
 // import MainPaymentPage from './components/Payments/MainPaymentPage.jsx';
 
@@ -18,6 +19,7 @@ function App() {
         <Switch>
           <Route path="/home" component={HomePage} />
           <Route path="/createListing" component={CreateListingForm} />
+          <Route path="/testPayment" component={MainPaymentPage} />
           {/* <Route path="/viewAll" component={ViewAll} />
         <Route path="/createNewTrip" component={NewTripHolder} /> */}
         </Switch>

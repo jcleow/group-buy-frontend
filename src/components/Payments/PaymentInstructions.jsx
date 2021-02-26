@@ -1,13 +1,16 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
+import { writeStorage } from '@rehooks/local-storage';
+import PAGE_NAMES from '../utility/paymentPageNames.js';
 
 const SAMPLE_PHONE_NUM = '93342121';
-export default function PaymentInstructions({ setMode, PAGE_NAMES }) {
+export default function PaymentInstructions({ setMode }) {
   const handleBtnClick = () => {
     // save the state to the cookie
     // updateMode to switch to next page
     setMode(PAGE_NAMES.UPLOAD_RECEIPT);
+    writeStorage('mode', PAGE_NAMES.UPLOAD_RECEIPT);
   };
 
   return (
@@ -23,7 +26,7 @@ export default function PaymentInstructions({ setMode, PAGE_NAMES }) {
               {SAMPLE_PHONE_NUM}
             </li>
             <li>
-              Please make payment based on the bill indicated in your order
+              Please make payment according to the amountindicated in your order
               summary.
             </li>
             <li>
