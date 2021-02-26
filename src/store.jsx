@@ -7,7 +7,8 @@ export const initialState = {
   listings: [],
   categories: [],
   sortedListingsByCreatedDate: [],
-  currentListingIndex: null,
+  displayListingDetails: false,
+  selectedListingData: {},
   loggedInUsername: null,
   loggedInUserId: null,
 };
@@ -22,6 +23,9 @@ const LOAD_LISTINGS = 'LOAD_LISTINGS';
 const SELECT_LISTING = 'SELECT_LISTING';
 const SORT_LISTINGS_BY_END_DATE = 'SORT_LISTINGS_BY_END_DATE';
 const SORT_LISTINGS_BY_CREATED_DATE = 'SORT_LISTINGS_BY_CREATED_DATE';
+
+// Used to indicate whether the detail view of a listing should be displayed or not
+const DISPLAY_LISTING_DETAILS = 'DISPLAY_LISTING_DETAILS';
 
 // Used to load the intial category list. Returned as part of load listings
 const LOAD_CATEGORIES = 'LOAD_CATEGORIES';
@@ -78,8 +82,12 @@ export function groupBuyReducer(state, action) {
       };
     }
     case SELECT_LISTING:
-      currentListingIndex = action.payload.listingIndex;
-      return { ...state, currentListingIndex };
+      return {
+        ...state,
+        selectedListingData: { ...action.payload.selectedListingData },
+      };
+    case DISPLAY_LISTING_DETAILS:
+      return { ...state, displayListingDetails: action.payload.displayListingDetails };
     case LOAD_CATEGORIES:
       return { ...state, categories: [...action.payload.categories] };
     case SET_USERNAME:
@@ -135,11 +143,20 @@ export function sortAndFilterListingsByCreatedDate() {
   };
 }
 
-export function selectListingAction(listingIndex) {
+export function selectListingAction(selectedListingData) {
   return {
     type: SELECT_LISTING,
     payload: {
-      listingIndex,
+      selectedListingData,
+    },
+  };
+}
+
+export function displayListingDetailsAction(displayListingDetails) {
+  return {
+    type: DISPLAY_LISTING_DETAILS,
+    payload: {
+      displayListingDetails,
     },
   };
 }
