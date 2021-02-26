@@ -3,8 +3,9 @@ import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 import { deleteFromStorage } from '@rehooks/local-storage';
 import { Link } from 'react-router-dom';
+import PAGE_NAMES from '../utility/paymentPageNames.js';
 
-export default function ConfirmationOfReceipt({ setMode, PAGE_NAMES }) {
+export default function ConfirmationOfReceipt({ setMode }) {
   const handleBtnClick = () => {
     // clear the local storage
     deleteFromStorage('mode');

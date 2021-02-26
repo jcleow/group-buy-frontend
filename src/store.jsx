@@ -6,6 +6,7 @@ import axios from 'axios';
 export const initialState = {
   listings: [],
   categories: [],
+  sortedListingsByCreatedDate: [],
   currentListingIndex: null,
   loggedInUsername: null,
   loggedInUserId: null,
@@ -20,6 +21,7 @@ const DELETE_LISTING = 'DELETE_LISTING';
 const LOAD_LISTINGS = 'LOAD_LISTINGS';
 const SELECT_LISTING = 'SELECT_LISTING';
 const SORT_LISTINGS_BY_END_DATE = 'SORT_LISTINGS_BY_END_DATE';
+const SORT_LISTINGS_BY_CREATED_DATE = 'SORT_LISTINGS_BY_CREATED_DATE';
 
 // Used to load the intial category list. Returned as part of load listings
 const LOAD_CATEGORIES = 'LOAD_CATEGORIES';
@@ -53,8 +55,27 @@ export function groupBuyReducer(state, action) {
         // if first is equal to second, return 0
         return (firstListEndingDate - secondListEndingDate);
       });
-      console.log(sortedListings);
       return { ...state, listings: [...sortedListings] };
+    }
+    case SORT_LISTINGS_BY_CREATED_DATE: {
+      const sortedListings = state.listings.slice().sort((firstListing, secondListing) => {
+        const firstListCreatedDate = new Date(firstListing.createdDate);
+        const secondListCreatedDate = new Date(secondListing.createdDate);
+        // if first less than second, return -1
+        // if first greater than second, return 1
+        // if first is equal to second, return 0
+        return (firstListCreatedDate - secondListCreatedDate);
+      });
+      // Filter the list whose end date was before today
+      return {
+        ...state,
+        sortedListingsByCreatedDate: [...sortedListings.filter((currentListing) => {
+          if (new Date(currentListing.endDate) > new Date()) {
+            return true;
+          }
+          return false;
+        })],
+      };
     }
     case SELECT_LISTING:
       currentListingIndex = action.payload.listingIndex;
@@ -105,6 +126,12 @@ export function loadListingsAction(listings) {
 export function sortListingsByEndDateAction() {
   return {
     type: SORT_LISTINGS_BY_END_DATE,
+  };
+}
+
+export function sortAndFilterListingsByCreatedDate() {
+  return {
+    type: SORT_LISTINGS_BY_CREATED_DATE,
   };
 }
 
@@ -194,7 +221,15 @@ const BACKEND_URL = 'http://localhost:3004';
 export function loadListings(dispatch) {
   axios.get(`${BACKEND_URL}/listings`).then((result) => {
     dispatch(loadListingsAction(result.data.listings));
+    dispatch(sortListingsByEndDateAction());
+    dispatch(sortAndFilterListingsByCreatedDate());
     dispatch(loadCategoriesAction(result.data.categories));
+  });
+}
+
+export function findPurchaseCountPerListing(listingId, setProgressPercent) {
+  axios.get(`${BACKEND_URL}/purchases/count/${listingId}`).then((result) => {
+    setProgressPercent(result.data.purchaseCount);
   });
 }
 

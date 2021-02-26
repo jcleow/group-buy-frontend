@@ -1,21 +1,41 @@
 import React, { useContext } from 'react';
+import { writeStorage } from '@rehooks/local-storage';
 import { Form, Button } from 'react-bootstrap';
 import NumberFormat from 'react-number-format';
-import { CreateListingContext } from '../../createListingStore.jsx';
+import { CreateListingContext, CREATE_LISTING_FORM, formModes } from '../../createListingStore.jsx';
 
 export default function QtyAndPrice({ setMode }) {
-  const { formStore, dispatchListingForm, handleOnChange } = useContext(CreateListingContext);
+  // Constant for allowing oversubs in form
+  const ALLOW_OVERSUBSCRIPTION = 'allowOversubscription';
+
+  // Relevant form modes
+  const { CAMPAIGN_DATES } = formModes;
+
+  const {
+    formStore, dispatchListingForm, handleOnChange, formLocalStorage,
+  } = useContext(CreateListingContext);
 
   const handleOversubscriptionStatus = () => {
-    dispatchListingForm({ field: 'allowOversubscription', value: !formStore.allowOversubscription });
+    dispatchListingForm({ field: ALLOW_OVERSUBSCRIPTION, value: !formStore.allowOversubscription });
+    writeStorage(CREATE_LISTING_FORM, { ...formLocalStorage, [ALLOW_OVERSUBSCRIPTION]: !formStore.allowOversubscription });
   };
   console.log(formStore, 'formStore');
   const handleNextPage = () => {
     setMode('CAMPAIGN_DATES');
+    writeStorage('formstep', CAMPAIGN_DATES);
   };
 
   const handlePrevPage = () => {
     setMode('ABOUT_ITEM');
+  };
+
+  const calcDiscountPct = () => {
+    const discountDecimals = 100 - (Number(formStore.discountedPrice?.replace(/[$,]/g, '')) / Number(formStore.usualPrice?.replace(/[$,]/g, ''))) * 100;
+    const discountPct = discountDecimals.toFixed(2);
+    if (discountPct !== Infinity && discountPct !== 'NaN') {
+      return discountPct;
+    }
+    return '0.00';
   };
 
   return (
@@ -26,8 +46,9 @@ export default function QtyAndPrice({ setMode }) {
           name="quantity"
           type="number"
           placeholder="Enter the max number of units"
-          value={formStore.quantity}
+          value={formLocalStorage.quantity ? formLocalStorage.quantity : formStore.quantity}
           onChange={handleOnChange}
+          required
         />
         <Form.Text className="text-muted">
           Total goods you want to sell. Can be oversubscribed by checking the box below.
@@ -38,8 +59,9 @@ export default function QtyAndPrice({ setMode }) {
           id="default-checkbox"
           label="Allow oversubscription"
           className="mt-3"
-          value={formStore.allowOverSubscription}
+          value={formLocalStorage.allowOversubscription ? formLocalStorage.allowOversubscription : formStore.allowOversubscription}
           onChange={handleOversubscriptionStatus}
+          required
         />
       </Form.Group>
 
@@ -48,8 +70,9 @@ export default function QtyAndPrice({ setMode }) {
         <Form.Control
           type="number"
           name="moq"
-          value={formStore.moq}
+          value={formLocalStorage.moq ? formLocalStorage.moq : formStore.moq}
           onChange={handleOnChange}
+          required
         />
         <Form.Text>
           Minimum subscription quantity to begin fulfillment.
@@ -64,8 +87,9 @@ export default function QtyAndPrice({ setMode }) {
           thousandSeparator
           prefix="$"
           fixedDecimalScale
-          value={formStore.usualPrice}
+          value={formLocalStorage.usualPrice ? formLocalStorage.usualPrice : formStore.usualPrice}
           onChange={handleOnChange}
+          required
         />
         <Form.Text className="text-muted">
           Usual Price or MSRP of item sold
@@ -80,8 +104,9 @@ export default function QtyAndPrice({ setMode }) {
           thousandSeparator
           prefix="$"
           fixedDecimalScale
-          value={formStore.discountedPrice}
+          value={formLocalStorage.discountedPrice ? formLocalStorage.discountedPrice : formStore.discountedPrice}
           onChange={handleOnChange}
+          required
         />
         <Form.Text className="text-muted">
           Discount Percentage will be calculated for you.
@@ -89,8 +114,9 @@ export default function QtyAndPrice({ setMode }) {
       </Form.Group>
       <Form.Group controlId="discountPct">
         <Form.Label>
-          Discount
-          {formStore.usualPrice / formStore.discountedPrice - 1}
+          Discount:
+          {' '}
+          {calcDiscountPct()}
           {' '}
           %
         </Form.Label>
@@ -99,12 +125,11 @@ export default function QtyAndPrice({ setMode }) {
       </Form.Group>
 
       <div className="d-flex flex-row justify-content-between">
-        <Button variant="primary" onClick={handleNextPage}>
-          Next
-        </Button>
-
         <Button variant="primary" onClick={handlePrevPage}>
           Previous
+        </Button>
+        <Button variant="primary" onClick={handleNextPage}>
+          Next
         </Button>
       </div>
     </Form>

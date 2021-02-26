@@ -13,40 +13,32 @@ const {
   CONFIRMATION_OF_RECEIPT,
 } = PAGE_NAMES;
 
-// const PURCHASE_SUMMARY = 'see purchase summary';
-// const PAYMENT_INSTRUCTIONS = 'see payment instructions';
-// const UPLOAD_RECEIPT = 'see upload receipt';
-// const CONFIRMATION_OF_RECEIPT = 'see confirmation of receipt';
-
 export default function MainPaymentPage() {
-  // when the page first loads,'mode' is undefined;
-  // when mode's values  are removed (i.e. after last payment page, mode's value bcomes null)
-  const currPage = useLocalStorage('mode')[0] === undefined || null ? PURCHASE_SUMMARY : useLocalStorage('mode')[0];
+  const [mode, setMode] = useState(PURCHASE_SUMMARY);
 
-  const [mode, setMode] = useState(currPage);
-
-  // when page renders, write the current mode to the local storage
+  const [currPage] = useLocalStorage('mode');
+  console.log('currPage is:');
+  console.log(currPage);
   useEffect(() => {
-    writeStorage('mode', mode);
-  }, [mode]);
-
-  console.log('mode state is:');
-  console.log(mode);
-  console.log("useLocalStorage('mode')[0]is:");
-  console.log(useLocalStorage('mode')[0]);
+    if (currPage && (currPage !== null) && (currPage !== PURCHASE_SUMMARY)) {
+      setMode(currPage);
+    }
+  }, []);
 
   // use 'mode' to control when each page should display
   const managePageDisplay = () => {
     switch (mode) {
       case PURCHASE_SUMMARY:
         return <PurchaseSummary setMode={setMode} />;
+
       case PAYMENT_INSTRUCTIONS:
-        return <PaymentInstructions setMode={setMode} PAGE_NAMES={PAGE_NAMES} />;
+        return <PaymentInstructions setMode={setMode} />;
+
       case UPLOAD_RECEIPT:
-        return <UploadReceipt setMode={setMode} PAGE_NAMES={PAGE_NAMES} />;
+        return <UploadReceipt setMode={setMode} />;
 
       case CONFIRMATION_OF_RECEIPT:
-        return <ConfirmationOfReceipt setMode={setMode} PAGE_NAMES={PAGE_NAMES} />;
+        return <ConfirmationOfReceipt setMode={setMode} />;
 
       default:
         return <PurchaseSummary />;
@@ -58,6 +50,7 @@ export default function MainPaymentPage() {
 
       <div className="container page-container" />
       {managePageDisplay()}
+
     </div>
   );
 }
