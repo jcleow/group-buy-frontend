@@ -48,6 +48,10 @@ export default function AboutItem({ setMode }) {
     </Dropdown.Item>
   ));
 
+  const handleUploadPictures = (e) => {
+    dispatchListingForm({ field: 'images', value: e.target.files });
+  };
+
   // Load all categories available in the database
   useEffect(() => {
     loadCategories(setAllCategories);
@@ -90,6 +94,7 @@ export default function AboutItem({ setMode }) {
         {arrOfCategoriesDropDown}
       </DropdownButton>
 
+      <input type="file" name="campaignImages" multiple onChange={handleUploadPictures} />
       <div className="d-flex flex-row justify-content-between mt-3">
         <Button variant="danger" onClick={handleCancelForm}>
           Cancel
