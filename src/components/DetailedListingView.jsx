@@ -1,14 +1,14 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { useState, useContext, useEffect } from 'react';
 import moment from 'moment';
-import { GroupBuyContext } from '../store.jsx';
+import { GroupBuyContext, setDisplayListingMode, LISTING_VIEW_MODES } from '../store.jsx';
 import ListingImagesCarousel from './ListingImagesCarousel.jsx';
 
-export default function DetailedListingView() {
+export default function DetailedListingView({ children }) {
   const [progressPercent, setProgressPercent] = useState(0);
   const [isImagesPresent, setIsImagesPresent] = useState(false);
   const { store, dispatch } = useContext(GroupBuyContext);
-  const { selectedListingData } = store;
+  const { selectedListingData, currentListViewDisplayMode } = store;
 
   // Calculate the progress of order
   useEffect(() => {
@@ -24,6 +24,8 @@ export default function DetailedListingView() {
     const endDate = Date.parse(selectedListingData.endDate);
     const now = new Date();
     if ((endDate - now) < 0) {
+      // If the deal is ended, no need to provide an option for buying
+      // dispatch(setDisplayListingMode(LISTING_VIEW_MODES.DEFAULT_LISTING_VIEW));
       return 'Deal ended';
     }
     const momentEndDate = moment(selectedListingData.endDate);
@@ -81,6 +83,15 @@ export default function DetailedListingView() {
           </span>
         </div>
       </div>
+      {(currentListViewDisplayMode !== LISTING_VIEW_MODES.LISTER_LISTING_VIEW) && children}
+      <div className="row mt-3 ml-3">
+        <div className="col">
+          Listed By:
+          {' '}
+          {selectedListingData.listerId}
+        </div>
+      </div>
+
       <div className="row mt-3 ml-3">
         <div className="col">
           <h6>
@@ -107,6 +118,7 @@ export default function DetailedListingView() {
           </p>
         </div>
       </div>
+      {(currentListViewDisplayMode === LISTING_VIEW_MODES.LISTER_LISTING_VIEW) && children}
     </div>
   );
 }

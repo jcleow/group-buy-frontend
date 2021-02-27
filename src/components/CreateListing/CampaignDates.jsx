@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { useState, useContext } from 'react';
 import { writeStorage } from '@rehooks/local-storage';
 import { Form, Button } from 'react-bootstrap';
