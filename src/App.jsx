@@ -7,6 +7,7 @@ import HomePage from './components/HomePage.jsx';
 import CreateListingForm from './components/CreateListing/CreateListingForm.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MainPaymentPage from './components/Payments/MainPaymentPage.jsx';
+import ViewAllMyPurchases from './components/Past purchases/ViewAllMyPurchases.jsx';
 
 // import MainPaymentPage from './components/Payments/MainPaymentPage.jsx';
 
@@ -20,6 +21,7 @@ function App() {
           <Route path="/home" component={HomePage} />
           <Route path="/createListing" component={CreateListingForm} />
           <Route path="/testPayment" component={MainPaymentPage} />
+          <Route path="/viewAllMyPurchases" component={ViewAllMyPurchases} />
           {/* <Route path="/viewAll" component={ViewAll} />
         <Route path="/createNewTrip" component={NewTripHolder} /> */}
         </Switch>
