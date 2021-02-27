@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import moment from 'moment';
 import { GroupBuyContext } from '../store.jsx';
 import LatestListingsListCard from './LatestListingsListCard.jsx';
 import './LatestListingsCard.css';
