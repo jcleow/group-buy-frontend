@@ -45,6 +45,9 @@ export default function NavbarComponent() {
             <LinkContainer to="/testPayment">
               <Nav.Link>[test] payment</Nav.Link>
             </LinkContainer>
+            <LinkContainer to="/viewAllMyPurchases">
+              <Nav.Link>All purchases</Nav.Link>
+            </LinkContainer>
           </Nav>
           <Nav className="ml-auto">
             {store.loggedInUsername
