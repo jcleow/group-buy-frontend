@@ -14,9 +14,7 @@ export default function ViewAllListings() {
 
   useEffect(() => {
     if (currListingsDisplayed.length === 0) {
-      console.log(listings, 'listings');
       setCurrListingsDisplayed(listings.slice(0, 12));
-      console.log(currListingsDisplayed, 'currListingsDisplayed-2');
     }
   });
 

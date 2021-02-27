@@ -9,6 +9,19 @@ axios.defaults.withCredentials = true;
 export default function TnC({ setMode }) {
   const { formStore, handleOnChange } = useContext(CreateListingContext);
 
+  const handleUploadPictures = (listingId) => {
+    const data = new FormData();
+
+    Object.entries(formStore.images).forEach(([key, value]) => {
+      if (key !== 'length') {
+        data.append('file', value);
+      }
+    });
+
+    return axios.post(`${BACKEND_URL}/listings/${listingId}/uploadCampaignPictures`, data)
+      .catch((err) => console.log(err));
+  };
+
   const handleSubmitForm = () => {
     let updatedFormStore = formStore;
     updatedFormStore = {
@@ -19,8 +32,10 @@ export default function TnC({ setMode }) {
     };
 
     axios.post(`${BACKEND_URL}/createListing`, { updatedFormStore })
-      .then(() => {
+      .then((result) => {
+        console.log(result, 'result');
         setMode('SUBMITTED');
+        return handleUploadPictures(result.data.newListing.id);
       })
       .catch((error) => console.log(error));
   };
