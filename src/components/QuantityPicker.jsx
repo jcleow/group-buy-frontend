@@ -1,19 +1,22 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { GroupBuyContext } from '../store.jsx';
+import { GroupBuyContext, setTotalQuantityOrdered } from '../store.jsx';
 
-export default function QuantityPicker() {
+export default function QuantityPicker({ setTotalQuantity }) {
   const { store, dispatch } = useContext(GroupBuyContext);
-
   const [quantity, setQuantity] = useState(0);
 
   const handleDecrementQuantity = () => {
     if (quantity > 0)
     {
+      setTotalQuantity(quantity - 1);
+      dispatch(setTotalQuantityOrdered(quantity - 1));
       setQuantity(quantity - 1);
     }
   };
 
   const handleIncrementQuantity = () => {
+    setTotalQuantity(quantity + 1);
+    setTotalQuantityOrdered(quantity + 1);
     setQuantity(quantity + 1);
   };
 

@@ -9,6 +9,7 @@ import QuantityPicker from './QuantityPicker.jsx';
 export default function ViewListingPerUser() {
   const { store, dispatch } = useContext(GroupBuyContext);
   const { currentListViewDisplayMode, loggedInUserId, selectedListingData } = store;
+  const [totalQuantity, setTotalQuantity] = useState(0);
 
   // Set the specified mode
   useEffect(() => {
@@ -28,12 +29,6 @@ export default function ViewListingPerUser() {
     }
   }, []);
 
-  const handleBuy = () => {
-    console.log('Buy');
-    return (
-      <LinkContainer to="/payment" />);
-  };
-
   const handleEdit = () => {
     console.log('Edit');
   };
@@ -51,7 +46,7 @@ export default function ViewListingPerUser() {
       {
         return (
           <div className={rowClasses}>
-            <QuantityPicker />
+            <QuantityPicker setTotalQuantity={setTotalQuantity} />
             <div className={colClasses}>
               <LinkContainer to="/testPayment">
                 <span className="btn btn-sm btn-warning">Buy</span>
@@ -86,7 +81,7 @@ export default function ViewListingPerUser() {
 
   return (
     <div className="container mb-5">
-      <DetailedListingView>
+      <DetailedListingView totalQuantity={totalQuantity}>
         {handleDisplayePerMode()}
       </DetailedListingView>
     </div>
