@@ -1,14 +1,32 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { useState, useContext, useEffect } from 'react';
 import moment from 'moment';
-import { GroupBuyContext } from '../store.jsx';
+import { GroupBuyContext, setDisplayListingMode, LISTING_VIEW_MODES } from '../store.jsx';
 import ListingImagesCarousel from './ListingImagesCarousel.jsx';
 
-export default function DetailedListingView() {
+export default function DetailedListingView({ children, totalQuantity }) {
   const [progressPercent, setProgressPercent] = useState(0);
   const [isImagesPresent, setIsImagesPresent] = useState(false);
   const { store, dispatch } = useContext(GroupBuyContext);
-  const { selectedListingData } = store;
+  const { selectedListingData, currentListViewDisplayMode, totalQuantityOrdered } = store;
+
+  const LISTING_STATUSES = {
+    BELOW_MOQ: 'below-moq',
+    ABOVE_MOQ: 'above-moq',
+    CANCELLED: 'cancelled',
+    COMPLETED: 'completed',
+  };
+
+  const getListingCurrentStatus = () => {
+    switch (selectedListingData.listingStatus)
+    {
+      case LISTING_STATUSES.BELOW_MOQ: { return 'Not reached minimum order to activate the deal'; }
+      case LISTING_STATUSES.ABOVE_MOQ: { return 'Reached minimum order to activate the deal'; }
+      case LISTING_STATUSES.CANCELLED: { return 'Cancelled'; }
+      case LISTING_STATUSES.COMPLETED: { return 'Completed'; }
+      default: { return ''; }
+    }
+  };
 
   // Calculate the progress of order
   useEffect(() => {
@@ -24,6 +42,8 @@ export default function DetailedListingView() {
     const endDate = Date.parse(selectedListingData.endDate);
     const now = new Date();
     if ((endDate - now) < 0) {
+      // If the deal is ended, no need to provide an option for buying
+      // dispatch(setDisplayListingMode(LISTING_VIEW_MODES.DEFAULT_LISTING_VIEW));
       return 'Deal ended';
     }
     const momentEndDate = moment(selectedListingData.endDate);
@@ -81,6 +101,85 @@ export default function DetailedListingView() {
           </span>
         </div>
       </div>
+
+      {(currentListViewDisplayMode !== LISTING_VIEW_MODES.LISTER_LISTING_VIEW) && children}
+
+      {(totalQuantity !== 0) && (
+      <div className="row mt-3 ml-3">
+        <div className="col">
+          Total Price:
+          {' '}
+          {Number(totalQuantity) * Number(selectedListingData.discountedPrice)}
+        </div>
+      </div>
+      )}
+
+      <div className="row mt-3 ml-3">
+        <div className="col">
+          <span className="font-italic small">Quantity available:</span>
+          { ' '}
+          {selectedListingData.quantity}
+        </div>
+        <div className="col">
+          <span className="font-italic small">MOQ:</span>
+          { ' '}
+          {selectedListingData.moq}
+        </div>
+        <div className="col">
+          {/* No:of purchases already */}
+        </div>
+      </div>
+
+      <div className="row mt-3 ml-3">
+        <div className="col">
+          <span className="font-italic small">Status:</span>
+          {' '}
+          {getListingCurrentStatus()}
+        </div>
+      </div>
+
+      <div className="row mt-3 ml-3">
+        <div className="col">
+          <span className="font-italic small">
+            Category:
+          </span>
+          {' '}
+          {selectedListingData.category}
+        </div>
+      </div>
+
+      <div className="row mt-3 ml-3">
+        <div className="col">
+          <span className="font-italic small">Start Date:</span>
+          {' '}
+          {' '}
+          {new Date(selectedListingData.startDate).toDateString()}
+        </div>
+      </div>
+      <div className="row mt-3 ml-3">
+        <div className="col">
+          <span className="font-italic small">End Date:</span>
+          {' '}
+          {' '}
+          {new Date(selectedListingData.endDate).toDateString()}
+        </div>
+      </div>
+      <div className="row mt-3 ml-3">
+        <div className="col">
+          <span className="font-italic small">Delivery Mode:</span>
+          {' '}
+          {selectedListingData.deliveryMode}
+        </div>
+      </div>
+
+      <div className="row mt-3 ml-3">
+        <div className="col">
+          <span className="font-italic small">Listed By:</span>
+          {' '}
+          {selectedListingData.listerId}
+        </div>
+      </div>
+
       <div className="row mt-3 ml-3">
         <div className="col">
           <h6>
@@ -107,6 +206,7 @@ export default function DetailedListingView() {
           </p>
         </div>
       </div>
+      {(currentListViewDisplayMode === LISTING_VIEW_MODES.LISTER_LISTING_VIEW) && children}
     </div>
   );
 }

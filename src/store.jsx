@@ -1,6 +1,12 @@
 import React, { useReducer } from 'react';
 import axios from 'axios';
 
+export const LISTING_VIEW_MODES = {
+  BUYER_LISTING_VIEW: 'BUYER_LISTING_VIEW',
+  LISTER_LISTING_VIEW: 'LISTER_LISTING_VIEW',
+  DEFAULT_LISTING_VIEW: 'DEFAULT_LISTING_VIEW',
+};
+
 // create an object that represents all the data contained in the app
 // we moved all of this data from the app component into the store
 export const initialState = {
@@ -9,6 +15,8 @@ export const initialState = {
   sortedListingsByCreatedDate: [],
   displayListingDetails: false,
   selectedListingData: {},
+  currentListViewDisplayMode: LISTING_VIEW_MODES.DEFAULT_LISTING_VIEW,
+  totalQuantityOrdered: 0,
   loggedInUsername: null,
   loggedInUserId: null,
 };
@@ -26,6 +34,8 @@ const SORT_LISTINGS_BY_CREATED_DATE = 'SORT_LISTINGS_BY_CREATED_DATE';
 
 // Used to indicate whether the detail view of a listing should be displayed or not
 const DISPLAY_LISTING_DETAILS = 'DISPLAY_LISTING_DETAILS';
+const SET_DISPLAY_LISTING_MODE = 'SET_DISPLAY_LISTING_MODE';
+const SET_TOTAL_QUANTITY_ORDERED = 'SET_TOTAL_QUANTITY_ORDERED';
 
 // Used to load the intial category list. Returned as part of load listings
 const LOAD_CATEGORIES = 'LOAD_CATEGORIES';
@@ -88,6 +98,10 @@ export function groupBuyReducer(state, action) {
       };
     case DISPLAY_LISTING_DETAILS:
       return { ...state, displayListingDetails: action.payload.displayListingDetails };
+    case SET_DISPLAY_LISTING_MODE:
+      return { ...state, currentListViewDisplayMode: action.payload.currentListViewDisplayMode };
+    case SET_TOTAL_QUANTITY_ORDERED:
+      return { ...state, totalQuantityOrdered: action.payload.totalQuantityOrdered };
     case LOAD_CATEGORIES:
       return { ...state, categories: [...action.payload.categories] };
     case SET_USERNAME:
@@ -157,6 +171,24 @@ export function displayListingDetailsAction(displayListingDetails) {
     type: DISPLAY_LISTING_DETAILS,
     payload: {
       displayListingDetails,
+    },
+  };
+}
+
+export function setDisplayListingMode(currentListViewDisplayMode) {
+  return {
+    type: SET_DISPLAY_LISTING_MODE,
+    payload: {
+      currentListViewDisplayMode,
+    },
+  };
+}
+
+export function setTotalQuantityOrdered(totalQuantityOrdered) {
+  return {
+    type: SET_TOTAL_QUANTITY_ORDERED,
+    payload: {
+      totalQuantityOrdered,
     },
   };
 }
