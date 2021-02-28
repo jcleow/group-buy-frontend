@@ -3,6 +3,9 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { GroupBuyContext, loadListings } from '../../store.jsx';
 import ViewAllListingCard from './ViewAllListingCard.jsx';
 
+// require('react/package.json'); // react is a peer dependency.
+// const InfiniteScroll = require('react-infinite-scroll-component');
+
 export default function ViewAllListings() {
   const { store, dispatch } = useContext(GroupBuyContext);
   const { listings } = store;
@@ -57,6 +60,7 @@ export default function ViewAllListings() {
         </div>
       </div>
       <InfiniteScroll
+        // dataLength={`${currListingsDisplayed.length}`}
         dataLength={currListingsDisplayed.length}
         next={fetchMoreData}
         hasMore

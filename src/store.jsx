@@ -45,6 +45,9 @@ const LOAD_CATEGORIES = 'LOAD_CATEGORIES';
 const SET_USERNAME = 'SET_USERNAME';
 const SET_USERID = 'SET_USERID';
 
+// Used to reset selected item and quantity after payment is made
+const RESET_SELECTED_ITEM_N_QTY = 'RESET_SELECTED_ITEM_N_QTY';
+
 // define the matching reducer function
 export function groupBuyReducer(state, action) {
   let newListings;
@@ -109,6 +112,9 @@ export function groupBuyReducer(state, action) {
       return { ...state, loggedInUsername: action.payload.username };
     case SET_USERID:
       return { ...state, loggedInUserId: action.payload.userId };
+
+    case RESET_SELECTED_ITEM_N_QTY:
+      return { ...state, selectedListingData: {}, totalQuantityOrdered: 0 };
     default:
       return state;
   }
@@ -224,6 +230,12 @@ export function setLoggedInUserId(userId) {
   };
 }
 
+export function resetSelectedItemNQty() {
+  return {
+    type: RESET_SELECTED_ITEM_N_QTY,
+  };
+}
+
 /* ********************************
  * ********************************
  * ********************************
@@ -296,11 +308,11 @@ export function createListing(dispatch, listing) {
   });
 }
 
-export function saveReceiptToDb(dispatch, uploadedFile) {
+export function saveReceiptToDb(dispatch, uploadedFile, currItemPk) {
+  // If is use {uploadedFile and CurrItemPk, req.files becomes empty obj in my purchases controller}
   return axios.post(`${BACKEND_URL}/addReceipt`, uploadedFile)
-    .then((results) => {
+    .then(() => {
       // what to do after store the img?
-      // perhaps save to state and display to user?
-      console.log(results);
+      console.log('image url has been saved to db successfully');
     });
 }
