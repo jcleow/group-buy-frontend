@@ -57,7 +57,7 @@ export default function MainPaymentPage() {
   return (
     <div>
 
-      <div className="container page-container" />
+      <div className=" page-container" />
       {managePageDisplay()}
 
     </div>

@@ -16,7 +16,7 @@ export default function QuantityPicker({ setTotalQuantity }) {
 
   const handleIncrementQuantity = () => {
     setTotalQuantity(quantity + 1);
-    setTotalQuantityOrdered(quantity + 1);
+    dispatch(setTotalQuantityOrdered(quantity + 1));
     setQuantity(quantity + 1);
   };
 

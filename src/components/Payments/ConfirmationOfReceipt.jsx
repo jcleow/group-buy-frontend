@@ -1,19 +1,27 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 import { deleteFromStorage } from '@rehooks/local-storage';
 import { Link } from 'react-router-dom';
+import { GroupBuyContext, resetSelectedItemNQty } from '../../store.jsx';
 import PAGE_NAMES from '../utility/paymentPageNames.js';
 
 export default function ConfirmationOfReceipt({ setMode }) {
+  const { store, dispatch } = useContext(GroupBuyContext);
+
   const handleBtnClick = () => {
     // clear the local storage
     deleteFromStorage('mode');
-
-    // save the state to the cookie
-    // updateMode to switch to next page
-    // setMode(CONFIRMATION_OF_RECEIPT);
   };
+
+  console.log('store.totalQuantityOrdered before reset');
+  console.log(store.totalQuantityOrdered);
+  // clear the selected item and quantity in the store
+  useEffect(() => {
+    dispatch(resetSelectedItemNQty());
+    console.log('store.totalQuantityOrdered after reset');
+    console.log(store.totalQuantityOrdered);
+  }, []);
 
   return (
     <>
