@@ -14,6 +14,14 @@ export default function EndingSoonContainer() {
     setSeeMoreButtonName((!isSeeMore ? 'more...' : 'less...'));
   };
 
+  // Check whether a listing end date is past current date.
+  // If so, don't display it in the ending soon
+  const isListingExpired = (listing) => {
+    const todatDate = new Date();
+    const endDate = new Date(listing.endDate);
+    return ((endDate - todatDate) < 0);
+  };
+
   return (
     <div className="container-sm mt-4">
       <div className="row ml-auto mr-auto">
@@ -26,7 +34,8 @@ export default function EndingSoonContainer() {
       </div>
       <div className={`row listings-card-row ${isSeeMore ? 'flex-nowrap' : 'flex-wrap'} `}>
         {listings.map((singleListing) => (
-          <EndingSoonListCard singleListing={singleListing} />
+          (!isListingExpired(singleListing)
+          && <EndingSoonListCard singleListing={singleListing} />)
         ))}
       </div>
     </div>
