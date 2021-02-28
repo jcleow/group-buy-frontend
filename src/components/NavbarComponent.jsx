@@ -39,7 +39,7 @@ export default function NavbarComponent() {
               <Nav.Link>Add</Nav.Link>
             </LinkContainer>
             )}
-            <LinkContainer to="/viewAll">
+            <LinkContainer to="/viewAllListings">
               <Nav.Link>View All</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/testPayment">
