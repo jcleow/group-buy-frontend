@@ -7,7 +7,7 @@ import './EndingSoonContainer.css';
 import { LinkContainer } from 'react-router-bootstrap';
 import {
   GroupBuyContext, findPurchaseCountPerListing, selectListingAction, displayListingDetailsAction,
-} from '../store.jsx';
+} from '../../store.jsx';
 
 export default function EndingSoonListCard({ singleListing }) {
   const [progressPercent, setProgressPercent] = useState(0);

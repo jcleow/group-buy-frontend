@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { GroupBuyContext } from '../store.jsx';
+import { GroupBuyContext } from '../../store.jsx';
 import './CategoriesContainer.css';
 
 export default function CategoriesContainer() {

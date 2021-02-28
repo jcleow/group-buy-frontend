@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useContext, useEffect } from 'react';
 import { useLocalStorage, deleteFromStorage } from '@rehooks/local-storage';
-import { GroupBuyContext, loadListings, setTotalQuantityOrdered as setTotalQuantityOrderedAction } from '../store.jsx';
+import { GroupBuyContext, loadListings, setTotalQuantityOrdered as setTotalQuantityOrderedAction } from '../../store.jsx';
 import CategoriesContainer from './CategoriesContainer.jsx';
 import EndingSoonContainer from './EndingSoonContainer.jsx';
 import LatestListingsContainer from './LatestListingsContainer.jsx';

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { GroupBuyContext } from '../store.jsx';
+import { GroupBuyContext } from '../../store.jsx';
 import EndingSoonListCard from './EndingSoonListCard.jsx';
 
 export default function EndingSoonContainer() {

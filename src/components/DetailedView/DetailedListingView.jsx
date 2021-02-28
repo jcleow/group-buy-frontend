@@ -5,7 +5,7 @@ import { writeStorage, useLocalStorage } from '@rehooks/local-storage';
 import {
   GroupBuyContext, findPurchaseCountPerListing, LISTING_VIEW_MODES, selectListingAction,
   setTotalQuantityOrdered,
-} from '../store.jsx';
+} from '../../store.jsx';
 import ListingImagesCarousel from './ListingImagesCarousel.jsx';
 
 export default function DetailedListingView({ children }) {
