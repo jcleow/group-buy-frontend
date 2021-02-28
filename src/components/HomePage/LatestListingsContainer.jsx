@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { GroupBuyContext } from '../store.jsx';
+import { GroupBuyContext } from '../../store.jsx';
 import LatestListingsListCard from './LatestListingsListCard.jsx';
 import './LatestListingsCard.css';
 

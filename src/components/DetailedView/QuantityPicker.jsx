@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { GroupBuyContext, setTotalQuantityOrdered } from '../store.jsx';
+import { GroupBuyContext, setTotalQuantityOrdered } from '../../store.jsx';
 
 export default function QuantityPicker() {
   const { store, dispatch } = useContext(GroupBuyContext);

@@ -5,7 +5,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { writeStorage, useLocalStorage } from '@rehooks/local-storage';
 import {
   GroupBuyContext, setDisplayListingMode, LISTING_VIEW_MODES, selectListingAction,
-} from '../store.jsx';
+} from '../../store.jsx';
 import DetailedListingView from './DetailedListingView.jsx';
 import QuantityPicker from './QuantityPicker.jsx';
 

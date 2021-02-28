@@ -4,7 +4,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import moment from 'moment';
 import './EndingSoonContainer.css';
 import { LinkContainer } from 'react-router-bootstrap';
-import { GroupBuyContext, selectListingAction, displayListingDetailsAction } from '../store.jsx';
+import { GroupBuyContext, selectListingAction, displayListingDetailsAction } from '../../store.jsx';
 import './LatestListingsCard.css';
 
 export default function LatestListingListCard({ singleListing }) {
