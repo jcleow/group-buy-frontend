@@ -1,5 +1,6 @@
 import React, { useReducer } from 'react';
 import axios from 'axios';
+import { writeStorage, useLocalStorage, deleteFromStorage } from '@rehooks/local-storage';
 
 export const LISTING_VIEW_MODES = {
   BUYER_LISTING_VIEW: 'BUYER_LISTING_VIEW',
@@ -182,6 +183,7 @@ export function displayListingDetailsAction(displayListingDetails) {
 }
 
 export function setDisplayListingMode(currentListViewDisplayMode) {
+  writeStorage('ListViewDisplayMode', currentListViewDisplayMode);
   return {
     type: SET_DISPLAY_LISTING_MODE,
     payload: {
@@ -191,6 +193,7 @@ export function setDisplayListingMode(currentListViewDisplayMode) {
 }
 
 export function setTotalQuantityOrdered(totalQuantityOrdered) {
+  writeStorage('totalQuantityOrdered', totalQuantityOrdered);
   return {
     type: SET_TOTAL_QUANTITY_ORDERED,
     payload: {
@@ -292,6 +295,10 @@ export function findPurchaseCountPerListing(listingId, setProgressPercent) {
   axios.get(`${BACKEND_URL}/purchases/count/${listingId}`).then((result) => {
     setProgressPercent(result.data.purchaseCount);
   });
+}
+
+export function setLocalStorageForViewListing(setProgressPercent) {
+
 }
 
 export function createListing(dispatch, listing) {

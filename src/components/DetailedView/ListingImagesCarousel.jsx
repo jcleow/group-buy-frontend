@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Carousel } from 'react-bootstrap';
-import { GroupBuyContext } from '../store.jsx';
+import { GroupBuyContext } from '../../store.jsx';
 
 export default function ListingImagesCarousel({ listImages }) {
   const { store, dispatch } = useContext(GroupBuyContext);

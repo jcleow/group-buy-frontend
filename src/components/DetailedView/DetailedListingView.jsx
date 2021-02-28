@@ -1,14 +1,19 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { useState, useContext, useEffect } from 'react';
 import moment from 'moment';
-import { GroupBuyContext, setDisplayListingMode, LISTING_VIEW_MODES } from '../store.jsx';
+import { writeStorage, useLocalStorage } from '@rehooks/local-storage';
+import {
+  GroupBuyContext, findPurchaseCountPerListing, LISTING_VIEW_MODES, selectListingAction,
+  setTotalQuantityOrdered,
+} from '../../store.jsx';
 import ListingImagesCarousel from './ListingImagesCarousel.jsx';
 
-export default function DetailedListingView({ children, totalQuantity }) {
+export default function DetailedListingView({ children }) {
   const [progressPercent, setProgressPercent] = useState(0);
   const [isImagesPresent, setIsImagesPresent] = useState(false);
   const { store, dispatch } = useContext(GroupBuyContext);
   const { selectedListingData, currentListViewDisplayMode, totalQuantityOrdered } = store;
+  const [getDetailedListView, setDetailedListView, deleteDetailedListView] = useLocalStorage('detailedListView');
 
   const LISTING_STATUSES = {
     BELOW_MOQ: 'below-moq',
@@ -30,6 +35,7 @@ export default function DetailedListingView({ children, totalQuantity }) {
 
   // Calculate the progress of order
   useEffect(() => {
+    findPurchaseCountPerListing(selectedListingData.id, setProgressPercent);
     if (selectedListingData.images === undefined || selectedListingData.images == null) {
       setIsImagesPresent(false);
     }
@@ -104,12 +110,12 @@ export default function DetailedListingView({ children, totalQuantity }) {
 
       {(currentListViewDisplayMode !== LISTING_VIEW_MODES.LISTER_LISTING_VIEW) && children}
 
-      {(totalQuantity !== 0) && (
+      {(totalQuantityOrdered !== 0) && (
       <div className="row mt-3 ml-3">
         <div className="col">
-          Total Price:
+          <span className="font-italic small">Total Price:</span>
           {' '}
-          {Number(totalQuantity) * Number(selectedListingData.discountedPrice)}
+          {(Number(totalQuantityOrdered) * Number(selectedListingData.discountedPrice)).toFixed(2)}
         </div>
       </div>
       )}
