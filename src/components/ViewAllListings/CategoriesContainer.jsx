@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { GroupBuyContext, loadCategories, loadFilteredListings } from '../../store.jsx';
+import React, { useContext } from 'react';
+import { GroupBuyContext } from '../../store.jsx';
 import './CategoriesContainer.css';
 
 export default function CategoriesContainer({ selectCategoryProps }) {
