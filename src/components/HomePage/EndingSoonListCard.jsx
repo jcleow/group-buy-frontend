@@ -31,7 +31,7 @@ export default function EndingSoonListCard({ singleListing }) {
   };
 
   return (
-    <div className="col-6 col-md-3 ml-auto">
+    <div className="col">
       <LinkContainer to="/listingdetails" onClick={handleSelectListing}>
         <figure className="figure">
           { !isImagesPresent && (

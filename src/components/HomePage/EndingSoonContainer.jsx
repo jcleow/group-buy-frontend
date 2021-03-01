@@ -32,7 +32,8 @@ export default function EndingSoonContainer() {
           <button type="button" className="btn btn-sm btn-warning font-italic" onClick={handleSeeMore}>{seeMoreButtonName}</button>
         </div>
       </div>
-      <div className={`row listings-card-row ${isSeeMore ? 'flex-nowrap' : 'flex-wrap'} `}>
+      {/* <div className={`row listings-card-row ${isSeeMore ? 'flex-nowrap' : 'flex-wrap'} `}> */}
+      <div className={`row row-cols-2 row-cols-sm-4 row-cols-lg-5 listings-card-row ${isSeeMore ? 'flex-nowrap' : 'flex-wrap'} `}>
         {listings.map((singleListing) => (
           (!isListingExpired(singleListing)
           && <EndingSoonListCard singleListing={singleListing} />)
