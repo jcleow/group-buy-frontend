@@ -23,7 +23,7 @@ function App() {
           <Route path="/home" component={HomePage} />
           <Route path="/createListing" component={CreateListingForm} />
           <Route path="/listingdetails" component={ViewListingPerUser} />
-          {/* <Route path="/testPayment" component={MainPaymentPage} /> */}
+          <Route path="/payment" component={MainPaymentPage} />
           <Route path="/viewAllMyPurchases" component={ViewAllMyPurchases} />
           <Route path="/viewAllListings" component={ViewAllListings} />
           {/* <Route path="/viewAll" component={ViewAll} />

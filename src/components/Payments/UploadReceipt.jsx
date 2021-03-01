@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
-import { writeStorage } from '@rehooks/local-storage';
+// import { writeStorage } from '@rehooks/local-storage';
 import { GroupBuyContext, recordPurchase } from '../../store.jsx';
 import PAGE_NAMES from '../utility/paymentPageNames.js';
 
@@ -16,7 +16,7 @@ export default function UploadReceipt({ setMode }) {
     // save the state to the cookie
     // updateMode to switch to next page
     setMode(PAGE_NAMES.CONFIRMATION_OF_RECEIPT);
-    writeStorage('mode', PAGE_NAMES.CONFIRMATION_OF_RECEIPT);
+    // writeStorage('mode', PAGE_NAMES.CONFIRMATION_OF_RECEIPT);
   };
 
   const handleFileSelection = (e) => {
@@ -33,7 +33,11 @@ export default function UploadReceipt({ setMode }) {
     recordPurchase(dispatch, data, selectedListingData.id);
 
     setMode(PAGE_NAMES.CONFIRMATION_OF_RECEIPT);
-    writeStorage('mode', PAGE_NAMES.CONFIRMATION_OF_RECEIPT);
+    // writeStorage('mode', PAGE_NAMES.CONFIRMATION_OF_RECEIPT);
+  };
+
+  const handleCancelImageBtn = () => {
+    setSelectedFile(null);
   };
 
   const manageDisplay = () => {
@@ -43,19 +47,19 @@ export default function UploadReceipt({ setMode }) {
           height: '60vh', backgroundColor: 'black', display: 'flex', justifyContent: 'center',
         }}
         >
-
           <button
             type="button"
             className="closeButton"
+            onClick={handleCancelImageBtn}
             style={{
-              height: '1.3rem', position: 'absolute', top: '0', right: '15px', backgroundColor: 'transparent', border: 'none',
+              // height: '1.3rem', position: 'absolute', top: '0', right: '1em', backgroundColor: 'transparent', border: 'none',
+              height: '1.8rem', width: '1.8rem', position: 'absolute', bottom: '1rem', backgroundColor: 'rgba(205, 205, 205, 0.7)', borderRadius: '50%', border: 'none',
             }}
           >
             ❌
           </button>
           <img src={URL.createObjectURL(selectedFile)} alt="userUploadedReceipt" />
         </div>
-
       );
     }
     return (
@@ -70,7 +74,12 @@ export default function UploadReceipt({ setMode }) {
     );
   };
   return (
-    <div className="container">
+    <div className="container m-4 ml-auto mr-auto">
+      <div className="row">
+        <div className="col payment-form-progress-bar">
+          afasdf
+        </div>
+      </div>
       <div className="row">
         <div className="col summary">
           {/* insert the summary of item purchased, qty, price per unit, and total price */}

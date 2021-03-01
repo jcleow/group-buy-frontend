@@ -80,7 +80,7 @@ export default function ViewListingPerUser() {
           <div className={rowClasses}>
             <QuantityPicker />
             <div className={colClasses}>
-              <LinkContainer to="/testPayment" onClick={handleClickNextButton}>
+              <LinkContainer to="/payment" onClick={handleClickNextButton}>
                 <span className="btn btn-sm btn-warning">Buy</span>
               </LinkContainer>
             </div>
