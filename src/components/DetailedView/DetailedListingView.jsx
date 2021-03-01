@@ -22,6 +22,8 @@ export default function DetailedListingView({ children }) {
     COMPLETED: 'completed',
   };
 
+  const isListingCancelled = () => (selectedListingData.listingStatus === LISTING_STATUSES.CANCELLED);
+
   const getListingCurrentStatus = () => {
     switch (selectedListingData.listingStatus)
     {
@@ -35,7 +37,7 @@ export default function DetailedListingView({ children }) {
 
   // Calculate the progress of order
   useEffect(() => {
-    findPurchaseCountPerListing(selectedListingData.id, setProgressPercent);
+    // findPurchaseCountPerListing(selectedListingData.id, setProgressPercent);
     if (selectedListingData.images === undefined || selectedListingData.images == null) {
       setIsImagesPresent(false);
     }
@@ -77,9 +79,9 @@ export default function DetailedListingView({ children }) {
             )}
             <figcaption className="figure-caption text-dark font-weight-bolder mt-1">{selectedListingData.title}</figcaption>
           </figure>
-
-          <div className="progress col-6">
-            <div id="order-progress" className="progress-bar progress-bar-striped bg-warning" role="progressbar" style={{ width: `${progressPercent}%` }} aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" />
+          {findPurchaseCountPerListing(selectedListingData.id, setProgressPercent)}
+          <div className="progress">
+            <div id="order-progress" className="progress-bar progress-bar-striped bg-warning" role="progressbar" style={{ width: `${progressPercent}%` }} aria-valuenow={progressPercent} aria-valuemin="0" aria-valuemax="100" />
           </div>
           <div className="text-muted order-progress-label">
             Ordered so far -
@@ -108,7 +110,8 @@ export default function DetailedListingView({ children }) {
         </div>
       </div>
 
-      {(currentListViewDisplayMode !== LISTING_VIEW_MODES.LISTER_LISTING_VIEW) && children}
+      {(currentListViewDisplayMode !== LISTING_VIEW_MODES.LISTER_LISTING_VIEW
+        && !isListingCancelled()) && children}
 
       {(totalQuantityOrdered !== 0) && (
       <div className="row mt-3 ml-3">

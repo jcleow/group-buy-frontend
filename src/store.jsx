@@ -302,6 +302,10 @@ export function findPurchaseCountPerListing(listingId, setProgressPercent) {
   });
 }
 
+export function getPurchaseCountPerListing(listingId) {
+  axios.get(`${BACKEND_URL}/purchases/count/${listingId}`).then((result) => (result.data.purchaseCount));
+}
+
 export function setLocalStorageForViewListing(setProgressPercent) {
 
 }

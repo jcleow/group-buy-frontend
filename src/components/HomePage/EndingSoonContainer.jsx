@@ -35,7 +35,12 @@ export default function EndingSoonContainer({ endingSoonListings }) {
       <div className={`row row-cols-2 row-cols-sm-4 row-cols-lg-5 listings-card-row ${isSeeMore ? 'flex-nowrap' : 'flex-wrap'} `}>
         {endingSoonListings.map((singleListing) => (
           (!isListingExpired(singleListing)
-          && <EndingSoonListCard singleListing={singleListing} />)
+          && (
+          <EndingSoonListCard
+            singleListing={singleListing}
+            // imgPresent={!((singleListing.images === undefined || singleListing.images == null))}
+          />
+          ))
         ))}
       </div>
     </div>
