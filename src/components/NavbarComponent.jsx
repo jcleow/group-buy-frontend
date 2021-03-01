@@ -42,9 +42,9 @@ export default function NavbarComponent() {
             <LinkContainer to="/viewAllListings">
               <Nav.Link>View All</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/testPayment">
+            {/* <LinkContainer to="/testPayment">
               <Nav.Link>[test] payment</Nav.Link>
-            </LinkContainer>
+            </LinkContainer> */}
             <LinkContainer to="/viewAllMyPurchases">
               <Nav.Link>All purchases</Nav.Link>
             </LinkContainer>

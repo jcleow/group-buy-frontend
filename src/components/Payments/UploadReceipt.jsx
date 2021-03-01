@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 import { writeStorage } from '@rehooks/local-storage';
-import { GroupBuyContext, saveReceiptToDb } from '../../store.jsx';
+import { GroupBuyContext, recordPurchase } from '../../store.jsx';
 import PAGE_NAMES from '../utility/paymentPageNames.js';
 
 export default function UploadReceipt({ setMode }) {
@@ -29,7 +29,8 @@ export default function UploadReceipt({ setMode }) {
   const handleFileUpload = () => {
     const data = new FormData();
     data.append('receiptImg', selectedFile);
-    saveReceiptToDb(dispatch, data, selectedListingData);
+    data.append('selectedListingData', selectedListingData);
+    recordPurchase(dispatch, data, selectedListingData.id);
 
     setMode(PAGE_NAMES.CONFIRMATION_OF_RECEIPT);
     writeStorage('mode', PAGE_NAMES.CONFIRMATION_OF_RECEIPT);
