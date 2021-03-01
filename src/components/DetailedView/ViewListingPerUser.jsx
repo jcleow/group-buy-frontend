@@ -16,6 +16,7 @@ export default function ViewListingPerUser() {
   } = store;
   const [getDetailedListView] = useLocalStorage('detailedListView');
   const [getListViewDisplayMode] = useLocalStorage('ListViewDisplayMode');
+  console.log(getListViewDisplayMode);
 
   /**
    * Function to write the lisitings data into storage or to read it from storage
@@ -42,8 +43,12 @@ export default function ViewListingPerUser() {
     console.log(loggedInUserId, 'loggedInUserId');
 
     if (loggedInUserId === null) {
+      if (getListViewDisplayMode) {
+        dispatch(setDisplayListingMode(getListViewDisplayMode));
+      }
+      else {
       // If no user is logged in just display the details of the item
-      dispatch(setDisplayListingMode(LISTING_VIEW_MODES.DEFAULT_LISTING_VIEW));
+        dispatch(setDisplayListingMode(LISTING_VIEW_MODES.DEFAULT_LISTING_VIEW)); }
     }
     else if (loggedInUserId === selectedListingData.listerId)
     {

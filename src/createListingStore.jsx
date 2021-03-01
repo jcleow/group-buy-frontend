@@ -126,20 +126,6 @@ export function CreateListingProvider({ children }) {
 //
 // these functions must be passed the dispatch from the current context
 
-// export function loadListings(dispatch) {
-//   axios.get(`${BACKEND_URL}/listings`).then((result) => {
-//     dispatch(loadListingsAction(result.data.listings));
-//     dispatch(loadCategoriesAction(result.data.categories));
-//   });
-// }
-
-// export function createListing(dispatch, listing) {
-//   return axios.post(`${BACKEND_URL}/addlisting`, listing).then((result) => {
-//     dispatch(addListingAction());
-//     return result.data.listing.id;
-//   });
-// }
-
 export function loadCategories(setAllCategories) {
   axios.get(`${BACKEND_URL}/listings`).then((result) => {
     setAllCategories(result.data.categories);

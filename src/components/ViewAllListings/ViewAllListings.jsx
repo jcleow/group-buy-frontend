@@ -1,18 +1,20 @@
 import React, { useContext, useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { GroupBuyContext, loadListings } from '../../store.jsx';
+import CategoriesContainer from './CategoriesContainer.jsx';
 import ViewAllListingCard from './ViewAllListingCard.jsx';
-
-// require('react/package.json'); // react is a peer dependency.
-// const InfiniteScroll = require('react-infinite-scroll-component');
 
 export default function ViewAllListings() {
   const { store, dispatch } = useContext(GroupBuyContext);
+  const [allCategories, setAllCategories] = useState([]);
+  const [currCategory, setCurrCategory] = useState(allCategories[0]);
+  const [currListingsDisplayed, setCurrListingsDisplayed] = useState([]);
+  const [btnArray, setBtnArray] = useState([]);
+
   const { listings } = store;
 
-  const [currListingsDisplayed, setCurrListingsDisplayed] = useState([]);
   useEffect(() => {
-    loadListings(dispatch);
+    loadListings(dispatch, setAllCategories, setBtnArray);
   }, []);
 
   useEffect(() => {
@@ -52,6 +54,10 @@ export default function ViewAllListings() {
     }, 1500);
   }
 
+  const selectCategoryProps = {
+    btnArray, setBtnArray, setCurrCategory, setCurrListingsDisplayed,
+  };
+
   return (
     <div className="container-sm mt-4">
       <div className="row ml-auto mr-auto">
@@ -59,8 +65,8 @@ export default function ViewAllListings() {
           <h6>All Listings</h6>
         </div>
       </div>
+      <CategoriesContainer selectCategoryProps={selectCategoryProps} />
       <InfiniteScroll
-        // dataLength={`${currListingsDisplayed.length}`}
         dataLength={currListingsDisplayed.length}
         next={fetchMoreData}
         hasMore

@@ -3,22 +3,19 @@ import { GroupBuyContext } from '../../store.jsx';
 import './CategoriesContainer.css';
 
 export default function CategoriesContainer({ selectCategoryProps }) {
+  const {
+    btnArray, setBtnArray, setCurrListingsDisplayed, setCurrCategory,
+  } = selectCategoryProps;
   const { store, dispatch } = useContext(GroupBuyContext);
   const { categories } = store;
 
-  const {
-    btnArray, setBtnArray, setEndingSoonListings, setLatestListings,
-  } = selectCategoryProps;
+  // Track which button is currently selected
+  // const [btnArray, setBtnArray] = useState([]);
 
   const handleSelectCategory = (e) => {
-    let filteredEndingSoonListings = store.listings;
-    let filteredLatestListings = store.sortedListingsByCreatedDate;
-    if (e.target.value !== 'All') {
-      filteredEndingSoonListings = store.listings.filter((listing) => listing.category === e.target.value);
-      filteredLatestListings = store.sortedListingsByCreatedDate.filter((listing) => listing.category === e.target.value);
-    }
-    setEndingSoonListings(filteredEndingSoonListings);
-    setLatestListings(filteredLatestListings);
+    setCurrCategory(e.target.value);
+    const filteredListings = store.listings.filter((listing) => listing.category === e.target.value);
+    setCurrListingsDisplayed(filteredListings);
   };
 
   const handleSelectedBtn = (idx) => {
@@ -41,12 +38,10 @@ export default function CategoriesContainer({ selectCategoryProps }) {
               type="button"
               className={btnArray[i] ? 'btn btn-sm btn-block btn-category btn-info' : 'btn btn-sm btn-block btn-category btn-warning'}
               value={category}
-              onClick={
-              (e) => {
+              onClick={(e) => {
                 handleSelectCategory(e);
                 handleSelectedBtn(i);
-              }
-            }
+              }}
             >
               {category}
             </button>
