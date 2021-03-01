@@ -14,6 +14,7 @@ export const initialState = {
   listings: [],
   categories: [],
   sortedListingsByCreatedDate: [],
+  // sortedListingsByCategories: [],
   displayListingDetails: false,
   selectedListingData: {},
   currentListViewDisplayMode: LISTING_VIEW_MODES.DEFAULT_LISTING_VIEW,
@@ -95,6 +96,7 @@ export function groupBuyReducer(state, action) {
         })],
       };
     }
+
     case SELECT_LISTING:
       return {
         ...state,
@@ -107,7 +109,7 @@ export function groupBuyReducer(state, action) {
     case SET_TOTAL_QUANTITY_ORDERED:
       return { ...state, totalQuantityOrdered: action.payload.totalQuantityOrdered };
     case LOAD_CATEGORIES:
-      return { ...state, categories: [...action.payload.categories] };
+      return { ...state, categories: ['All', ...action.payload.categories] };
     case SET_USERNAME:
       return { ...state, loggedInUsername: action.payload.username };
     case SET_USERID:
@@ -282,12 +284,15 @@ export function GroupBuyProvider({ children }) {
 
 const BACKEND_URL = 'http://localhost:3004';
 
-export function loadListings(dispatch) {
+export function loadListings(dispatch, setAllCategories, setBtnArray) {
   axios.get(`${BACKEND_URL}/listings`).then((result) => {
     dispatch(loadListingsAction(result.data.listings));
     dispatch(sortListingsByEndDateAction());
     dispatch(sortAndFilterListingsByCreatedDate());
     dispatch(loadCategoriesAction(result.data.categories));
+    setAllCategories(result.data.categories);
+    const allBtnsState = result.data.categories.map((_) => false);
+    setBtnArray([true, ...allBtnsState]);
   });
 }
 

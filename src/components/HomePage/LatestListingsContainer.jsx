@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { GroupBuyContext } from '../../store.jsx';
+// import { GroupBuyContext } from '../../store.jsx';
 import LatestListingsListCard from './LatestListingsListCard.jsx';
 import './LatestListingsCard.css';
 
-export default function LatestListingsContainer() {
-  const { store, dispatch } = useContext(GroupBuyContext);
-  const { sortedListingsByCreatedDate } = store;
+export default function LatestListingsContainer({ latestListings }) {
+  // const { store, dispatch } = useContext(GroupBuyContext);
+  // const { sortedListingsByCreatedDate } = store;
+  // console.log(latestListings, 'latestListings');
 
   const [seeMoreButtonName, setSeeMoreButtonName] = useState('more...');
   const [isSeeMore, setIsSeeMore] = useState(true);
@@ -25,8 +26,8 @@ export default function LatestListingsContainer() {
           <button type="button" className="btn btn-sm btn-warning font-italic" onClick={handleSeeMore}>{seeMoreButtonName}</button>
         </div>
       </div>
-      <div className={`row row-cols-2 row-cols-sm-4 row-cols-lg-5 latest-listings-card-row ${isSeeMore ? 'flex-nowrap' : 'flex-wrap'} `}>
-        {sortedListingsByCreatedDate.map((singleListing) => (
+      <div className={`row row-cols-2 row-cols-sm-4 row-cols-lg-5 latest-listings  -card-row ${isSeeMore ? 'flex-nowrap' : 'flex-wrap'} `}>
+        {latestListings.map((singleListing) => (
           <LatestListingsListCard singleListing={singleListing} />
         ))}
       </div>
