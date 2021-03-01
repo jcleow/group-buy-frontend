@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-vars */
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useLocalStorage, deleteFromStorage } from '@rehooks/local-storage';
-import { GroupBuyContext, loadListings, setTotalQuantityOrdered as setTotalQuantityOrderedAction } from '../../store.jsx';
+import {
+  GroupBuyContext, loadListings, setTotalQuantityOrdered as setTotalQuantityOrderedAction,
+} from '../../store.jsx';
 import CategoriesContainer from './CategoriesContainer.jsx';
 import EndingSoonContainer from './EndingSoonContainer.jsx';
 import LatestListingsContainer from './LatestListingsContainer.jsx';
@@ -13,19 +15,38 @@ export default function HomePage() {
   const [getListViewDisplayMode, setListViewDisplayMode, deleteListViewDisplayMode] = useLocalStorage('ListViewDisplayMode');
   const [getTotalQuantityOrdered, setTotalQuantityOrdered, deleteTotalQuantityOrdered] = useLocalStorage('totalQuantityOrdered');
 
+  // Manage the states for the categories to be displayed
+  const [allCategories, setAllCategories] = useState([]);
+  const [btnArray, setBtnArray] = useState([]);
+  const [endingSoonListings, setEndingSoonListings] = useState([]);
+  const [latestListings, setLatestListings] = useState([]);
+
+  const selectCategoryProps = {
+    btnArray, setBtnArray, setEndingSoonListings, setLatestListings,
+  };
+
   useEffect(() => {
-    loadListings(dispatch);
+    loadListings(dispatch, setAllCategories, setBtnArray);
     dispatch(setTotalQuantityOrderedAction(0));
     deleteDetailedListView();
     deleteListViewDisplayMode();
     deleteTotalQuantityOrdered();
   }, []);
 
+  useEffect(() => {
+    if (endingSoonListings.length === 0) {
+      setEndingSoonListings(store.listings);
+    }
+    if (latestListings.length === 0) {
+      setLatestListings(store.sortedListingsByCreatedDate);
+    }
+  });
+
   return (
     <div>
-      <CategoriesContainer />
-      <EndingSoonContainer />
-      <LatestListingsContainer />
+      <CategoriesContainer selectCategoryProps={selectCategoryProps} />
+      <EndingSoonContainer endingSoonListings={endingSoonListings} />
+      <LatestListingsContainer latestListings={latestListings} />
     </div>
   );
 }
