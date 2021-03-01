@@ -73,11 +73,15 @@ export default function UploadReceipt({ setMode }) {
       </form>
     );
   };
+
+  const handleBackNavBtn = () => {
+    setMode(PAGE_NAMES.PAYMENT_INSTRUCTIONS);
+  };
   return (
     <div className="container m-4 ml-auto mr-auto">
       <div className="row">
         <div className="col payment-form-progress-bar">
-          afasdf
+          <button type="button" onClick={handleBackNavBtn}>⬅️ Payment instructions</button>
         </div>
       </div>
       <div className="row">

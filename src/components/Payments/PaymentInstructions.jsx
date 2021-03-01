@@ -12,12 +12,14 @@ export default function PaymentInstructions({ setMode }) {
     setMode(PAGE_NAMES.UPLOAD_RECEIPT);
     // writeStorage('mode', PAGE_NAMES.UPLOAD_RECEIPT);
   };
-
+  const handleBackNavBtn = () => {
+    setMode(PAGE_NAMES.PURCHASE_SUMMARY);
+  };
   return (
     <div className="container m-4 ml-auto mr-auto">
       <div className="row">
         <div className="col payment-form-progress-bar">
-          <button type="button">⬅️ Purchase Summary</button>
+          <button type="button" onClick={handleBackNavBtn}>⬅️ Purchase Summary</button>
         </div>
       </div>
       <div className="row">

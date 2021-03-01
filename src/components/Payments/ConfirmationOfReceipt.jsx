@@ -26,10 +26,11 @@ export default function ConfirmationOfReceipt({ setMode }) {
   return (
     <div className="container m-4 ml-auto mr-auto">
       <div className="row">
-        <div className="col">
-          {/* insert the summary of item purchased, qty, price per unit, and total price */}
+        <div className="col payment-form-progress-bar">
+          <button type="button">⬅️ Payment instructions</button>
         </div>
       </div>
+
       <div className="row">
         <div className="col terms-n-conditions">
           <div>
