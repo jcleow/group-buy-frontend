@@ -93,11 +93,30 @@ function ActivityChart() {
 }
 
 function CampaignPurchasersTable() {
-  const { campaignStore, dispatchCampaignStore } = useContext(CampaignProgressContext);
+  const { campaignStore, dispatchCampaign } = useContext(CampaignProgressContext);
 
   useEffect(() => {
-    loadCurrlistingPurchases(dispatchCampaignStore, 1);
+    // pass in dispatch fn and currListingId
+    loadCurrlistingPurchases(dispatchCampaign, 2);
   }, []);
+
+  const rowsOfPurchases = campaignStore.allPurchases.map((purchase, i) => {
+    const {
+      username, paymentStatus, createdAt, reputation, dateDelivered,
+    } = purchase;
+    return (
+      <tr>
+        <td className="sticky-col first-col">{i + 1}</td>
+        <td className="second-col">{username}</td>
+        <td className="normal-col">{paymentStatus}</td>
+        <td className="normal-col">30</td>
+        <td className="normal-col">{createdAt}</td>
+        <td className="normal-col">1</td>
+        <td className="normal-col">{dateDelivered}</td>
+      </tr>
+    );
+  });
+
   return (
     <div className="d-flex flex-row justify-content-center purchaser-table">
       <table className="text-center">
@@ -110,15 +129,7 @@ function CampaignPurchasersTable() {
           <th className="normal-col">Reputation</th>
           <th className="normal-col">Date Delivered</th>
         </tr>
-        <tr>
-          <td className="sticky-col first-col">1</td>
-          <td className="second-col">Jit Corn</td>
-          <td className="normal-col">Paid</td>
-          <td className="normal-col">30</td>
-          <td className="normal-col">3/12/2020</td>
-          <td className="normal-col">48/50</td>
-          <td className="normal-col">1/3/2021</td>
-        </tr>
+        {rowsOfPurchases}
       </table>
     </div>
   );

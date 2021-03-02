@@ -24,7 +24,7 @@ export function campaignProgressReducer(state, action) {
 
 export function loadPurchasesAction(currListingPurchases) {
   return {
-    type: LOAD_PURCHASES,
+    type: LOAD_CURR_LISTING_PURCHASES,
     payload: {
       currListingPurchases,
     },
@@ -59,6 +59,7 @@ export function loadCurrlistingPurchases(dispatchCampaign, currListingId) {
   axios.get(`${BACKEND_URL}/listing/${currListingId}/allPurchases`)
     .then((result) => {
       console.log(result, 'result');
+      dispatchCampaign(loadPurchasesAction(result.data.allPurchases));
     })
     .catch((err) => console.log(err));
 }
