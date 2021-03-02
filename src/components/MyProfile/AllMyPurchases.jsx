@@ -1,9 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
 import { GroupBuyContext, getAllPurchasesAssociatedWUser } from '../../store.jsx';
-// import AllListingsAsCards from './AllListingsAsCards.jsx';
-// import getAllPurchasesAssociatedWUser from '../../store.jsx';
-import BACKEND_URL from '../../helper.js';
 
 export default function AllMyPurchases() {
   const { store, dispatch } = useContext(GroupBuyContext);
@@ -11,43 +7,47 @@ export default function AllMyPurchases() {
   const [allPurchases, setAllPurchases] = useState([]);
 
   // query the db to find all purchases connected with this user
-  useEffect(() => {
+  useEffect(async () => {
     console.log('loggedInUsername is:');
     console.log(loggedInUsername);
-    getAllPurchasesAssociatedWUser(loggedInUsername)
-      .then((result) => {
-        console.log('result is:');
-        console.log(result);
-      });
+    const AllPurchasesAssociatedWUser = await getAllPurchasesAssociatedWUser(loggedInUsername);
+    console.log(AllPurchasesAssociatedWUser);
 
-    // setAllPurchases(getAllPurchasesAssociatedWUser(loggedInUsername));
-
-  //   axios.post(`${BACKEND_URL}/allPurchases`, { loggedInUsername })
-  //     .then(({ data }) => {
-  //       console.log('data is:');
-  //       console.log(data);
-  //       setAllPurchases(data);
-  //     })
-  //     .catch((error) => console.log(error));
+    setAllPurchases(AllPurchasesAssociatedWUser);
   }, []);
 
-  const AllListingsTable = () => {
-    if (allPurchases.length === 0) return null;
-    const formatListingsAsTable = allPurchases.map((eachEl, tableIndex) => (
+  const AllPurchasesTable = () => {
+    if (allPurchases.length === 0) return (<div>No purchases to display</div>);
+    const formatPurchasesAsTable = allPurchases.map((eachEl, tableIndex) => (
       <div className="row">
-        <div className="col">
+        <div className="col-1">
           {tableIndex + 1}
         </div>
-        <div className="col">
-          {eachEl.listing.title}
+
+        {/* Item name/title */}
+        <div className="col-2">
+          {eachEl.createdAt}
         </div>
-        <div className="col">
+        {/* Item img */}
+        <div className="col-2">
+          {eachEl.listing.title}
+
           <img src={eachEl.listing.images.img1} alt="listingImg" className="img-responsive" width="100%" />
         </div>
+
+        {/* proof of payment (i.e. receipt) */}
+        <div className="col-2">
+          {eachEl.paymentReceipt}
+          Submitted on
+          {' '}
+          {eachEl.updatedAt}
+
+        </div>
+
       </div>
     ));
 
-    return formatListingsAsTable;
+    return formatPurchasesAsTable;
   };
 
   return (
@@ -58,8 +58,24 @@ export default function AllMyPurchases() {
         </div>
       </div>
       <div className="row">
+        <div className="col-1">
+          S/n
+        </div>
+        <div className="col-2">
+          <button type="button">Date purchased</button>
+        </div>
+        <div className="col-2">
+          <button type="button">Item</button>
+        </div>
+        <div className="col-2">
+          <button type="button">Payment details</button>
+          {' '}
+
+        </div>
+      </div>
+      <div className="row">
         <div className="col">
-          <AllListingsTable />
+          <AllPurchasesTable />
         </div>
       </div>
     </div>

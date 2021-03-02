@@ -327,11 +327,7 @@ export function recordPurchase(dispatch, uploadedFile, listingPK) {
 }
 
 export function getAllPurchasesAssociatedWUser(userName) {
-  axios.post(`${BACKEND_URL}/allPurchases`, { userName })
-    .then(({ data }) => {
-      console.log('data is:');
-      console.log(data);
-      return data;
-    })
+  return axios.post(`${BACKEND_URL}/allPurchases`, { userName })
+    .then(({ data }) => data)
     .catch((error) => console.log(error));
 }
