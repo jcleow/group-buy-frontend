@@ -10,7 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import MainPaymentPage from './components/Payments/MainPaymentPage.jsx';
 import ViewAllMyPurchases from './components/Past purchases/ViewAllMyPurchases.jsx';
 import ViewAllListings from './components/ViewAllListings/ViewAllListings.jsx';
-import CampaignProgress from './components/CampaignProgress.jsx';
+import CampaignProgress from './components/CampaignProgress/CampaignProgress.jsx';
 
 function App() {
   return (

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import 'react-vis/dist/style.css';
 import './CampaignProgress.css';
 import {
-  XYPlot,
+  FlexibleXYPlot,
   XAxis,
   Hint,
   LineMarkSeries,
@@ -40,8 +40,9 @@ function ActivityChart() {
 
   return (
     <div>
-      <div className="d-flex justify-content-center">
-        <XYPlot onMouseLeave={() => { setValue(null); }} height={400} width={1000} xType="ordinal">
+      <h4 className="mt-2 ml-5">Past 7 Day Activity</h4>
+      <div className="d-flex justify-content-center activity-graph">
+        <FlexibleXYPlot onMouseLeave={() => { setValue(null); }} xType="ordinal">
           <XAxis tickValues={xAxisTickValues} />
           <LineMarkSeries
             onNearestX={rememberValue}
@@ -83,7 +84,7 @@ function ActivityChart() {
             </div>
           </Hint>
           )}
-        </XYPlot>
+        </FlexibleXYPlot>
       </div>
     </div>
   );
