@@ -32,6 +32,19 @@ export default function EditListing() {
     setEditData({ ...modifiedData });
   };
 
+  const handleImageClose = (imageIndex, imageSrc) => {
+    // Remove the image at the index
+
+  };
+
+  const handleCancel = () => {
+
+  };
+
+  const handleSaveChanges = () => {
+
+  };
+
   const handleDatesChange = ({ startDate, endDate }) => {
     const modifiedData = { ...editData };
     if (startDate) {
@@ -240,13 +253,41 @@ export default function EditListing() {
         </div>
       </div>
 
+      {/* Displays image */}
+      {borderElement()}
       <div className="row mt-2 ml-3 mr-3 p-2">
-        <div />
-        <div className="col">
-          {/* Displays image */}
+        <div className="col-4 muted font-italic">Images</div>
+        <div className="row row-cols-2 row-cols-sm-4 row-cols-lg-5 mt-3 ml-3 mr-3 p-2">
+          {Object.values(editData.images).map((singleImage, index) => (
+            <div className="card h-100 border-0">
+              <div className="card-header mb-4">
+                <button
+                  type="button"
+                  className="close btn btn-sm"
+                  aria-label="Close"
+                  onClick={() => (
+                    handleImageClose(index, singleImage)
+                  )}
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <img src={singleImage} className="latest-list-image rounded card-img-top" alt="..." />
+            </div>
+          ))}
         </div>
       </div>
 
+      {/* Save to db */}
+      {borderElement()}
+      <div className="row m-3 pl-2 justify-content-between">
+        <div className="col-6">
+          <button type="button" className="btn btn-sm btn-primary" onClick={handleCancel}>Cancel</button>
+        </div>
+        <div className="col-6">
+          <button type="button" className="btn btn-sm btn-primary" onClick={handleSaveChanges}>Save</button>
+        </div>
+      </div>
     </div>
   );
 }

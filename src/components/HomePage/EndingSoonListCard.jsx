@@ -32,7 +32,7 @@ export default function EndingSoonListCard({ singleListing }) {
             <img src="no-image-available-icon_m.jpg" className="figure-img img-fluid ending-soon-image border" alt="..." />
           )}
           { (singleListing.images !== undefined && singleListing.images !== null) && (
-            <img src={singleListing.images?.img1} className="figure-img img-fluid ending-soon-image" alt="..." />
+            <img src={/* singleListing.images?.img1 */ Object.values(singleListing.images)?.[0]} className="figure-img img-fluid ending-soon-image" alt="..." />
           )}
 
           <div id="img-overlay">
