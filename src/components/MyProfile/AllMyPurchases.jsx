@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { GroupBuyContext } from '../../store.jsx';
+import { GroupBuyContext, getAllPurchasesAssociatedWUser } from '../../store.jsx';
 // import AllListingsAsCards from './AllListingsAsCards.jsx';
+// import getAllPurchasesAssociatedWUser from '../../store.jsx';
 import BACKEND_URL from '../../helper.js';
 
 export default function AllMyPurchases() {
@@ -13,13 +14,21 @@ export default function AllMyPurchases() {
   useEffect(() => {
     console.log('loggedInUsername is:');
     console.log(loggedInUsername);
-    axios.post(`${BACKEND_URL}/allPurchases`, { loggedInUsername })
-      .then(({ data }) => {
-        console.log('data is:');
-        console.log(data);
-        setAllPurchases(data);
-      })
-      .catch((error) => console.log(error));
+    getAllPurchasesAssociatedWUser(loggedInUsername)
+      .then((result) => {
+        console.log('result is:');
+        console.log(result);
+      });
+
+    // setAllPurchases(getAllPurchasesAssociatedWUser(loggedInUsername));
+
+  //   axios.post(`${BACKEND_URL}/allPurchases`, { loggedInUsername })
+  //     .then(({ data }) => {
+  //       console.log('data is:');
+  //       console.log(data);
+  //       setAllPurchases(data);
+  //     })
+  //     .catch((error) => console.log(error));
   }, []);
 
   const AllListingsTable = () => {
@@ -27,13 +36,13 @@ export default function AllMyPurchases() {
     const formatListingsAsTable = allPurchases.map((eachEl, tableIndex) => (
       <div className="row">
         <div className="col">
-          {tableIndex}
+          {tableIndex + 1}
         </div>
         <div className="col">
           {eachEl.listing.title}
         </div>
         <div className="col">
-          <img src={eachEl.listing.images.img1} alt="listingImg" />
+          <img src={eachEl.listing.images.img1} alt="listingImg" className="img-responsive" width="100%" />
         </div>
       </div>
     ));
@@ -42,7 +51,7 @@ export default function AllMyPurchases() {
   };
 
   return (
-    <div className="container">
+    <div className="container ProfilePg-PurchasesTable">
       <div className="row">
         <div className="col">
           Past purchases

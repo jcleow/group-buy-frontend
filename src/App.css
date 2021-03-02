@@ -68,3 +68,19 @@
    border:none;
    color:white;
  }
+ .ProfilePg-ListingsTable{
+    margin-left:auto;
+   margin-right:auto;
+   height:60vh;
+   overflow:scroll;
+ }
+ .ProfilePg-PurchasesTable{
+   margin-left:auto;
+   margin-right:auto;
+   height:60vh;
+   overflow:scroll;
+ }
+
+ .ProfilePg-PurchasesTable .col{
+   height:100px;
+ }

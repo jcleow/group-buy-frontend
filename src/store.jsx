@@ -325,3 +325,13 @@ export function recordPurchase(dispatch, uploadedFile, listingPK) {
       console.log('image url has been saved to db successfully');
     });
 }
+
+export function getAllPurchasesAssociatedWUser(userName) {
+  axios.post(`${BACKEND_URL}/allPurchases`, { userName })
+    .then(({ data }) => {
+      console.log('data is:');
+      console.log(data);
+      return data;
+    })
+    .catch((error) => console.log(error));
+}
