@@ -7,6 +7,35 @@ export const LISTING_STATUSES = {
   COMPLETED: 'completed',
 };
 
+export const getListingStatusDesc = (listingStatusList) => {
+  const listingStatusDesc = {};
+  listingStatusList.forEach((listingStatus) => {
+    switch (listingStatus)
+    {
+      case LISTING_STATUSES.BELOW_MOQ: {
+        listingStatusDesc[listingStatus] = 'Below MOQ';
+        break;
+      }
+      case LISTING_STATUSES.ABOVE_MOQ: {
+        listingStatusDesc[listingStatus] = 'Above MOQ';
+        break;
+      }
+      case LISTING_STATUSES.CANCELLED: {
+        listingStatusDesc[listingStatus] = 'Campaign Cancelled';
+        break;
+      }
+      case LISTING_STATUSES.COMPLETED: {
+        listingStatusDesc[listingStatus] = 'Campaign Completed';
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+  });
+  return listingStatusDesc;
+};
+
 export const getListingCurrentStatus = (listingStatus) => {
   switch (listingStatus)
   {

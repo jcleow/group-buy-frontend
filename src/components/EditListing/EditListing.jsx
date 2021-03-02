@@ -4,21 +4,21 @@ import React, {
 } from 'react';
 import { writeStorage, useLocalStorage } from '@rehooks/local-storage';
 import { GroupBuyContext, LISTING_VIEW_MODES } from '../../store.jsx';
-import { getListingCurrentStatus, calcDiscountPct, findRelativeSaleEndingTime } from '../utility/listingHelper.js';
+import { getListingCurrentStatus, calcDiscountPct, getListingStatusDesc } from '../utility/listingHelper.js';
 import './EditListing.css';
 
 export default function EditListing() {
   const { store, dispatch } = useContext(GroupBuyContext);
-  const { selectedListingData, categories } = store;
+  const { selectedListingData, categories, listingStatus } = store;
   const [editData, setEditData] = useState({ ...selectedListingData });
 
-  const titleElement = useRef(null);
+  const listingStatusDesc = getListingStatusDesc(listingStatus);
 
-  const handleEdit = (colName) => {
-    titleElement.current.contentEditable = true;
-  };
-
-  const getEditIcon = (colName) => (<button type="button" className="btn btn-sm" onClick={() => handleEdit(colName)}><sup className="edit-icon">&#9998;</sup></button>);
+  // const titleElement = useRef(null);
+  // const handleEdit = (colName) => {
+  //   titleElement.current.contentEditable = true;
+  // };
+  // const getEditIcon = (colName) => (<button type="button" className="btn btn-sm" onClick={() => handleEdit(colName)}><sup className="edit-icon">&#9998;</sup></button>);
 
   const handleOnChange = (event, attrName) => {
     const modifiedData = { ...editData };
@@ -110,7 +110,7 @@ export default function EditListing() {
           <span className="muted font-italic">
             Allow oversubscription
             {' '}
-            <sm className="small">[allows subscription beyond the given quantity]</sm>
+            <small>[allows subscription beyond the given quantity]</small>
           </span>
         </div>
       </div>
@@ -126,12 +126,30 @@ export default function EditListing() {
       </div>
 
       {/* deliveryDate */}
+
       {/* deliveryMode */}
 
       {/* endDate */}
       {/* startDate */}
-      {/* images */}
+
       {/* listingStatus */}
+      <div className="row mt-3 ml-3 pl-2">
+        <div className="col-4 muted font-italic">Status</div>
+        <div className="col-8">
+          <select
+            id="new-category"
+            className="form-select border-0 text-capitalize"
+            value={editData.listingStatus}
+            onChange={(event) => handleOnChange(event, 'listingStatus')}
+          >
+            {listingStatus.map((listingStatusOption, index) => (
+              <option key={`option-${Number(index)}`} value={listingStatusOption} selected={(listingStatusOption === editData.listingStatus)}>{listingStatusDesc[listingStatusOption]}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      {/* images */}
 
       {/* tnc */}
 
@@ -192,20 +210,6 @@ export default function EditListing() {
         </div>
       </div>
 
-      <div className="row mt-3 ml-3">
-        <div className="col">
-          <h6>
-            Details of
-            { ' '}
-            {editData.title}
-          </h6>
-        </div>
-        <div className="col-12">
-          <p>
-            {editData.description}
-          </p>
-        </div>
-      </div>
       <div className="row mt-3 ml-3">
         <div className="col">
           <h6>

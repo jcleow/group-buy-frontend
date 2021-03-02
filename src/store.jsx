@@ -42,6 +42,7 @@ const SET_TOTAL_QUANTITY_ORDERED = 'SET_TOTAL_QUANTITY_ORDERED';
 
 // Used to load the intial category list. Returned as part of load listings
 const LOAD_CATEGORIES = 'LOAD_CATEGORIES';
+const LOAD_LISTING_STATUS = 'LOAD_LISTING_STATUS';
 
 // Used for tracking currUsername and currUserId
 const SET_USERNAME = 'SET_USERNAME';
@@ -111,6 +112,8 @@ export function groupBuyReducer(state, action) {
       return { ...state, totalQuantityOrdered: action.payload.totalQuantityOrdered };
     case LOAD_CATEGORIES:
       return { ...state, categories: ['All', ...action.payload.categories] };
+    case LOAD_LISTING_STATUS:
+      return { ...state, listingStatus: [...action.payload.listingStatus] };
     case SET_USERNAME:
       return { ...state, loggedInUsername: action.payload.username };
     case SET_USERID:
@@ -215,6 +218,16 @@ export function loadCategoriesAction(categories) {
   };
 }
 
+// Action function that sets the returned list of categories to state
+export function loadListingStatusesAction(listingStatus) {
+  return {
+    type: LOAD_LISTING_STATUS,
+    payload: {
+      listingStatus,
+    },
+  };
+}
+
 export function setLoggedInUsername(username) {
   return {
     type: SET_USERNAME,
@@ -291,6 +304,7 @@ export function loadListings(dispatch, setAllCategories, setBtnArray) {
     dispatch(sortListingsByEndDateAction());
     dispatch(sortAndFilterListingsByCreatedDate());
     dispatch(loadCategoriesAction(result.data.categories));
+    dispatch(loadListingStatusesAction(result.data.listingStatus));
     setAllCategories(result.data.categories);
     const allBtnsState = result.data.categories.map((_) => false);
     setBtnArray([true, ...allBtnsState]);
