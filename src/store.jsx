@@ -305,6 +305,7 @@ export function loadListings(dispatch, setAllCategories, setBtnArray) {
     dispatch(sortAndFilterListingsByCreatedDate());
     dispatch(loadCategoriesAction(result.data.categories));
     dispatch(loadListingStatusesAction(result.data.listingStatus));
+    // to do: for delivery modes also
     setAllCategories(result.data.categories);
     const allBtnsState = result.data.categories.map((_) => false);
     setBtnArray([true, ...allBtnsState]);

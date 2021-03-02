@@ -3,6 +3,7 @@
   transform: rotateZ(90deg);
 }
 
-#new-description {
+#new-description,
+#new-tnc {
   min-width: 85%;
 }
