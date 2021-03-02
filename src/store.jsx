@@ -319,9 +319,9 @@ export function createListing(dispatch, listing) {
   });
 }
 
-export function recordPurchase(dispatch, uploadedFile, listingPK) {
+export function recordPurchase(dispatch, uploadedFile, listingPK, qtyOrdered) {
   // If is use {uploadedFile and CurrItemPk, req.files becomes empty obj in my purchases controller}
-  return axios.post(`${BACKEND_URL}/recordPurchase/${listingPK}`, uploadedFile)
+  return axios.post(`${BACKEND_URL}/recordPurchase/${listingPK}/${qtyOrdered}`, uploadedFile)
     .then(() => {
       // what to do after store the img?
       console.log('image url has been saved to db successfully');
