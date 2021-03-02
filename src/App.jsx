@@ -8,8 +8,8 @@ import ViewListingPerUser from './components/DetailedView/ViewListingPerUser.jsx
 import CreateListingForm from './components/CreateListing/CreateListingForm.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MainPaymentPage from './components/Payments/MainPaymentPage.jsx';
-import ViewAllMyPurchases from './components/Past purchases/ViewAllMyPurchases.jsx';
 import ViewAllListings from './components/ViewAllListings/ViewAllListings.jsx';
+import MainProfilePage from './components/MyProfile/MainProfilePage.jsx';
 
 // import MainPaymentPage from './components/Payments/MainPaymentPage.jsx';
 
@@ -24,8 +24,9 @@ function App() {
           <Route path="/createListing" component={CreateListingForm} />
           <Route path="/listingdetails" component={ViewListingPerUser} />
           <Route path="/payment" component={MainPaymentPage} />
-          <Route path="/viewAllMyPurchases" component={ViewAllMyPurchases} />
           <Route path="/viewAllListings" component={ViewAllListings} />
+          <Route path="/MyProfile" component={MainProfilePage} />
+          {/* <Route path="/viewAllMyPurchases" component={ViewAllMyPurchases} /> */}
           {/* <Route path="/viewAll" component={ViewAll} />
         <Route path="/createNewTrip" component={NewTripHolder} /> */}
         </Switch>

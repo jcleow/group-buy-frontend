@@ -4,7 +4,7 @@ import { GroupBuyContext } from '../../store.jsx';
 // import AllListingsAsCards from './AllListingsAsCards.jsx';
 import BACKEND_URL from '../../helper.js';
 
-export default function ViewAllMyPurchases() {
+export default function AllMyPurchases() {
   const { store, dispatch } = useContext(GroupBuyContext);
   const { loggedInUsername } = store;
   const [allPurchases, setAllPurchases] = useState([]);
@@ -22,18 +22,23 @@ export default function ViewAllMyPurchases() {
       .catch((error) => console.log(error));
   }, []);
 
-  const AllListingsAsCards = () => {
+  const AllListingsTable = () => {
     if (allPurchases.length === 0) return null;
-    const makeListingsIntoCards = allPurchases.map((eachEl) => (
-      <div>
-        { eachEl.listing.title}
-
-        <img src={eachEl.listing.images.img1} alt="listingImg" />
-
+    const formatListingsAsTable = allPurchases.map((eachEl, tableIndex) => (
+      <div className="row">
+        <div className="col">
+          {tableIndex}
+        </div>
+        <div className="col">
+          {eachEl.listing.title}
+        </div>
+        <div className="col">
+          <img src={eachEl.listing.images.img1} alt="listingImg" />
+        </div>
       </div>
     ));
 
-    return makeListingsIntoCards;
+    return formatListingsAsTable;
   };
 
   return (
@@ -45,7 +50,7 @@ export default function ViewAllMyPurchases() {
       </div>
       <div className="row">
         <div className="col">
-          <AllListingsAsCards />
+          <AllListingsTable />
         </div>
       </div>
     </div>
