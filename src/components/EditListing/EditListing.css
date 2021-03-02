@@ -8,6 +8,10 @@
   min-width: 85%;
 }
 
+.close-div {
+  align-self: center;
+}
+
 /* .close {
   cursor: pointer;
   position: absolute;

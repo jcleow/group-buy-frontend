@@ -2,9 +2,10 @@
 import React, {
   useState, useContext, useEffect, useRef,
 } from 'react';
+import { LinkContainer } from 'react-router-bootstrap';
 import { writeStorage, useLocalStorage } from '@rehooks/local-storage';
 import { DateRangePicker, SingleDatePicker } from 'react-dates';
-import { GroupBuyContext, LISTING_VIEW_MODES } from '../../store.jsx';
+import { GroupBuyContext, selectListingAction } from '../../store.jsx';
 import { getListingCurrentStatus, calcDiscountPct, getListingStatusDesc } from '../utility/listingHelper.js';
 import './EditListing.css';
 import 'react-dates/initialize';
@@ -38,7 +39,7 @@ export default function EditListing() {
   };
 
   const handleCancel = () => {
-
+    dispatch(selectListingAction(selectedListingData));
   };
 
   const handleSaveChanges = () => {
@@ -85,7 +86,7 @@ export default function EditListing() {
         <div className="col-8">
           <select
             id="new-category"
-            className="form-select border-0 text-capitalize"
+            className="form-select border-0"
             value={editData.category}
             onChange={(event) => handleOnChange(event, 'category')}
           >
@@ -259,8 +260,8 @@ export default function EditListing() {
         <div className="col-4 muted font-italic">Images</div>
         <div className="row row-cols-2 row-cols-sm-4 row-cols-lg-5 mt-3 ml-3 mr-3 p-2">
           {Object.values(editData.images).map((singleImage, index) => (
-            <div className="card h-100 border-0">
-              <div className="card-header mb-4">
+            <div className="card h-100 border-0 mr-1">
+              <div className="mb-4 close-div">
                 <button
                   type="button"
                   className="close btn btn-sm"
@@ -272,7 +273,7 @@ export default function EditListing() {
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <img src={singleImage} className="latest-list-image rounded card-img-top" alt="..." />
+              <img src={singleImage} className="rounded card-img-top" alt="..." />
             </div>
           ))}
         </div>
@@ -282,7 +283,9 @@ export default function EditListing() {
       {borderElement()}
       <div className="row m-3 pl-2 justify-content-between">
         <div className="col-6">
-          <button type="button" className="btn btn-sm btn-primary" onClick={handleCancel}>Cancel</button>
+          <LinkContainer to="/listingdetails" onClick={handleCancel}>
+            <span className="btn btn-sm btn-primary">Cancel</span>
+          </LinkContainer>
         </div>
         <div className="col-6">
           <button type="button" className="btn btn-sm btn-primary" onClick={handleSaveChanges}>Save</button>
