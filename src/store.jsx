@@ -13,6 +13,7 @@ export const LISTING_VIEW_MODES = {
 export const initialState = {
   listings: [],
   categories: [],
+  listingStatus: [],
   sortedListingsByCreatedDate: [],
   // sortedListingsByCategories: [],
   displayListingDetails: false,

@@ -7,6 +7,7 @@ import {
   setTotalQuantityOrdered,
 } from '../../store.jsx';
 import ListingImagesCarousel from './ListingImagesCarousel.jsx';
+import { calcDiscountPct } from '../utility/listingHelper.js';
 
 export default function DetailedListingView({ children }) {
   const [progressPercent, setProgressPercent] = useState(0);
@@ -80,10 +81,12 @@ export default function DetailedListingView({ children }) {
             <figcaption className="figure-caption text-dark font-weight-bolder mt-1">{selectedListingData.title}</figcaption>
           </figure>
           {findPurchaseCountPerListing(selectedListingData.id, setProgressPercent)}
-          <div className="progress">
-            <div id="order-progress" className="progress-bar progress-bar-striped bg-warning" role="progressbar" style={{ width: `${progressPercent}%` }} aria-valuenow={progressPercent} aria-valuemin="0" aria-valuemax="100" />
+          <div className="col-6">
+            <div className="progress">
+              <div id="order-progress" className="progress-bar progress-bar-striped bg-warning" role="progressbar" style={{ width: `${progressPercent}%` }} aria-valuenow={progressPercent} aria-valuemin="0" aria-valuemax="100" />
+            </div>
           </div>
-          <div className="text-muted order-progress-label">
+          <div className="col text-muted order-progress-label">
             Ordered so far -
             {' '}
             { ' '}
@@ -107,6 +110,12 @@ export default function DetailedListingView({ children }) {
             $
             {Number(selectedListingData.discountedPrice)}
           </span>
+        </div>
+        <div className="col-12 mt-2 text-muted">
+          <span className="font-italic small">Discount:</span>
+          {' '}
+          {calcDiscountPct(selectedListingData.discountedPrice, selectedListingData.usualPrice)}
+          %
         </div>
       </div>
 
@@ -171,6 +180,22 @@ export default function DetailedListingView({ children }) {
           {' '}
           {' '}
           {new Date(selectedListingData.endDate).toDateString()}
+        </div>
+      </div>
+      <div className="row mt-3 ml-3">
+        <div className="col">
+          <span className="font-italic small">Posted On:</span>
+          {' '}
+          {' '}
+          {new Date(selectedListingData.createdAt).toDateString()}
+        </div>
+      </div>
+      <div className="row mt-3 ml-3">
+        <div className="col">
+          <span className="font-italic small">Last updated On:</span>
+          {' '}
+          {' '}
+          {new Date(selectedListingData.updatedAt).toDateString()}
         </div>
       </div>
       <div className="row mt-3 ml-3">

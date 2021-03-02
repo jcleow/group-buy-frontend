@@ -3,6 +3,7 @@ import { writeStorage } from '@rehooks/local-storage';
 import { Form, Button } from 'react-bootstrap';
 import NumberFormat from 'react-number-format';
 import { CreateListingContext, CREATE_LISTING_FORM, formModes } from '../../createListingStore.jsx';
+import { calcDiscountPct } from '../utility/listingHelper.js';
 
 export default function QtyAndPrice({ setMode }) {
   // Constant for allowing oversubs in form
@@ -29,14 +30,14 @@ export default function QtyAndPrice({ setMode }) {
     setMode('ABOUT_ITEM');
   };
 
-  const calcDiscountPct = () => {
-    const discountDecimals = 100 - (Number(formStore.discountedPrice?.replace(/[$,]/g, '')) / Number(formStore.usualPrice?.replace(/[$,]/g, ''))) * 100;
-    const discountPct = discountDecimals.toFixed(2);
-    if (discountPct !== Infinity && discountPct !== 'NaN') {
-      return discountPct;
-    }
-    return '0.00';
-  };
+  // const calcDiscountPct = () => {
+  //   const discountDecimals = 100 - (Number(formStore.discountedPrice?.replace(/[$,]/g, '')) / Number(formStore.usualPrice?.replace(/[$,]/g, ''))) * 100;
+  //   const discountPct = discountDecimals.toFixed(2);
+  //   if (discountPct !== Infinity && discountPct !== 'NaN') {
+  //     return discountPct;
+  //   }
+  //   return '0.00';
+  // };
 
   return (
     <Form>
@@ -116,7 +117,7 @@ export default function QtyAndPrice({ setMode }) {
         <Form.Label>
           Discount:
           {' '}
-          {calcDiscountPct()}
+          {calcDiscountPct(formStore.discountedPrice, formStore.usualPrice)}
           {' '}
           %
         </Form.Label>
