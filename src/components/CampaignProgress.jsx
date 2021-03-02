@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import 'react-vis/dist/style.css';
+import './CampaignProgress.css';
 import {
   XYPlot,
   XAxis,
@@ -88,9 +89,30 @@ function ActivityChart() {
   );
 }
 
-function allPurchasersTable() {
+function CampaignPurchasersTable() {
   return (
-    <div />
+    <div className="d-flex flex-row justify-content-center purchaser-table">
+      <table className="text-center">
+        <tr>
+          <th className="sticky-col first-col">S/N</th>
+          <th className="second-col">Username</th>
+          <th className="normal-col">Payment Status</th>
+          <th className="normal-col">Quantity</th>
+          <th className="normal-col">Date Participated</th>
+          <th className="normal-col">Reputation</th>
+          <th className="normal-col">Date Delivered</th>
+        </tr>
+        <tr>
+          <td className="sticky-col first-col">1</td>
+          <td className="second-col">Jit Corn</td>
+          <td className="normal-col">Paid</td>
+          <td className="normal-col">30</td>
+          <td className="normal-col">3/12/2020</td>
+          <td className="normal-col">48/50</td>
+          <td className="normal-col">1/3/2021</td>
+        </tr>
+      </table>
+    </div>
   );
 }
 
@@ -98,6 +120,7 @@ export default function CampaignProgress() {
   return (
     <div>
       <ActivityChart />
+      <CampaignPurchasersTable />
     </div>
   );
 }

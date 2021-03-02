@@ -48,6 +48,9 @@ export default function NavbarComponent() {
             <LinkContainer to="/viewAllMyPurchases">
               <Nav.Link>All purchases</Nav.Link>
             </LinkContainer>
+            <LinkContainer to="/campaignProgress">
+              <Nav.Link>Campaign Progress</Nav.Link>
+            </LinkContainer>
           </Nav>
           <Nav className="ml-auto">
             {store.loggedInUsername

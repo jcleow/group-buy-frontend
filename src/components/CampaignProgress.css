@@ -1,0 +1,41 @@
+/** @format */
+
+/* .purchaser-table {
+  position: relative;
+  overflow: auto;
+  border: 1px solid black;
+  white-space: nowrap;
+  margin: auto;
+  width: 500px;
+} */
+
+@media (max-width: 767.98px) {
+  .purchaser-table {
+    position: relative;
+    overflow: auto;
+    border: 1px solid black;
+    white-space: nowrap;
+    margin: auto;
+    width: 300px;
+  }
+  .sticky-col {
+    position: sticky;
+    position: -webkit-sticky;
+    background-color: white;
+  }
+  .first-col {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+    left: 0px;
+  }
+  .second-col {
+    width: 100px;
+    min-width: 100px;
+    padding-left: 400px;
+  }
+  .normal-col {
+    width: 100px;
+    min-width: 100px;
+  }
+}

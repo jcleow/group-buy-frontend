@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer } from 'react';
 import { writeStorage, useLocalStorage } from '@rehooks/local-storage';
 import axios from 'axios';
 
@@ -92,13 +92,6 @@ export function CreateListingProvider({ children }) {
     dispatchListingForm({ field: e.target.name, value: e.target.value });
     writeStorage(CREATE_LISTING_FORM, { ...formLocalStorage, [e.target.name]: e.target.value });
   };
-
-  // useEffect(() => {
-  //   Object.entries(initialFormState).forEach([key,value] => {
-  //     const storageValue = useStorage(`${key}`)
-  //   })
-
-  // });
 
   return (
     <Provider value={{
