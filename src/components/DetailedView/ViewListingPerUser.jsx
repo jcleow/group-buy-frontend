@@ -16,7 +16,6 @@ export default function ViewListingPerUser() {
   } = store;
   const [getDetailedListView] = useLocalStorage('detailedListView');
   const [getListViewDisplayMode] = useLocalStorage('ListViewDisplayMode');
-  console.log(getListViewDisplayMode);
 
   /**
    * Function to write the lisitings data into storage or to read it from storage
@@ -62,10 +61,6 @@ export default function ViewListingPerUser() {
     }
   }, []);
 
-  const handleClickNextButton = () => {
-
-  };
-
   const handleEdit = () => {
     console.log('Edit');
   };
@@ -85,7 +80,7 @@ export default function ViewListingPerUser() {
           <div className={rowClasses}>
             <QuantityPicker />
             <div className={colClasses}>
-              <LinkContainer to="/testPayment" onClick={handleClickNextButton}>
+              <LinkContainer to="/payment">
                 <span className="btn btn-sm btn-warning">Buy</span>
               </LinkContainer>
             </div>
@@ -97,7 +92,9 @@ export default function ViewListingPerUser() {
         return (
           <div className={rowClasses}>
             <div className={colClasses}>
-              <button type="button" className="btn btn-sm btn-warning" onClick={handleEdit}>Edit</button>
+              <LinkContainer to="/editListing">
+                <span className="btn btn-sm btn-warning">Edit</span>
+              </LinkContainer>
             </div>
             <div className={colClasses}>
               <button type="button" className="btn btn-sm btn-warning" onClick={handleDelete}>Delete</button>

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
-import { deleteFromStorage } from '@rehooks/local-storage';
+// import { deleteFromStorage } from '@rehooks/local-storage';
 import { Link } from 'react-router-dom';
 import { GroupBuyContext, resetSelectedItemNQty } from '../../store.jsx';
 import PAGE_NAMES from '../utility/paymentPageNames.js';
@@ -11,7 +11,7 @@ export default function ConfirmationOfReceipt({ setMode }) {
 
   const handleBtnClick = () => {
     // clear the local storage
-    deleteFromStorage('mode');
+    // deleteFromStorage('mode');
   };
 
   console.log('store.totalQuantityOrdered before reset');
@@ -24,12 +24,13 @@ export default function ConfirmationOfReceipt({ setMode }) {
   }, []);
 
   return (
-    <>
+    <div className="container m-4 ml-auto mr-auto">
       <div className="row">
-        <div className="col">
-          {/* insert the summary of item purchased, qty, price per unit, and total price */}
+        <div className="col payment-form-progress-bar">
+          <button type="button">⬅️ Payment instructions</button>
         </div>
       </div>
+
       <div className="row">
         <div className="col terms-n-conditions">
           <div>
@@ -48,7 +49,7 @@ export default function ConfirmationOfReceipt({ setMode }) {
           </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -10,7 +10,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import MainPaymentPage from './components/Payments/MainPaymentPage.jsx';
 import ViewAllMyPurchases from './components/Past purchases/ViewAllMyPurchases.jsx';
 import ViewAllListings from './components/ViewAllListings/ViewAllListings.jsx';
+<<<<<<< HEAD
 import CampaignProgress from './components/CampaignProgress/CampaignProgress.jsx';
+=======
+import EditListing from './components/EditListing/EditListing.jsx';
+
+// import MainPaymentPage from './components/Payments/MainPaymentPage.jsx';
+>>>>>>> main
 
 function App() {
   return (
@@ -21,10 +27,16 @@ function App() {
           <Route path="/home" component={HomePage} />
           <Route path="/createListing" component={CreateListingForm} />
           <Route path="/listingdetails" component={ViewListingPerUser} />
-          <Route path="/testPayment" component={MainPaymentPage} />
+          <Route path="/payment" component={MainPaymentPage} />
           <Route path="/viewAllMyPurchases" component={ViewAllMyPurchases} />
           <Route path="/viewAllListings" component={ViewAllListings} />
+<<<<<<< HEAD
           <Route path="/campaignProgress" component={CampaignProgress} />
+=======
+          <Route path="/editListing" component={EditListing} />
+          {/* <Route path="/viewAll" component={ViewAll} />
+        <Route path="/createNewTrip" component={NewTripHolder} /> */}
+>>>>>>> main
         </Switch>
       </Router>
     </GroupBuyProvider>
