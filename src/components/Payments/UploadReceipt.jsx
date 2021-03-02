@@ -10,7 +10,7 @@ export default function UploadReceipt({ setMode }) {
   const [selectedFile, setSelectedFile] = useState(null);
   // destructuring to get dispatch
   const { store, dispatch } = useContext(GroupBuyContext);
-  const { selectedListingData } = store;
+  const { selectedListingData, totalQuantityOrdered } = store;
 
   const handleBtnClick = () => {
     // save the state to the cookie
@@ -29,8 +29,8 @@ export default function UploadReceipt({ setMode }) {
   const handleFileUpload = () => {
     const data = new FormData();
     data.append('receiptImg', selectedFile);
-    data.append('selectedListingData', selectedListingData);
-    recordPurchase(dispatch, data, selectedListingData.id);
+    // data.append('selectedListingData', selectedListingData);
+    recordPurchase(dispatch, data, selectedListingData.id, totalQuantityOrdered);
 
     setMode(PAGE_NAMES.CONFIRMATION_OF_RECEIPT);
     // writeStorage('mode', PAGE_NAMES.CONFIRMATION_OF_RECEIPT);
