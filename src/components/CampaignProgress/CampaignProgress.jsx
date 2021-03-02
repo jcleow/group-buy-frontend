@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import 'react-vis/dist/style.css';
 import './CampaignProgress.css';
 import {
@@ -11,6 +11,8 @@ import {
   LineSeries,
 
 } from 'react-vis';
+
+import { loadCurrlistingPurchases, CampaignProgressProvider, CampaignProgressContext } from '../../campaignProgressStore.jsx';
 
 function ActivityChart() {
   const [value, setValue] = useState(null);
@@ -91,6 +93,11 @@ function ActivityChart() {
 }
 
 function CampaignPurchasersTable() {
+  const { campaignStore, dispatchCampaignStore } = useContext(CampaignProgressContext);
+
+  useEffect(() => {
+    loadCurrlistingPurchases(dispatchCampaignStore, 1);
+  }, []);
   return (
     <div className="d-flex flex-row justify-content-center purchaser-table">
       <table className="text-center">
@@ -119,9 +126,11 @@ function CampaignPurchasersTable() {
 
 export default function CampaignProgress() {
   return (
-    <div>
-      <ActivityChart />
-      <CampaignPurchasersTable />
-    </div>
+    <CampaignProgressProvider>
+      <div>
+        <ActivityChart />
+        <CampaignPurchasersTable />
+      </div>
+    </CampaignProgressProvider>
   );
 }
