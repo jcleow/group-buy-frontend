@@ -14,7 +14,6 @@ export const initialState = {
   listings: [],
   categories: [],
   sortedListingsByCreatedDate: [],
-  // sortedListingsByCategories: [],
   displayListingDetails: false,
   selectedListingData: {},
   currentListViewDisplayMode: LISTING_VIEW_MODES.DEFAULT_LISTING_VIEW,
@@ -290,6 +289,8 @@ export function loadListings(dispatch, setAllCategories, setBtnArray) {
     dispatch(sortListingsByEndDateAction());
     dispatch(sortAndFilterListingsByCreatedDate());
     dispatch(loadCategoriesAction(result.data.categories));
+
+    // To set all the categories in the buttons
     setAllCategories(result.data.categories);
     const allBtnsState = result.data.categories.map((_) => false);
     setBtnArray([true, ...allBtnsState]);
