@@ -10,13 +10,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import MainPaymentPage from './components/Payments/MainPaymentPage.jsx';
 import ViewAllMyPurchases from './components/Past purchases/ViewAllMyPurchases.jsx';
 import ViewAllListings from './components/ViewAllListings/ViewAllListings.jsx';
-<<<<<<< HEAD
 import CampaignProgress from './components/CampaignProgress/CampaignProgress.jsx';
-=======
 import EditListing from './components/EditListing/EditListing.jsx';
 
 // import MainPaymentPage from './components/Payments/MainPaymentPage.jsx';
->>>>>>> main
 
 function App() {
   return (
