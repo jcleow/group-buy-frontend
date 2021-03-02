@@ -10,16 +10,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import MainPaymentPage from './components/Payments/MainPaymentPage.jsx';
 import ViewAllMyPurchases from './components/Past purchases/ViewAllMyPurchases.jsx';
 import ViewAllListings from './components/ViewAllListings/ViewAllListings.jsx';
+import CampaignProgress from './components/CampaignProgress/CampaignProgress.jsx';
 import EditListing from './components/EditListing/EditListing.jsx';
-
-// import MainPaymentPage from './components/Payments/MainPaymentPage.jsx';
 
 function App() {
   return (
     <GroupBuyProvider>
       <Router>
         <NavbarComponent />
-        {/* <MainPaymentPage /> */}
         <Switch>
           <Route path="/home" component={HomePage} />
           <Route path="/createListing" component={CreateListingForm} />
@@ -27,6 +25,7 @@ function App() {
           <Route path="/payment" component={MainPaymentPage} />
           <Route path="/viewAllMyPurchases" component={ViewAllMyPurchases} />
           <Route path="/viewAllListings" component={ViewAllListings} />
+          <Route path="/campaignProgress" component={CampaignProgress} />
           <Route path="/editListing" component={EditListing} />
           {/* <Route path="/viewAll" component={ViewAll} />
         <Route path="/createNewTrip" component={NewTripHolder} /> */}
