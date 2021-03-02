@@ -12,10 +12,48 @@ import {
 
 } from 'react-vis';
 
-import { loadCurrlistingPurchases, CampaignProgressProvider, CampaignProgressContext } from '../../campaignProgressStore.jsx';
+import { loadCurrlistingPurchases as loadCurrListingPurchases, CampaignProgressProvider, CampaignProgressContext } from '../../campaignProgressStore.jsx';
+
+// Helper that generates and pushes the past 7 days
+const generatePastSevenDays = () => {
+  const pastSevenDaysArray = [];
+  for (let i = 7; i >= 0; i -= 1) {
+    // Start from today's date then progressive go backwards
+    const singleDate = new Date();
+    singleDate.setDate(singleDate.getDate() - i);
+
+    // Format into DD/MM
+    const options = { day: '2-digit', month: '2-digit' };
+    const formattedDate = singleDate.toLocaleDateString('en-GB', options);
+
+    // Append into an accumulative array
+    pastSevenDaysArray.push(formattedDate);
+  }
+  return pastSevenDaysArray;
+};
+
+// Helper that gets the lowest y-value
+const getLowestYVal = (purchaseRange) => {
+  let yLow = null;
+  purchaseRange.forEach((day) => {
+    if (day.y < yLow || yLow === null) {
+      yLow = day.y;
+    }
+  });
+
+  if (yLow !== null) {
+    return yLow;
+  }
+  return 0;
+};
 
 function ActivityChart() {
   const [value, setValue] = useState(null);
+  const { campaignStore, dispatchCampaign } = useContext(CampaignProgressContext);
+  useEffect(() => {
+    // pass in dispatch fn and currListingId
+    loadCurrListingPurchases(dispatchCampaign, 3);
+  }, []);
 
   // Handler for hovering away from curr data point
   const forgetValue = () => {
@@ -27,41 +65,34 @@ function ActivityChart() {
     setValue(val);
   };
 
-  const xAxisTickValues = [];
-  const dataPoints = [{ x: 0, y: 8 },
-    { x: 1, y: 5 },
-    { x: 2, y: 4 },
-    { x: 3, y: 9 },
-    { x: 4, y: 1 },
-    { x: 5, y: 7 },
-    { x: 6, y: 6 },
-    { x: 7, y: 3 },
-    { x: 8, y: 2 },
-    { x: 9, y: 0 }];
-  const YLOW = 0;
+  const xAxisTickValues = generatePastSevenDays();
+
+  // Y axis to be filled up with Count of purchases
+  const dailyPurchasesCount = campaignStore.pastSevenDaysCount;
+  const YLOW = getLowestYVal(dailyPurchasesCount);
 
   return (
     <div>
-      <h4 className="mt-2 ml-5">Past 7 Day Activity</h4>
+      <h4 className="mt-2 ml-5">Daily Purchase Count (7 Days)</h4>
       <div className="d-flex justify-content-center activity-graph">
         <FlexibleXYPlot onMouseLeave={() => { setValue(null); }} xType="ordinal">
           <XAxis tickValues={xAxisTickValues} />
           <LineMarkSeries
             onNearestX={rememberValue}
             onValueMouseOut={forgetValue}
-            color="#846AFD"
-            data={dataPoints}
+            color="#F37B36"
+            data={dailyPurchasesCount}
             size={0}
           />
           <GradientDefs>
             <linearGradient id="CoolGradient" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor="#846AFD" stopOpacity={0.4} />
+              <stop offset="0%" stopColor="#F37B36" stopOpacity={0.4} />
               <stop offset="100%" stopColor="#FAF9FF" stopOpacity={0.1} />
             </linearGradient>
           </GradientDefs>
           <AreaSeries
             color="url(#CoolGradient)"
-            data={dataPoints}
+            data={dailyPurchasesCount}
           />
           {value ? (
             <LineSeries
@@ -80,8 +111,9 @@ function ActivityChart() {
                 <b>{value.x}</b>
               </p>
               <p>
-                Total Value:
+                Total Purchases:
                 {' '}
+                <b>{value.y}</b>
               </p>
             </div>
           </Hint>
@@ -97,22 +129,27 @@ function CampaignPurchasersTable() {
 
   useEffect(() => {
     // pass in dispatch fn and currListingId
-    loadCurrlistingPurchases(dispatchCampaign, 2);
+    loadCurrListingPurchases(dispatchCampaign, 3);
   }, []);
 
   const rowsOfPurchases = campaignStore.allPurchases.map((purchase, i) => {
     const {
       username, paymentStatus, createdAt, reputation, dateDelivered,
     } = purchase;
+
+    // format the dates
+    const formattedDateDelivered = new Date(dateDelivered).toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: '2-digit' });
+    const formattedCreatedAt = new Date(createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: '2-digit' });
+
     return (
       <tr>
         <td className="sticky-col first-col">{i + 1}</td>
         <td className="second-col">{username}</td>
         <td className="normal-col">{paymentStatus}</td>
-        <td className="normal-col">30</td>
-        <td className="normal-col">{createdAt}</td>
         <td className="normal-col">1</td>
-        <td className="normal-col">{dateDelivered}</td>
+        <td className="normal-col">{formattedCreatedAt}</td>
+        <td className="normal-col">{reputation}</td>
+        <td className="normal-col">{formattedDateDelivered}</td>
       </tr>
     );
   });
