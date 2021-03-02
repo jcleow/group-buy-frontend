@@ -59,7 +59,7 @@ export function loadCurrlistingPurchases(dispatchCampaign, currListingId) {
   axios.get(`${BACKEND_URL}/listing/${currListingId}/allPurchases`)
     .then((result) => {
       console.log(result, 'result');
-      dispatchCampaign(loadPurchasesAction(result.data.allPurchases));
+      dispatchCampaign(loadPurchasesAction(result.data.allFilteredPurchaseData));
     })
     .catch((err) => console.log(err));
 }

@@ -13,8 +13,6 @@ import ViewAllListings from './components/ViewAllListings/ViewAllListings.jsx';
 import CampaignProgress from './components/CampaignProgress/CampaignProgress.jsx';
 import EditListing from './components/EditListing/EditListing.jsx';
 
-// import MainPaymentPage from './components/Payments/MainPaymentPage.jsx';
-
 function App() {
   return (
     <GroupBuyProvider>
