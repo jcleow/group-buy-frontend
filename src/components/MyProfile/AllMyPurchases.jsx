@@ -51,6 +51,7 @@ export default function AllMyPurchases() {
   };
 
   return (
+
     <div className="container ProfilePg-PurchasesTable">
       <div className="row">
         <div className="col">
@@ -79,5 +80,6 @@ export default function AllMyPurchases() {
         </div>
       </div>
     </div>
+
   );
 }
