@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useLocalStorage } from '@rehooks/local-storage';
+// import { useLocalStorage } from '@rehooks/local-storage';
 import PurchaseSummary from './PurchaseSummary.jsx';
 import ConfirmationOfReceipt from './ConfirmationOfReceipt.jsx';
 import UploadReceipt from './UploadReceipt.jsx';
@@ -25,14 +25,14 @@ export default function MainPaymentPage() {
 
   const [mode, setMode] = useState(PURCHASE_SUMMARY);
 
-  const [currPage] = useLocalStorage('mode');
-  console.log('currPage is:');
-  console.log(currPage);
-  useEffect(() => {
-    if (currPage && (currPage !== null) && (currPage !== PURCHASE_SUMMARY)) {
-      setMode(currPage);
-    }
-  }, []);
+  // const [currPage] = useLocalStorage('mode');
+  // console.log('currPage is:');
+  // console.log(currPage);
+  // useEffect(() => {
+  //   if (currPage && (currPage !== null) && (currPage !== PURCHASE_SUMMARY)) {
+  //     setMode(currPage);
+  //   }
+  // }, []);
 
   // use 'mode' to control when each page should display
   const managePageDisplay = () => {

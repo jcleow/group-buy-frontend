@@ -1,5 +1,6 @@
 :root{
---fadedDescription: #CDCDCD
+--fadedDescription: #CDCDCD;
+--headerBackground: #383e56;
 }
 
 /**
@@ -57,4 +58,13 @@
 
  .faded-description{
    color: var(--fadedDescription)
+ }
+
+ .payment-form-progress-bar{
+   background-color: var(--headerBackground);
+ }
+ .payment-form-progress-bar button{
+   background-color: transparent;
+   border:none;
+   color:white;
  }
