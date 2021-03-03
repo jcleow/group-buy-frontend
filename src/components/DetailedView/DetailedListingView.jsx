@@ -1,40 +1,17 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { useState, useContext, useEffect } from 'react';
 import moment from 'moment';
-import { writeStorage, useLocalStorage } from '@rehooks/local-storage';
 import {
-  GroupBuyContext, findPurchaseCountPerListing, LISTING_VIEW_MODES, selectListingAction,
-  setTotalQuantityOrdered,
+  GroupBuyContext, findPurchaseCountPerListing, LISTING_VIEW_MODES,
 } from '../../store.jsx';
 import ListingImagesCarousel from './ListingImagesCarousel.jsx';
-import { calcDiscountPct } from '../utility/listingHelper.js';
+import { calcDiscountPct, getListingCurrentStatus, isListingCancelled } from '../utility/listingHelper.js';
 
 export default function DetailedListingView({ children }) {
   const [progressPercent, setProgressPercent] = useState(0);
   const [isImagesPresent, setIsImagesPresent] = useState(false);
   const { store, dispatch } = useContext(GroupBuyContext);
   const { selectedListingData, currentListViewDisplayMode, totalQuantityOrdered } = store;
-  const [getDetailedListView, setDetailedListView, deleteDetailedListView] = useLocalStorage('detailedListView');
-
-  const LISTING_STATUSES = {
-    BELOW_MOQ: 'below-moq',
-    ABOVE_MOQ: 'above-moq',
-    CANCELLED: 'cancelled',
-    COMPLETED: 'completed',
-  };
-
-  const isListingCancelled = () => (selectedListingData.listingStatus === LISTING_STATUSES.CANCELLED);
-
-  const getListingCurrentStatus = () => {
-    switch (selectedListingData.listingStatus)
-    {
-      case LISTING_STATUSES.BELOW_MOQ: { return 'Not reached minimum order to activate the deal'; }
-      case LISTING_STATUSES.ABOVE_MOQ: { return 'Reached minimum order to activate the deal'; }
-      case LISTING_STATUSES.CANCELLED: { return 'Cancelled'; }
-      case LISTING_STATUSES.COMPLETED: { return 'Completed'; }
-      default: { return ''; }
-    }
-  };
 
   // Calculate the progress of order
   useEffect(() => {
@@ -120,7 +97,7 @@ export default function DetailedListingView({ children }) {
       </div>
 
       {(currentListViewDisplayMode !== LISTING_VIEW_MODES.LISTER_LISTING_VIEW
-        && !isListingCancelled()) && children}
+        && !isListingCancelled(selectedListingData.listingStatus)) && children}
 
       {(totalQuantityOrdered !== 0) && (
       <div className="row mt-3 ml-3">
@@ -152,7 +129,7 @@ export default function DetailedListingView({ children }) {
         <div className="col">
           <span className="font-italic small">Status:</span>
           {' '}
-          {getListingCurrentStatus()}
+          {getListingCurrentStatus(selectedListingData.listingStatus)}
         </div>
       </div>
 

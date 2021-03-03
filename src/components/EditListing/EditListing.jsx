@@ -3,7 +3,9 @@ import React, {
   useState, useContext, useEffect, useRef,
 } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
+import { Form } from 'react-bootstrap';
 import { writeStorage, useLocalStorage } from '@rehooks/local-storage';
+import moment from 'moment';
 import { DateRangePicker, SingleDatePicker } from 'react-dates';
 import { GroupBuyContext, selectListingAction } from '../../store.jsx';
 import { getListingCurrentStatus, calcDiscountPct, getListingStatusDesc } from '../utility/listingHelper.js';
@@ -14,23 +16,49 @@ import 'react-dates/lib/css/_datepicker.css';
 export default function EditListing() {
   const { store, dispatch } = useContext(GroupBuyContext);
   const { selectedListingData, categories, listingStatus } = store;
-  const [editData, setEditData] = useState({ ...selectedListingData });
+  const [getEditedListingData, setEditedListingData, deleteEditedListingData] = useLocalStorage('editedListingData');
+  const [getDetailedListView] = useLocalStorage('detailedListView');
+  // const [editData, setEditData] = useState({ ...selectedListingData });
+  const [editData, setEditData] = useState((getEditedListingData)
+    ? { ...getEditedListingData } : { ...selectedListingData });
+
   // Focus states for dateRangePicker and singleDatePicker
   const [rangeFocus, setRangeFocus] = useState(false);
   const [deliveryFocus, setDeliveryFocus] = useState(false);
 
   const listingStatusDesc = getListingStatusDesc(listingStatus);
 
+  console.log(editData);
+  console.log(editData.startDate, editData.endDate);
+  console.log(new Date(editData.startDate), new Date(editData.endDate));
+  console.log(moment(editData.startDate));
+
   // const titleElement = useRef(null);
   // const handleEdit = (colName) => {
   //   titleElement.current.contentEditable = true;
   // };
-  // const getEditIcon = (colName) => (<button type="button" className="btn btn-sm" onClick={() => handleEdit(colName)}><sup className="edit-icon">&#9998;</sup></button>);
+  // const getEditIcon = (colName) => (<button type="button" className="btn btn-sm"
+  // onClick={() => handleEdit(colName)}><sup className="edit-icon">&#9998;</sup></button>);
+
+  useEffect(() => {
+    if (selectedListingData === undefined || selectedListingData === null
+      || Object.keys(selectedListingData).length === 0) {
+      if (getDetailedListView) {
+        dispatch(selectListingAction(getDetailedListView));
+      }
+    }
+  }, []);
 
   const handleOnChange = (event, attrName) => {
     const modifiedData = { ...editData };
     modifiedData[attrName] = event.target.value;
     setEditData({ ...modifiedData });
+    if (getEditedListingData) {
+      setEditedListingData({ ...modifiedData });
+    }
+    else {
+      writeStorage('editedListingData', { ...modifiedData });
+    }
   };
 
   const handleImageClose = (imageIndex, imageSrc) => {
@@ -40,6 +68,7 @@ export default function EditListing() {
 
   const handleCancel = () => {
     dispatch(selectListingAction(selectedListingData));
+    deleteEditedListingData();
   };
 
   const handleSaveChanges = () => {
@@ -75,8 +104,8 @@ export default function EditListing() {
         <div className="col-4 muted font-italic">
           Title of Campaign
         </div>
-        <div className="col-8 h5 text-capitalize">
-          <input type="text" id="new-title" className="border-0 text-capitalize font-weight-bolder" value={editData.title} onChange={(event) => handleOnChange(event, 'title')} />
+        <div className="col-8 h5">
+          <input type="text" id="new-title" className="border-0 font-weight-bolder" value={editData.title} onChange={(event) => handleOnChange(event, 'title')} />
         </div>
       </div>
       {/* category  */}
@@ -208,12 +237,12 @@ export default function EditListing() {
       {/* endDate */}
       {/* startDate */}
       {borderElement()}
-      <div className="row mt-3 ml-3 pl-2">
+      {/* <div className="row mt-3 ml-3 pl-2">
         <div className="col-4 muted font-italic">
           Campaign Start and End Date
         </div>
         <div className="col-8">
-          {/* <DateRangePicker
+          <DateRangePicker
             startDate={new Date(editData.startDate)}
             startDateId={`${editData.startDate}id`}
             endDate={new Date(editData.endDate)}
@@ -221,9 +250,26 @@ export default function EditListing() {
             onDatesChange={handleDatesChange}
             focusedInput={rangeFocus}
             onFocusChange={(focus) => setRangeFocus(focus)}
-          /> */}
+          />
         </div>
-      </div>
+      </div> */}
+
+      <Form>
+        <Form.Group controlId="qtyAvailable">
+          <Form.Label>Campaign Start and End Date</Form.Label>
+          <div>
+            <DateRangePicker
+              startDate={moment(editData.startDate)}
+              startDateId={`${editData.startDate}id`}
+              endDate={moment(editData.endDate)}
+              endDateId={`${editData.endDate}id`}
+              onDatesChange={handleDatesChange}
+              focusedInput={rangeFocus}
+              onFocusChange={(focus) => setRangeFocus(focus)}
+            />
+          </div>
+        </Form.Group>
+      </Form>
 
       {/* listingStatus */}
       {borderElement()}
