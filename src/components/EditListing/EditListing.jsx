@@ -25,6 +25,7 @@ export default function EditListing() {
   // Focus states for dateRangePicker and singleDatePicker
   const [rangeFocus, setRangeFocus] = useState(false);
   const [deliveryFocus, setDeliveryFocus] = useState(false);
+  const [newImagesUploaded, setNewImagesUploaded] = useState([]);
 
   const listingStatusDesc = getListingStatusDesc(listingStatus);
 
@@ -69,10 +70,12 @@ export default function EditListing() {
     const modifiedData = { ...editData };
     if (startDate) {
       modifiedData.startDate = startDate.format();
+      // modifiedData.startDate = moment(startDate).toDate();
       // console.log(startDate);
       // console.log(startDate.format());
     }
     if (endDate) {
+      // modifiedData.endDate = moment(endDate).toDate();
       modifiedData.endDate = endDate.format();
       // console.log(endDate);
       // console.log(endDate.format());
@@ -82,18 +85,34 @@ export default function EditListing() {
 
   const handleDeliveryDateChange = (newDeliveryDate) => {
     const modifiedData = { ...editData };
-    modifiedData.deliveryDate = newDeliveryDate.format();
+    modifiedData.deliveryDate = moment(newDeliveryDate).toDate();
     setModifiedDataAsEditData({ ...modifiedData });
   };
 
-  const handleImageClose = (imageIndex, imageSrc) => {
+  // To delete images given the index
+  // const handleImageClose = (imageIndex) => {
+  //   // Remove the image at the index
+  //   const modifiedData = { ...editData };
+  //   // console.log(`img${imageIndex + 1}`);
+  //   // console.log(modifiedData.images[`img${imageIndex + 1}`]);
+  //   delete modifiedData.images[`img${imageIndex + 1}`];
+  //   console.log(modifiedData.images);
+  //   setModifiedDataAsEditData({ ...modifiedData });
+  // };
+
+  const handleImageClose = (imageKey) => {
     // Remove the image at the index
     const modifiedData = { ...editData };
-    // console.log(`img${imageIndex + 1}`);
-    // console.log(modifiedData.images[`img${imageIndex + 1}`]);
-    delete modifiedData.images[`img${imageIndex + 1}`];
+    delete modifiedData.images[imageKey];
     console.log(modifiedData.images);
     setModifiedDataAsEditData({ ...modifiedData });
+  };
+
+  const handleUploadPictures = (event) => {
+    // console.log(event.target.files);
+    // console.log(newImagesUploaded);
+    // console.log([...newImagesUploaded, ...event.target.files]);
+    setNewImagesUploaded([...newImagesUploaded, ...event.target.files]);
   };
 
   const handleCancel = () => {
@@ -299,7 +318,7 @@ export default function EditListing() {
       <div className="row mt-2 ml-3 mr-3 p-2">
         <div className="col-4 muted font-italic">Images</div>
         <div className="row row-cols-2 row-cols-sm-4 row-cols-lg-5 mt-3 ml-3 mr-3 p-2">
-          {Object.values(editData.images).map((singleImage, index) => (
+          {Object.keys(editData.images).map((imgKey, index) => (
             <div className="card h-100 border-0 mr-1">
               <div className="mb-4 close-div">
                 <button
@@ -307,15 +326,24 @@ export default function EditListing() {
                   className="close btn btn-sm"
                   aria-label="Close"
                   onClick={() => (
-                    handleImageClose(index, singleImage)
+                    handleImageClose(imgKey)
                   )}
                 >
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <img src={singleImage} className="rounded card-img-top" alt="..." />
+              <img src={editData.images[imgKey]} className="rounded card-img-top" alt="..." />
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Upload images */}
+      {borderElement()}
+      <div className="row mt-3 ml-3 pl-2">
+        <div className="col-4 muted font-italic">Upload more images</div>
+        <div className="col-8">
+          <input type="file" name="campaignImages" multiple onChange={handleUploadPictures} />
         </div>
       </div>
 
