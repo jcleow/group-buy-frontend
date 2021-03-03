@@ -28,10 +28,10 @@ export default function EditListing() {
 
   const listingStatusDesc = getListingStatusDesc(listingStatus);
 
-  console.log(editData);
-  console.log(editData.startDate, editData.endDate);
-  console.log(new Date(editData.startDate), new Date(editData.endDate));
-  console.log(moment(editData.startDate));
+  // console.log(editData);
+  // console.log(editData.startDate, editData.endDate);
+  // console.log(new Date(editData.startDate), new Date(editData.endDate));
+  // console.log(moment(editData.startDate));
 
   // const titleElement = useRef(null);
   // const handleEdit = (colName) => {
@@ -49,9 +49,7 @@ export default function EditListing() {
     }
   }, []);
 
-  const handleOnChange = (event, attrName) => {
-    const modifiedData = { ...editData };
-    modifiedData[attrName] = event.target.value;
+  const setModifiedDataAsEditData = (modifiedData) => {
     setEditData({ ...modifiedData });
     if (getEditedListingData) {
       setEditedListingData({ ...modifiedData });
@@ -61,9 +59,41 @@ export default function EditListing() {
     }
   };
 
+  const handleOnChange = (event, attrName) => {
+    const modifiedData = { ...editData };
+    modifiedData[attrName] = event.target.value;
+    setModifiedDataAsEditData({ ...modifiedData });
+  };
+
+  const handleDatesChange = ({ startDate, endDate }) => {
+    const modifiedData = { ...editData };
+    if (startDate) {
+      modifiedData.startDate = startDate.format();
+      // console.log(startDate);
+      // console.log(startDate.format());
+    }
+    if (endDate) {
+      modifiedData.endDate = endDate.format();
+      // console.log(endDate);
+      // console.log(endDate.format());
+    }
+    setModifiedDataAsEditData({ ...modifiedData });
+  };
+
+  const handleDeliveryDateChange = (newDeliveryDate) => {
+    const modifiedData = { ...editData };
+    modifiedData.deliveryDate = newDeliveryDate.format();
+    setModifiedDataAsEditData({ ...modifiedData });
+  };
+
   const handleImageClose = (imageIndex, imageSrc) => {
     // Remove the image at the index
-
+    const modifiedData = { ...editData };
+    // console.log(`img${imageIndex + 1}`);
+    // console.log(modifiedData.images[`img${imageIndex + 1}`]);
+    delete modifiedData.images[`img${imageIndex + 1}`];
+    console.log(modifiedData.images);
+    setModifiedDataAsEditData({ ...modifiedData });
   };
 
   const handleCancel = () => {
@@ -73,23 +103,6 @@ export default function EditListing() {
 
   const handleSaveChanges = () => {
 
-  };
-
-  const handleDatesChange = ({ startDate, endDate }) => {
-    const modifiedData = { ...editData };
-    if (startDate) {
-      modifiedData.startDate = startDate;
-    }
-    if (endDate) {
-      modifiedData.endDate = endDate;
-    }
-    setEditData({ ...modifiedData });
-  };
-
-  const handleDeliveryDateChange = (newDeliveryDate) => {
-    const modifiedData = { ...editData };
-    modifiedData.deliveryDate = newDeliveryDate;
-    setEditData({ ...modifiedData });
   };
 
   const borderElement = () => (<div className="mt-2 mr-5 ml-5 border-bottom" />);
@@ -205,14 +218,14 @@ export default function EditListing() {
           Delivery Date:
         </div>
         <div className="col-8">
-          {/* <SingleDatePicker
-            date={editData.deliveryDate}
+          <SingleDatePicker
+            date={moment(editData.deliveryDate)}
             onDateChange={handleDeliveryDateChange}
             focused={deliveryFocus}
             onFocusChange={({ focused }) => {
               setDeliveryFocus(focused); }}
             id="delivery-dates"
-          /> */}
+          />
         </div>
       </div>
 
@@ -237,39 +250,22 @@ export default function EditListing() {
       {/* endDate */}
       {/* startDate */}
       {borderElement()}
-      {/* <div className="row mt-3 ml-3 pl-2">
+      <div className="row mt-3 ml-3 pl-2">
         <div className="col-4 muted font-italic">
           Campaign Start and End Date
         </div>
-        <div className="col-8">
+        <div>
           <DateRangePicker
-            startDate={new Date(editData.startDate)}
+            startDate={moment(editData.startDate)}
             startDateId={`${editData.startDate}id`}
-            endDate={new Date(editData.endDate)}
+            endDate={moment(editData.endDate)}
             endDateId={`${editData.endDate}id`}
             onDatesChange={handleDatesChange}
             focusedInput={rangeFocus}
             onFocusChange={(focus) => setRangeFocus(focus)}
           />
         </div>
-      </div> */}
-
-      <Form>
-        <Form.Group controlId="qtyAvailable">
-          <Form.Label>Campaign Start and End Date</Form.Label>
-          <div>
-            <DateRangePicker
-              startDate={moment(editData.startDate)}
-              startDateId={`${editData.startDate}id`}
-              endDate={moment(editData.endDate)}
-              endDateId={`${editData.endDate}id`}
-              onDatesChange={handleDatesChange}
-              focusedInput={rangeFocus}
-              onFocusChange={(focus) => setRangeFocus(focus)}
-            />
-          </div>
-        </Form.Group>
-      </Form>
+      </div>
 
       {/* listingStatus */}
       {borderElement()}
@@ -288,8 +284,6 @@ export default function EditListing() {
           </select>
         </div>
       </div>
-
-      {/* images */}
 
       {borderElement()}
       {/* tnc */}

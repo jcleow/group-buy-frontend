@@ -9,7 +9,7 @@ import {
 import DetailedListingView from './DetailedListingView.jsx';
 import QuantityPicker from './QuantityPicker.jsx';
 
-export default function ViewListingPerUser() {
+export default function ViewListing() {
   const { store, dispatch } = useContext(GroupBuyContext);
   const {
     currentListViewDisplayMode, loggedInUserId, selectedListingData,

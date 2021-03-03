@@ -303,13 +303,9 @@ export function loadListings(dispatch, setAllCategories, setBtnArray) {
     dispatch(sortListingsByEndDateAction());
     dispatch(sortAndFilterListingsByCreatedDate());
     dispatch(loadCategoriesAction(result.data.categories));
-<<<<<<< HEAD
     dispatch(loadListingStatusesAction(result.data.listingStatus));
     // to do: for delivery modes also
-=======
-
     // To set all the categories in the buttons
->>>>>>> main
     setAllCategories(result.data.categories);
     const allBtnsState = result.data.categories.map((_) => false);
     setBtnArray([true, ...allBtnsState]);
