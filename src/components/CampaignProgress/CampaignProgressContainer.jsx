@@ -14,6 +14,7 @@ import {
   LineSeries,
 
 } from 'react-vis';
+import { generatePaginationOptions, tableColumns } from './CampaignProgressTableHelpers.jsx';
 
 import { loadCurrListingPurchases, CampaignProgressProvider, CampaignProgressContext } from '../../campaignProgressStore.jsx';
 import { generatePastSevenDays, getLowestYVal } from '../utility/campaignProgressHelper.js';
@@ -102,33 +103,6 @@ function CampaignPurchasersTable() {
     // pass in dispatch fn and currListingId
     loadCurrListingPurchases(dispatchCampaign, 3);
   }, []);
-  const columns = [
-    {
-      dataField: 'id',
-      text: 'S/N',
-
-    },
-    {
-      dataField: 'username',
-      text: 'Username',
-    }, {
-      dataField: 'paymentStatus',
-      text: 'Payment',
-    }, {
-      dataField: 'quantity',
-      text: 'Quantity',
-    }, {
-      dataField: 'createdAt',
-      text: 'Date Participated',
-    }, {
-      dataField: 'reputation',
-      text: 'Reputation',
-    }, {
-      dataField: 'dateDelivered',
-      text: 'Date Delivered',
-    },
-  ];
-  console.log(campaignStore.allPurchases, 'purchases');
 
   // Assign an index based ID to each purchase (this ID is subject to change during filtering)
   const indexAllPurchases = campaignStore.allPurchases.map((purchase, idx) => ({ ...purchase, id: idx + 1 }));
@@ -138,7 +112,8 @@ function CampaignPurchasersTable() {
       <BootstrapTable
         keyField="id"
         data={indexAllPurchases}
-        columns={columns}
+        columns={tableColumns}
+        pagination={paginationFactory(generatePaginationOptions(indexAllPurchases))}
         striped
         hover
         condensed
