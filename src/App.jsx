@@ -30,8 +30,6 @@ function App() {
           {/* <Route path="/viewAllMyPurchases" component={ViewAllMyPurchases} /> */}
           <Route path="/campaignProgress" component={CampaignProgress} />
           <Route path="/editListing" component={EditListing} />
-          {/* <Route path="/viewAll" component={ViewAll} />
-        <Route path="/createNewTrip" component={NewTripHolder} /> */}
         </Switch>
       </Router>
     </GroupBuyProvider>

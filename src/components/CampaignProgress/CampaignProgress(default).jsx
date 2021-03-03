@@ -15,8 +15,40 @@ import {
 
 } from 'react-vis';
 
-import { loadCurrListingPurchases, CampaignProgressProvider, CampaignProgressContext } from '../../campaignProgressStore.jsx';
-import { generatePastSevenDays, getLowestYVal } from '../utility/campaignProgressHelper.js';
+import { loadCurrlistingPurchases as loadCurrListingPurchases, CampaignProgressProvider, CampaignProgressContext } from '../../campaignProgressStore.jsx';
+
+// Helper that generates and pushes the past 7 days
+const generatePastSevenDays = () => {
+  const pastSevenDaysArray = [];
+  for (let i = 7; i >= 0; i -= 1) {
+    // Start from today's date then progressive go backwards
+    const singleDate = new Date();
+    singleDate.setDate(singleDate.getDate() - i);
+
+    // Format into DD/MM
+    const options = { day: '2-digit', month: '2-digit' };
+    const formattedDate = singleDate.toLocaleDateString('en-GB', options);
+
+    // Append into an accumulative array
+    pastSevenDaysArray.push(formattedDate);
+  }
+  return pastSevenDaysArray;
+};
+
+// Helper that gets the lowest y-value
+const getLowestYVal = (purchaseRange) => {
+  let yLow = null;
+  purchaseRange.forEach((day) => {
+    if (day.y < yLow || yLow === null) {
+      yLow = day.y;
+    }
+  });
+
+  if (yLow !== null) {
+    return yLow;
+  }
+  return 0;
+};
 
 function ActivityChart() {
   const [value, setValue] = useState(null);
@@ -102,47 +134,43 @@ function CampaignPurchasersTable() {
     // pass in dispatch fn and currListingId
     loadCurrListingPurchases(dispatchCampaign, 3);
   }, []);
-  const columns = [
-    {
-      dataField: 'id',
-      text: 'S/N',
 
-    },
-    {
-      dataField: 'username',
-      text: 'Username',
-    }, {
-      dataField: 'paymentStatus',
-      text: 'Payment',
-    }, {
-      dataField: 'quantity',
-      text: 'Quantity',
-    }, {
-      dataField: 'createdAt',
-      text: 'Date Participated',
-    }, {
-      dataField: 'reputation',
-      text: 'Reputation',
-    }, {
-      dataField: 'dateDelivered',
-      text: 'Date Delivered',
-    },
-  ];
-  console.log(campaignStore.allPurchases, 'purchases');
+  const rowsOfPurchases = campaignStore.allPurchases.map((purchase, i) => {
+    const {
+      username, paymentStatus, createdAt, reputation, dateDelivered,
+    } = purchase;
 
-  // Assign an index based ID to each purchase (this ID is subject to change during filtering)
-  const indexAllPurchases = campaignStore.allPurchases.map((purchase, idx) => ({ ...purchase, id: idx + 1 }));
+    // format the dates
+    const formattedDateDelivered = new Date(dateDelivered).toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: '2-digit' });
+    const formattedCreatedAt = new Date(createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: '2-digit' });
+
+    return (
+      <tr>
+        <td className="sticky-col first-col">{i + 1}</td>
+        <td className="second-col">{username}</td>
+        <td className="normal-col">{paymentStatus}</td>
+        <td className="normal-col">1</td>
+        <td className="normal-col">{formattedCreatedAt}</td>
+        <td className="normal-col">{reputation}</td>
+        <td className="normal-col">{formattedDateDelivered}</td>
+      </tr>
+    );
+  });
 
   return (
-    <div className="purchaser-table">
-      <BootstrapTable
-        keyField="id"
-        data={indexAllPurchases}
-        columns={columns}
-        striped
-        hover
-        condensed
-      />
+    <div className="d-flex flex-row justify-content-center purchaser-table">
+      <table className="text-center">
+        <tr>
+          <th className="sticky-col first-col">S/N</th>
+          <th className="second-col">Username</th>
+          <th className="normal-col">Payment Status</th>
+          <th className="normal-col">Quantity</th>
+          <th className="normal-col">Date Participated</th>
+          <th className="normal-col">Reputation</th>
+          <th className="normal-col">Date Delivered</th>
+        </tr>
+        {rowsOfPurchases}
+      </table>
     </div>
   );
 }

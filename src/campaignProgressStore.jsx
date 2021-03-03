@@ -68,7 +68,7 @@ export function CampaignProgressProvider({ children }) {
 
 // Requests
 
-export function loadCurrlistingPurchases(dispatchCampaign, currListingId) {
+export function loadCurrListingPurchases(dispatchCampaign, currListingId) {
   axios.get(`${BACKEND_URL}/listing/${currListingId}/allPurchases`)
     .then((result) => {
       const { allFilteredPurchaseData, pastSevenDaysCount } = result.data;
