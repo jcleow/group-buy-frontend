@@ -27,8 +27,8 @@ export default function LatestListingsContainer({ latestListings }) {
         </div>
       </div>
       <div className={`row row-cols-2 row-cols-sm-4 row-cols-lg-5 latest-listings-card-row ${isSeeMore ? 'flex-nowrap' : 'flex-wrap'} `}>
-        {latestListings.map((singleListing) => (
-          <LatestListingsListCard singleListing={singleListing} />
+        {latestListings.map((singleListing, index) => (
+          <LatestListingsListCard key={`latest-${Number(index)}`} singleListing={singleListing} />
         ))}
       </div>
     </div>

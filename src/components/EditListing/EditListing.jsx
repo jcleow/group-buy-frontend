@@ -7,7 +7,10 @@ import { Form } from 'react-bootstrap';
 import { writeStorage, useLocalStorage } from '@rehooks/local-storage';
 import moment from 'moment';
 import { DateRangePicker, SingleDatePicker } from 'react-dates';
-import { GroupBuyContext, selectListingAction } from '../../store.jsx';
+import {
+  GroupBuyContext, selectListingAction, updateSelectedListingAction,
+  updateSelectedListingImagesAction, updateListing,
+} from '../../store.jsx';
 import { getListingCurrentStatus, calcDiscountPct, getListingStatusDesc } from '../utility/listingHelper.js';
 import './EditListing.css';
 import 'react-dates/initialize';
@@ -15,7 +18,9 @@ import 'react-dates/lib/css/_datepicker.css';
 
 export default function EditListing() {
   const { store, dispatch } = useContext(GroupBuyContext);
-  const { selectedListingData, categories, listingStatus } = store;
+  const {
+    selectedListingData, categories, listingStatus, updatedListingData, newUploadedImages,
+  } = store;
   const [getEditedListingData, setEditedListingData, deleteEditedListingData] = useLocalStorage('editedListingData');
   const [getDetailedListView] = useLocalStorage('detailedListView');
   // const [editData, setEditData] = useState({ ...selectedListingData });
@@ -121,7 +126,18 @@ export default function EditListing() {
   };
 
   const handleSaveChanges = () => {
+    dispatch(updateSelectedListingAction(editData));
+    dispatch(updateSelectedListingImagesAction(newImagesUploaded));
+    const imageFormData = new FormData();
 
+    Object.entries(newImagesUploaded).forEach(([key, value]) => {
+      if (key !== 'length') {
+        imageFormData.append('file', value);
+      }
+    });
+    console.log(imageFormData);
+
+    updateListing(dispatch, editData, imageFormData);
   };
 
   const borderElement = () => (<div className="mt-2 mr-5 ml-5 border-bottom" />);
@@ -319,7 +335,7 @@ export default function EditListing() {
         <div className="col-4 muted font-italic">Images</div>
         <div className="row row-cols-2 row-cols-sm-4 row-cols-lg-5 mt-3 ml-3 mr-3 p-2">
           {Object.keys(editData.images).map((imgKey, index) => (
-            <div className="card h-100 border-0 mr-1">
+            <div key={`imgs-${Number(index)}`} className="border-0 mr-1">
               <div className="mb-4 close-div">
                 <button
                   type="button"
@@ -332,7 +348,7 @@ export default function EditListing() {
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <img src={editData.images[imgKey]} className="rounded card-img-top" alt="..." />
+              <img src={editData.images[imgKey]} className="rounded card-img-top edit-img" alt="..." />
             </div>
           ))}
         </div>

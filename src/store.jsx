@@ -21,12 +21,17 @@ export const initialState = {
   totalQuantityOrdered: 0,
   loggedInUsername: null,
   loggedInUserId: null,
+  // Used while updating a new data
+  updatedListingData: {},
+  newUploadedImages: [],
 };
 
 // just like the todo app, define each action we want to do on the
 // data we defined above
 const ADD_LISTING = 'ADD_LISTING';
 const DELETE_LISTING = 'DELETE_LISTING';
+const UPDATE_SELECTED_LISTING = 'UPDATE_SELECTED_LISTING';
+const ADD_EXTRA_IMAGES = 'ADD_EXTRA_IMAGES';
 
 // Used to load initial listings and also to reload edited listings
 const LOAD_LISTINGS = 'LOAD_LISTINGS';
@@ -113,6 +118,10 @@ export function groupBuyReducer(state, action) {
       return { ...state, categories: ['All', ...action.payload.categories] };
     case LOAD_LISTING_STATUS:
       return { ...state, listingStatus: [...action.payload.listingStatus] };
+    case UPDATE_SELECTED_LISTING:
+      return { ...state, updatedListingData: { ...action.payload.updatedListingData } };
+    case ADD_EXTRA_IMAGES:
+      return { ...state, newUploadedImages: [...action.payload.newUploadedImages] };
     case SET_USERNAME:
       return { ...state, loggedInUsername: action.payload.username };
     case SET_USERID:
@@ -174,6 +183,24 @@ export function selectListingAction(selectedListingData) {
     type: SELECT_LISTING,
     payload: {
       selectedListingData,
+    },
+  };
+}
+
+export function updateSelectedListingAction(updatedListingData) {
+  return {
+    type: UPDATE_SELECTED_LISTING,
+    payload: {
+      updatedListingData,
+    },
+  };
+}
+
+export function updateSelectedListingImagesAction(newUploadedImages) {
+  return {
+    type: ADD_EXTRA_IMAGES,
+    payload: {
+      newUploadedImages,
     },
   };
 }
@@ -331,6 +358,18 @@ export function createListing(dispatch, listing) {
     dispatch(addListingAction());
     return result.data.listing.id;
   });
+}
+
+export function updateListing(dispatch, updatedListingData, imageFormData) {
+  return axios.post(`${BACKEND_URL}/listings/${updatedListingData.id}/update`,
+    { updatedListingData }).then((result) =>
+  {
+    // Upload added images
+    axios.post(`${BACKEND_URL}/listings/${updatedListingData.id}/update/images`, imageFormData).then((resImageUpload) => {
+      dispatch(selectListingAction(resImageUpload.data.updatedListing));
+      return resImageUpload.data.updatedListing.id;
+    })
+      .catch((err) => result.data.updatedListing.id); });
 }
 
 export function recordPurchase(dispatch, uploadedFile, listingPK, qtyOrdered) {

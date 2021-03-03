@@ -12,6 +12,11 @@
   align-self: center;
 }
 
+.edit-img {
+  width: 100%;
+  height: 100%;
+}
+
 /* .close {
   cursor: pointer;
   position: absolute;
