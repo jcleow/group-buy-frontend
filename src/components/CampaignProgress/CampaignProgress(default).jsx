@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import 'react-vis/dist/style.css';
 import './CampaignProgress.css';
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import {
   FlexibleXYPlot,
   XAxis,
@@ -12,7 +13,7 @@ import {
 
 } from 'react-vis';
 
-import { loadCurrlistingPurchases as loadCurrListingPurchases, CampaignProgressProvider, CampaignProgressContext } from '../../campaignProgressStore.jsx';
+import { loadCurrListingPurchases, CampaignProgressProvider, CampaignProgressContext } from '../../campaignProgressStore.jsx';
 
 // Helper that generates and pushes the past 7 days
 const generatePastSevenDays = () => {
