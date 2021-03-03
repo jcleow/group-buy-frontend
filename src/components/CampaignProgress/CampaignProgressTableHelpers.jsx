@@ -1,31 +1,41 @@
 import React from 'react';
-import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 
 // For table columns
 export const tableColumns = [
   {
-    dataField: 'id',
+    dataField: 'serialNum',
     text: 'S/N',
+    editable: false,
+  },
+  {
+    dataField: 'id',
+    text: 'UUID',
   },
   {
     dataField: 'username',
     text: 'Username',
+    editable: false,
   }, {
     dataField: 'paymentStatus',
     text: 'Payment',
+    editable: false,
   }, {
     dataField: 'quantity',
     text: 'Quantity',
+    editable: false,
   }, {
     dataField: 'createdAt',
     text: 'Date Participated',
+    editable: false,
   }, {
     dataField: 'reputation',
     text: 'Reputation',
+    editable: false,
   }, {
     dataField: 'dateDelivered',
     text: 'Date Delivered',
+    editable: true,
   },
 ];
 

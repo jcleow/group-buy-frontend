@@ -4,6 +4,7 @@ import './CampaignProgress.css';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+import cellEditFactory from 'react-bootstrap-table2-editor';
 import {
   FlexibleXYPlot,
   XAxis,
@@ -15,9 +16,11 @@ import {
 
 } from 'react-vis';
 import { generatePaginationOptions, tableColumns } from './CampaignProgressTableHelpers.jsx';
-
-import { loadCurrListingPurchases, CampaignProgressProvider, CampaignProgressContext } from '../../campaignProgressStore.jsx';
+import {
+  loadCurrListingPurchases, CampaignProgressProvider, CampaignProgressContext, updatePurchaseDateDelivered,
+} from '../../campaignProgressStore.jsx';
 import { generatePastSevenDays, getLowestYVal } from '../utility/campaignProgressHelper.js';
+import { convertToDdMm } from '../../helper.js';
 
 function ActivityChart() {
   const [value, setValue] = useState(null);
@@ -98,14 +101,24 @@ function ActivityChart() {
 
 function CampaignPurchasersTable() {
   const { campaignStore, dispatchCampaign } = useContext(CampaignProgressContext);
+  const [clicked, setClicked] = useState(true);
+
+  const handleClick = () => {
+    setClicked(false);
+  };
 
   useEffect(() => {
     // pass in dispatch fn and currListingId
     loadCurrListingPurchases(dispatchCampaign, 3);
   }, []);
-
   // Assign an index based ID to each purchase (this ID is subject to change during filtering)
-  const indexAllPurchases = campaignStore.allPurchases.map((purchase, idx) => ({ ...purchase, id: idx + 1 }));
+  const indexAllPurchases = campaignStore.allPurchases.map((purchase, idx) => ({
+    ...purchase,
+    serialNum: idx + 1,
+    createdAt: convertToDdMm(new Date(purchase.createdAt)),
+    dateDelivered: (
+      purchase.dateDelivered !== null ? convertToDdMm(new Date(purchase.dateDelivered)) : null),
+  }));
 
   return (
     <div className="purchaser-table">
@@ -114,6 +127,19 @@ function CampaignPurchasersTable() {
         data={indexAllPurchases}
         columns={tableColumns}
         pagination={paginationFactory(generatePaginationOptions(indexAllPurchases))}
+        cellEdit={cellEditFactory({
+          mode: 'click',
+          blurToSave: false,
+          onStartEdit: (row, column, rowIndex, columnIndex) => { console.log('start to edit!!!'); },
+          beforeSaveCell: (oldValue, newValue, row, column) => { console.log('Before Saving Cell!!'); },
+          afterSaveCell: (oldDate, newDate, row, column) => { updatePurchaseDateDelivered(
+            dispatchCampaign, campaignStore.currListingId, row.id, newDate,
+          );
+          console.log(row, 'row');
+          console.log(campaignStore, 'campaignStore');
+          },
+
+        })}
         striped
         hover
         condensed

@@ -5,20 +5,24 @@ const BACKEND_URL = 'http://localhost:3004';
 
 const LOAD_CURR_LISTING_PURCHASES = 'LOAD_CURR_LISTING_PURCHASES';
 const LOAD_PAST_SEVEN_DAYS_COUNT = 'LOAD_PAST_SEVEN_DAYS_COUNT';
-const SET_CURR_LISTING_ID = 'SET_CURR_LISTING_ID';
+// const SET_CURR_LISTING_ID = 'SET_CURR_LISTING_ID';
 
 export const initialCampaignState = {
   allPurchases: [],
   pastSevenDaysCount: [],
-  currListing: null,
+  currListingId: null,
 };
 
 export function campaignProgressReducer(state, action) {
   switch (action.type) {
     case LOAD_CURR_LISTING_PURCHASES:
-      return { ...state, allPurchases: [...action.payload.currListingPurchases] };
-    case SET_CURR_LISTING_ID:
-      return { ...state, currListing: action.payload.currListingId };
+      return {
+        ...state,
+        allPurchases: [...action.payload.currListingPurchases],
+        currListingId: action.payload.currListingId,
+      };
+    // case SET_CURR_LISTING_ID:
+    //   return { ...state, currListing: action.payload.currListingId };
     case LOAD_PAST_SEVEN_DAYS_COUNT:
       return { ...state, pastSevenDaysCount: action.payload.pastSevenDaysCount };
     default:
@@ -26,23 +30,25 @@ export function campaignProgressReducer(state, action) {
   }
 }
 
-export function loadPurchasesAction(currListingPurchases) {
+// Load listing's associated purchases
+export function loadPurchasesAction(currListingPurchases, currListingId) {
   return {
     type: LOAD_CURR_LISTING_PURCHASES,
     payload: {
       currListingPurchases,
-    },
-  };
-}
-
-export function setCurrListingId(currListingId) {
-  return {
-    type: SET_CURR_LISTING_ID,
-    payload: {
       currListingId,
     },
   };
 }
+
+// export function setCurrListingId(currListingId) {
+//   return {
+//     type: SET_CURR_LISTING_ID,
+//     payload: {
+//       currListingId,
+//     },
+//   };
+// }
 
 export function loadPastSevenDayPurchaseCountAction(pastSevenDaysCount) {
   return {
@@ -72,8 +78,18 @@ export function loadCurrListingPurchases(dispatchCampaign, currListingId) {
   axios.get(`${BACKEND_URL}/listing/${currListingId}/allPurchases`)
     .then((result) => {
       const { allFilteredPurchaseData, pastSevenDaysCount } = result.data;
-      dispatchCampaign(loadPurchasesAction(allFilteredPurchaseData));
+      dispatchCampaign(loadPurchasesAction(allFilteredPurchaseData, currListingId));
       dispatchCampaign(loadPastSevenDayPurchaseCountAction(pastSevenDaysCount));
+    })
+    .catch((err) => console.log(err));
+}
+
+export function updatePurchaseDateDelivered(dispatchCampaign, currListingId, purchaseId, newDate) {
+  const formattedNewDate = new Date(newDate);
+  axios.put(`${BACKEND_URL}/listing/${currListingId}/purchase/${purchaseId}/date`, { formattedNewDate })
+    .then((result) => {
+      console.log(result, 'result');
+      return loadCurrListingPurchases(dispatchCampaign, currListingId);
     })
     .catch((err) => console.log(err));
 }
