@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { writeStorage, useLocalStorage } from '@rehooks/local-storage';
-import moment from 'moment';
 import AboutItem from './AboutItem.jsx';
 import CampaignDates from './CampaignDates.jsx';
 import QtyAndPrice from './QtyAndPrice.jsx';

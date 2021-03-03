@@ -15,7 +15,6 @@ export const initialState = {
   categories: [],
   listingStatus: [],
   sortedListingsByCreatedDate: [],
-  // sortedListingsByCategories: [],
   displayListingDetails: false,
   selectedListingData: {},
   currentListViewDisplayMode: LISTING_VIEW_MODES.DEFAULT_LISTING_VIEW,
@@ -304,8 +303,13 @@ export function loadListings(dispatch, setAllCategories, setBtnArray) {
     dispatch(sortListingsByEndDateAction());
     dispatch(sortAndFilterListingsByCreatedDate());
     dispatch(loadCategoriesAction(result.data.categories));
+<<<<<<< HEAD
     dispatch(loadListingStatusesAction(result.data.listingStatus));
     // to do: for delivery modes also
+=======
+
+    // To set all the categories in the buttons
+>>>>>>> main
     setAllCategories(result.data.categories);
     const allBtnsState = result.data.categories.map((_) => false);
     setBtnArray([true, ...allBtnsState]);
@@ -333,11 +337,17 @@ export function createListing(dispatch, listing) {
   });
 }
 
-export function recordPurchase(dispatch, uploadedFile, listingPK) {
+export function recordPurchase(dispatch, uploadedFile, listingPK, qtyOrdered) {
   // If is use {uploadedFile and CurrItemPk, req.files becomes empty obj in my purchases controller}
-  return axios.post(`${BACKEND_URL}/recordPurchase/${listingPK}`, uploadedFile)
+  return axios.post(`${BACKEND_URL}/recordPurchase/${listingPK}/${qtyOrdered}`, uploadedFile)
     .then(() => {
       // what to do after store the img?
       console.log('image url has been saved to db successfully');
     });
+}
+
+export function getAllPurchasesAssociatedWUser(userName) {
+  return axios.post(`${BACKEND_URL}/allPurchases`, { userName })
+    .then(({ data }) => data)
+    .catch((error) => console.log(error));
 }

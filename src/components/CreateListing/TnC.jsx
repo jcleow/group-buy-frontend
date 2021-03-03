@@ -31,6 +31,7 @@ export default function TnC({ setMode }) {
       deliveryDate: moment(formStore.endDate).toDate(),
     };
 
+    //* ** to shift into createListingStore */
     axios.post(`${BACKEND_URL}/createListing`, { updatedFormStore })
       .then((result) => {
         console.log(result, 'result');
