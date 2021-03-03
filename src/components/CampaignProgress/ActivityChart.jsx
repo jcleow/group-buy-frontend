@@ -13,7 +13,7 @@ import {
 import 'react-vis/dist/style.css';
 import { generatePastSevenDays, getLowestYVal, generateYAxisTickValues } from '../utility/campaignProgressHelper.jsx';
 import {
-  loadCurrListingPurchases, CampaignProgressProvider, CampaignProgressContext, updatePurchaseDateDelivered,
+  loadCurrListingPurchases, CampaignProgressContext,
 } from '../../campaignProgressStore.jsx';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 
