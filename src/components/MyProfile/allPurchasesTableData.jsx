@@ -70,7 +70,7 @@ const expandRow = {
         </div>
       </div>
 
-      {/*
+      {/* NOTES:
         <p>{ `This expanded row belongs to rowKey ${row.id}` }</p>
         <p>You can render anything here, also you can add additional data on every row object</p>
         <p>expandRow.renderer callback will pass the origin row object to you</p> */}
@@ -89,15 +89,15 @@ const customTotal = (from, to, size) => (
 
 const getPaginationOptions = (allPurchases) => (
   {
-    paginationSize: 4,
-    pageStartIndex: 0,
+    paginationSize: 5,
+    pageStartIndex: 1,
     alwaysShowAllBtns: false, // Always show next and previous button
     withFirstAndLast: false, // Hide the going to First and Last page button
     // hideSizePerPage: true, // Hide the sizePerPage dropdown always
     hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
     // firstPageText: 'First',
-    // prePageText: 'Back',
-    // nextPageText: 'Next',
+    prePageText: 'Back',
+    nextPageText: 'Next',
     // lastPageText: 'Last',
     // nextPageTitle: 'First page',
     // prePageTitle: 'Pre page',
@@ -115,7 +115,6 @@ const getPaginationOptions = (allPurchases) => (
     }], // A numeric array is also available. the purpose of above example is custom the text
   }
 );
-
 /* ======================================
 ====================================== */
 
