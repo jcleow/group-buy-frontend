@@ -12,7 +12,7 @@ import ViewAllListings from './components/ViewAllListings/ViewAllListings.jsx';
 import MainProfilePage from './components/MyProfile/MainProfilePage.jsx';
 
 // import MainPaymentPage from './components/Payments/MainPaymentPage.jsx';
-import CampaignProgress from './components/CampaignProgress/CampaignProgress.jsx';
+import CampaignProgress from './components/CampaignProgress/CampaignProgressContainer.jsx';
 import EditListing from './components/EditListing/EditListing.jsx';
 
 function App() {
@@ -30,8 +30,6 @@ function App() {
           {/* <Route path="/viewAllMyPurchases" component={ViewAllMyPurchases} /> */}
           <Route path="/campaignProgress" component={CampaignProgress} />
           <Route path="/editListing" component={EditListing} />
-          {/* <Route path="/viewAll" component={ViewAll} />
-        <Route path="/createNewTrip" component={NewTripHolder} /> */}
         </Switch>
       </Router>
     </GroupBuyProvider>

@@ -25,8 +25,17 @@
   height: 30vh;
 }
 
+.react-bootstrap-table table > tbody > tr > td:nth-child(1),
+.react-bootstrap-table table > thead > tr:nth-child(1) > th:nth-child(1) {
+  background-color: #ccc;
+  position: sticky;
+  position: -webkit-sticky;
+  left: 0;
+  z-index: 1;
+}
+
 @media (max-width: 767.98px) {
-  .purchaser-table {
+  .react-bootstrap-table table {
     width: 300px;
   }
   .sticky-col {

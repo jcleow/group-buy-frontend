@@ -1,0 +1,54 @@
+import React, { useEffect, useContext } from 'react';
+import BootstrapTable from 'react-bootstrap-table-next';
+import paginationFactory from 'react-bootstrap-table2-paginator';
+import cellEditFactory from 'react-bootstrap-table2-editor';
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+import { generatePaginationOptions, tableColumns } from '../utility/campaignProgressHelper.jsx';
+import {
+  loadCurrListingPurchases, CampaignProgressContext, updatePurchaseDateDelivered,
+} from '../../campaignProgressStore.jsx';
+import { convertToDdMm } from '../../helper.js';
+
+export default function CampaignPurchasersTable() {
+  const { campaignStore, dispatchCampaign } = useContext(CampaignProgressContext);
+
+  useEffect(() => {
+    // pass in dispatch fn and currListingId
+    loadCurrListingPurchases(dispatchCampaign, 3);
+  }, []);
+  // Assign an index based ID to each purchase (this ID is subject to change during filtering)
+  const indexAllPurchases = campaignStore.allPurchases.map((purchase, idx) => ({
+    ...purchase,
+    serialNum: idx + 1,
+    createdAt: convertToDdMm(new Date(purchase.createdAt)),
+    dateDelivered: (
+      purchase.dateDelivered !== null ? convertToDdMm(new Date(purchase.dateDelivered)) : null),
+  }));
+
+  return (
+    <div className="purchaser-table">
+      <BootstrapTable
+        keyField="id"
+        data={indexAllPurchases}
+        columns={tableColumns}
+        pagination={paginationFactory(generatePaginationOptions(indexAllPurchases))}
+        cellEdit={cellEditFactory({
+          mode: 'click',
+          blurToSave: false,
+          onStartEdit: (row, column, rowIndex, columnIndex) => { console.log('start to edit!!!'); },
+          beforeSaveCell: (oldValue, newValue, row, column) => { console.log('Before Saving Cell!!'); },
+          afterSaveCell: (oldDate, newDate, row, column) => { updatePurchaseDateDelivered(
+            dispatchCampaign, campaignStore.currListingId, row.id, newDate,
+          );
+          console.log(row, 'row');
+          console.log(campaignStore, 'campaignStore');
+          },
+
+        })}
+        striped
+        hover
+        condensed
+      />
+    </div>
+  );
+}
