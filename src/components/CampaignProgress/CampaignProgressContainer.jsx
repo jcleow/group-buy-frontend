@@ -46,9 +46,18 @@ function ActivityChart() {
   const dailyPurchasesCount = campaignStore.pastSevenDaysCount;
   const YLOW = getLowestYVal(dailyPurchasesCount);
 
+  const calcTotalPurchases = () => {
+    const totalPurchases = campaignStore.allPurchases.reduce((acc, curr) => acc + curr.quantity, 0);
+    return totalPurchases;
+  };
+
   return (
     <div>
-      <h4 className="mt-2 ml-5">Daily Purchase Count (7 Days)</h4>
+      <h4 className="mt-2 ml-5">
+        Total Purchases:
+        {calcTotalPurchases()}
+      </h4>
+      <h6 className="mt-2 ml-5">Daily Purchase Count (7 Days)</h6>
       <div className="d-flex justify-content-center activity-graph">
         <FlexibleXYPlot onMouseLeave={() => { setValue(null); }} xType="ordinal">
           <XAxis tickValues={xAxisTickValues} />
