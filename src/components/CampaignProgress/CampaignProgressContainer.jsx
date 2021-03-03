@@ -22,6 +22,25 @@ import {
 } from '../../campaignProgressStore.jsx';
 import { generatePastSevenDays, getLowestYVal } from '../utility/campaignProgressHelper.js';
 import { convertToDdMm } from '../../helper.js';
+// Helper that generates yAxis Tick Values
+const generateYAxisTickValues = (campaignStore) => {
+  const individualPurchaseCount = campaignStore.pastSevenDaysCount.map((dayCount) => dayCount.y);
+
+  const maxVal = Math.max(...individualPurchaseCount);
+  const minVal = Math.min(...individualPurchaseCount);
+  const purchaseCountRange = maxVal - minVal;
+
+  const yAxisInterval = Math.floor(purchaseCountRange / 5);
+  const yAxisTickValues = [];
+  // To ensure that second highest value is not too close to the top axis label
+  for (let i = 0; i < purchaseCountRange - yAxisInterval; i += yAxisInterval) {
+    yAxisTickValues.push(i);
+  }
+  // To ensure top of the graph always has the largest (label) value
+  yAxisTickValues.push(maxVal);
+
+  return yAxisTickValues;
+};
 
 function ActivityChart() {
   const [value, setValue] = useState(null);
@@ -42,18 +61,15 @@ function ActivityChart() {
   };
 
   const xAxisTickValues = generatePastSevenDays();
-  const yAxisTickValues = campaignStore.pastSevenDaysCount.map((dayCount) => dayCount.y);
+  const yAxisTickValues = generateYAxisTickValues(campaignStore);
+  const datesAndPurchasesCount = campaignStore.pastSevenDaysCount;
+  const YLOW = getLowestYVal(datesAndPurchasesCount);
 
-  // Y axis to be filled up with Count of purchases
-  const dailyPurchasesCount = campaignStore.pastSevenDaysCount;
-  const YLOW = getLowestYVal(dailyPurchasesCount);
-
+  // Calc total purchases
   const calcTotalPurchases = () => {
     const totalPurchases = campaignStore.allPurchases.reduce((acc, curr) => acc + curr.quantity, 0);
     return totalPurchases;
   };
-
-  console.log(dailyPurchasesCount, 'dailyPurchasesCount');
   return (
     <div>
       <h4 className="mt-2 ml-5">
@@ -69,7 +85,7 @@ function ActivityChart() {
             onNearestX={rememberValue}
             onValueMouseOut={forgetValue}
             color="#F37B36"
-            data={dailyPurchasesCount}
+            data={datesAndPurchasesCount}
             size={0}
           />
           <GradientDefs>
@@ -80,7 +96,7 @@ function ActivityChart() {
           </GradientDefs>
           <AreaSeries
             color="url(#CoolGradient)"
-            data={dailyPurchasesCount}
+            data={datesAndPurchasesCount}
           />
           {value ? (
             <LineSeries
