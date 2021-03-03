@@ -7,6 +7,7 @@ import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import cellEditFactory from 'react-bootstrap-table2-editor';
 import {
   FlexibleXYPlot,
+  YAxis,
   XAxis,
   Hint,
   LineMarkSeries,
@@ -41,6 +42,7 @@ function ActivityChart() {
   };
 
   const xAxisTickValues = generatePastSevenDays();
+  const yAxisTickValues = campaignStore.pastSevenDaysCount.map((dayCount) => dayCount.y);
 
   // Y axis to be filled up with Count of purchases
   const dailyPurchasesCount = campaignStore.pastSevenDaysCount;
@@ -51,6 +53,7 @@ function ActivityChart() {
     return totalPurchases;
   };
 
+  console.log(dailyPurchasesCount, 'dailyPurchasesCount');
   return (
     <div>
       <h4 className="mt-2 ml-5">
@@ -60,6 +63,7 @@ function ActivityChart() {
       <h6 className="mt-2 ml-5">Daily Purchase Count (7 Days)</h6>
       <div className="d-flex justify-content-center activity-graph">
         <FlexibleXYPlot onMouseLeave={() => { setValue(null); }} xType="ordinal">
+          <YAxis tickValues={yAxisTickValues} />
           <XAxis tickValues={xAxisTickValues} />
           <LineMarkSeries
             onNearestX={rememberValue}
