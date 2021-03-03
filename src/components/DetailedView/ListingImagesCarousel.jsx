@@ -13,8 +13,10 @@ export default function ListingImagesCarousel({ listImages }) {
 
   return (
     <Carousel id="carousel-listing-images" activeIndex={index} onSelect={handleSelect}>
-      {listImages.map((imageSrc) => (
+      {listImages.map((imageSrc, index) => (
         <Carousel.Item>
+          key=
+          {`listimages-${Number(index)}`}
           <img
             className="d-block w-100"
             src={imageSrc}

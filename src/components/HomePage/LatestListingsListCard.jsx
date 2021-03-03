@@ -34,7 +34,7 @@ export default function LatestListingListCard({ singleListing }) {
           <img src="no-image-available-icon_m.jpg" className="latest-list-image rounded card-img-top" alt="..." />
           )}
           { isImagesPresent && (
-          <img src={singleListing.images?.img1} className="latest-list-image rounded card-img-top" alt="..." />
+          <img src={/* singleListing.images?.img1 */ Object.values(singleListing.images)?.[0]} className="latest-list-image rounded card-img-top" alt="..." />
           )}
           <div className="card-body">
             <h6 className="card-title">{singleListing.title}</h6>
