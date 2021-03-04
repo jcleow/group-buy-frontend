@@ -33,10 +33,11 @@ export default function EndingSoonContainer({ endingSoonListings }) {
         </div>
       </div>
       <div className={`row row-cols-2 row-cols-sm-4 row-cols-lg-5 listings-card-row ${isSeeMore ? 'flex-nowrap' : 'flex-wrap'} `}>
-        {endingSoonListings.map((singleListing) => (
+        {endingSoonListings.map((singleListing, index) => (
           (!isListingExpired(singleListing)
           && (
           <EndingSoonListCard
+            key={`endsoon-${Number(index)}`}
             singleListing={singleListing}
             // imgPresent={!((singleListing.images === undefined || singleListing.images == null))}
           />

@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import NavbarComponent from './components/NavbarComponent.jsx';
 import { GroupBuyProvider } from './store.jsx';
 import HomePage from './components/HomePage/HomePage.jsx';
-import ViewListingPerUser from './components/DetailedView/ViewListingPerUser.jsx';
+import ViewListing from './components/DetailedView/ViewListing.jsx';
 import CreateListingForm from './components/CreateListing/CreateListingForm.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MainPaymentPage from './components/Payments/MainPaymentPage.jsx';
@@ -12,7 +12,7 @@ import ViewAllListings from './components/ViewAllListings/ViewAllListings.jsx';
 import MainProfilePage from './components/MyProfile/MainProfilePage.jsx';
 
 // import MainPaymentPage from './components/Payments/MainPaymentPage.jsx';
-import CampaignProgress from './components/CampaignProgress/CampaignProgress.jsx';
+import CampaignProgress from './components/CampaignProgress/CampaignProgressContainer.jsx';
 import EditListing from './components/EditListing/EditListing.jsx';
 
 function App() {
@@ -23,15 +23,13 @@ function App() {
         <Switch>
           <Route path="/home" component={HomePage} />
           <Route path="/createListing" component={CreateListingForm} />
-          <Route path="/listingdetails" component={ViewListingPerUser} />
+          <Route path="/listingdetails" component={ViewListing} />
           <Route path="/payment" component={MainPaymentPage} />
           <Route path="/viewAllListings" component={ViewAllListings} />
           <Route path="/MyProfile" component={MainProfilePage} />
           {/* <Route path="/viewAllMyPurchases" component={ViewAllMyPurchases} /> */}
           <Route path="/campaignProgress" component={CampaignProgress} />
           <Route path="/editListing" component={EditListing} />
-          {/* <Route path="/viewAll" component={ViewAll} />
-        <Route path="/createNewTrip" component={NewTripHolder} /> */}
         </Switch>
       </Router>
     </GroupBuyProvider>

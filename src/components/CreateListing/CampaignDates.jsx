@@ -60,6 +60,8 @@ export default function CampaignDates({ setMode }) {
     setMode('QTY_AND_PRICE');
   };
 
+  console.log((formLocalStorage.startDate ? formLocalStorage.startDate : startDate), 'Campaign Details Start date');
+
   return (
     <Form>
       <Form.Group controlId="qtyAvailable">
