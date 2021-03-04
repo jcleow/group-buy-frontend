@@ -34,18 +34,10 @@ export function loadMyListingsAction(myListings) {
   };
 }
 
-export const MyListingsContext = React.createContext(null);
-const { Provider } = MyListingsContext;
-
-export function MyListingsProvider({ children }) {
+export const generateListingsStoreActions = () => {
   const [myListingsStore, dispatchMyListings] = useReducer(myListingsReducer, initialMyListingsState);
-
-  return (
-    <Provider value={{ myListingsStore, dispatchMyListings }}>
-      {children}
-    </Provider>
-  );
-}
+  return { myListingsStore, dispatchMyListings };
+};
 
 // Requests
 

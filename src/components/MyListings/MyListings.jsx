@@ -1,19 +1,18 @@
 import React, { useEffect, useContext } from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import { loadMyListings, MyListingsContext, MyListingsProvider } from '../../../stores/myListingsStore.jsx';
-import { generateIndexedListings, myListingsColumns } from '../../utility/myListingsHelper.jsx';
+import { loadMyListings, generateListingsStoreActions } from '../../stores/myListingsStore.jsx';
+import { generateIndexedListings, myListingsColumns } from '../utility/myListingsHelper.jsx';
 
 export default function AllMyListings() {
-  const { myListingsStore, dispatchMyListings } = useContext(MyListingsContext);
-
+  const { myListingsStore, dispatchMyListings } = generateListingsStoreActions();
   useEffect(() => {
     loadMyListings(dispatchMyListings);
   }, []);
   console.log(myListingsStore.myListings, 'myListings');
 
   return (
-    <MyListingsProvider>
+    <div>
       <h3>My Listings</h3>
       <div className="container">
         <BootstrapTable
@@ -21,9 +20,8 @@ export default function AllMyListings() {
           data={generateIndexedListings(myListingsStore)}
           columns={myListingsColumns}
           pagination={paginationFactory()}
-
         />
       </div>
-    </MyListingsProvider>
+    </div>
   );
 }
