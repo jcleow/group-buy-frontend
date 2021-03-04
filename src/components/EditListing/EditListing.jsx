@@ -3,13 +3,13 @@ import React, {
   useState, useContext, useEffect, useRef,
 } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Form } from 'react-bootstrap';
+import { useParams } from 'react-router';
 import { writeStorage, useLocalStorage } from '@rehooks/local-storage';
 import moment from 'moment';
 import { DateRangePicker, SingleDatePicker } from 'react-dates';
 import {
   GroupBuyContext, selectListingAction, updateSelectedListingAction,
-  updateSelectedListingImagesAction, updateListing,
+  updateSelectedListingImagesAction, updateListing, selectListing,
 } from '../../store.jsx';
 import { getListingCurrentStatus, calcDiscountPct, getListingStatusDesc } from '../utility/listingHelper.js';
 import './EditListing.css';
@@ -22,38 +22,59 @@ export default function EditListing() {
     selectedListingData, categories, listingStatus, updatedListingData, newUploadedImages,
   } = store;
   const [getEditedListingData, setEditedListingData, deleteEditedListingData] = useLocalStorage('editedListingData');
-  const [getDetailedListView] = useLocalStorage('detailedListView');
-  // const [editData, setEditData] = useState({ ...selectedListingData });
+  const [getAddedImages, setAddedImages, deleteAddedImages] = useLocalStorage('addedImages');
+  const { listingId } = useParams();
+  // console.log('listingId', listingId);
+
+  const getDefaultLoadingListingData = () => {
+    // console.log('getDefaultLoadingListingData');
+    if (getEditedListingData) {
+      if (getEditedListingData.id === listingId) {
+        return getEditedListingData;
+      }
+      selectListing(dispatch, listingId);
+      return selectedListingData;
+    }
+    if (selectedListingData.id === listingId) {
+      return selectedListingData;
+    }
+
+    // console.log('selectListing');
+    selectListing(dispatch, listingId);
+    return selectedListingData;
+  };
+
+  // const [editData, setEditData] = useState((getEditedListingData)
+  //   ? { ...getEditedListingData } : { ...selectedListingData });
   const [editData, setEditData] = useState((getEditedListingData)
     ? { ...getEditedListingData } : { ...selectedListingData });
+
+  // console.log(editData);
+
+  // const [editData, setEditData] = useState(null);
+  if (!editData) {
+    // console.log('calling');
+    setEditData({ ...getDefaultLoadingListingData() });
+  }
+
+  useEffect(() => {
+    if (!editData) {
+      setEditData({ ...getDefaultLoadingListingData() });
+    }
+  }, []);
 
   // Focus states for dateRangePicker and singleDatePicker
   const [rangeFocus, setRangeFocus] = useState(false);
   const [deliveryFocus, setDeliveryFocus] = useState(false);
-  const [newImagesUploaded, setNewImagesUploaded] = useState([]);
+
+  const getLoadingImages = () => {
+
+  };
+  // const [newImagesUploaded, setNewImagesUploaded] = useState([]);
+  const [newImagesUploaded, setNewImagesUploaded] = useState((getAddedImages)
+    ? [...getAddedImages] : []);
 
   const listingStatusDesc = getListingStatusDesc(listingStatus);
-
-  // console.log(editData);
-  // console.log(editData.startDate, editData.endDate);
-  // console.log(new Date(editData.startDate), new Date(editData.endDate));
-  // console.log(moment(editData.startDate));
-
-  // const titleElement = useRef(null);
-  // const handleEdit = (colName) => {
-  //   titleElement.current.contentEditable = true;
-  // };
-  // const getEditIcon = (colName) => (<button type="button" className="btn btn-sm"
-  // onClick={() => handleEdit(colName)}><sup className="edit-icon">&#9998;</sup></button>);
-
-  useEffect(() => {
-    if (selectedListingData === undefined || selectedListingData === null
-      || Object.keys(selectedListingData).length === 0) {
-      if (getDetailedListView) {
-        dispatch(selectListingAction(getDetailedListView));
-      }
-    }
-  }, []);
 
   const setModifiedDataAsEditData = (modifiedData) => {
     setEditData({ ...modifiedData });
@@ -67,7 +88,12 @@ export default function EditListing() {
 
   const handleOnChange = (event, attrName) => {
     const modifiedData = { ...editData };
-    modifiedData[attrName] = event.target.value;
+    if (attrName === 'allowOversubscription') {
+      modifiedData[attrName] = event.target.checked;
+      // console.log(modifiedData.allowOversubscription);
+    } else {
+      modifiedData[attrName] = event.target.value;
+    }
     setModifiedDataAsEditData({ ...modifiedData });
   };
 
@@ -105,44 +131,81 @@ export default function EditListing() {
   //   setModifiedDataAsEditData({ ...modifiedData });
   // };
 
-  const handleImageClose = (imageKey) => {
+  const handleImageClose = (imageKeyOrIndex, fromEditData) => {
     // Remove the image at the index
-    const modifiedData = { ...editData };
-    delete modifiedData.images[imageKey];
-    console.log(modifiedData.images);
-    setModifiedDataAsEditData({ ...modifiedData });
+    if (fromEditData) {
+      const modifiedData = { ...editData };
+      delete modifiedData.images[imageKeyOrIndex];
+      // console.log(modifiedData.images);
+      setModifiedDataAsEditData({ ...modifiedData });
+    }
+    else {
+      newImagesUploaded.splice(imageKeyOrIndex, 1);
+      setAddedImages([...newImagesUploaded]);
+    }
   };
 
   const handleUploadPictures = (event) => {
-    // console.log(event.target.files);
+    // // console.log(event.target.files);
     // console.log(newImagesUploaded);
     // console.log([...newImagesUploaded, ...event.target.files]);
+    // console.log(event.target.files);
     setNewImagesUploaded([...newImagesUploaded, ...event.target.files]);
+    writeStorage('addedImages', [...newImagesUploaded]);
   };
 
   const handleCancel = () => {
     dispatch(selectListingAction(selectedListingData));
     deleteEditedListingData();
+    deleteAddedImages();
   };
 
   const handleSaveChanges = () => {
-    dispatch(updateSelectedListingAction(editData));
-    dispatch(updateSelectedListingImagesAction(newImagesUploaded));
+    // dispatch(updateSelectedListingAction(editData));
+    // dispatch(updateSelectedListingImagesAction(newImagesUploaded));
+    writeStorage('editedListingData', { ...editData });
+    writeStorage('addedImages', [...newImagesUploaded]);
     const imageFormData = new FormData();
-
+    // console.log('newImagesUploaded', [...newImagesUploaded]);
+    // console.log(Object.entries(newImagesUploaded));
     Object.entries(newImagesUploaded).forEach(([key, value]) => {
+      // console.log('convert to form all entry: ', key, value);
       if (key !== 'length') {
         imageFormData.append('file', value);
+        // console.log('convert to form: ', value);
+        // console.log(imageFormData.get('file'));
       }
     });
-    console.log(imageFormData);
 
+    // console.log('imageFormData');
+    // console.log(imageFormData.getAll('file'));
     updateListing(dispatch, editData, imageFormData);
+    deleteEditedListingData();
+    deleteAddedImages();
   };
 
   const borderElement = () => (<div className="mt-2 mr-5 ml-5 border-bottom" />);
 
+  const displayImage = (imageKeyOrSource, index, fromEditData) => (
+    <div key={`imgs-${Number(index)}`} className="border-0 mr-1 mt-4">
+      <div className="mb-4 close-div">
+        <button
+          type="button"
+          className="close btn btn-sm"
+          aria-label="Close"
+          onClick={() => (
+            handleImageClose(imageKeyOrSource, fromEditData)
+          )}
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <img src={(fromEditData) ? editData.images[imageKeyOrSource] : imageKeyOrSource.name} className="rounded card-img-top edit-img" alt="..." />
+    </div>
+  );
+
   return (
+
     <div className="container mt-4 shadow p-3">
       <h4 className="text-center mt-3">Edit Listing</h4>
       <small className="text-muted form-text font-italic">[Click on the values to edit]</small>
@@ -226,7 +289,7 @@ export default function EditListing() {
       {/* allowOversubscription */}
       <div className="row mt-3 ml-3 pl-2">
         <div className="col">
-          <input type="checkbox" id="new-allow-oversubscription" className="border-0 mr-3" value={`${editData.allowOversubscription}`} onChange={(event) => handleOnChange(event, 'allowOversubscription')} />
+          <input type="checkbox" id="new-allow-oversubscription" className="border-0 mr-3" checked={editData.allowOversubscription} onChange={(event) => handleOnChange(event, 'allowOversubscription')} />
           <span className="muted font-italic">
             Allow oversubscription
             {' '}
@@ -335,22 +398,11 @@ export default function EditListing() {
         <div className="col-4 muted font-italic">Images</div>
         <div className="row row-cols-2 row-cols-sm-4 row-cols-lg-5 mt-3 ml-3 mr-3 p-2">
           {Object.keys(editData.images).map((imgKey, index) => (
-            <div key={`imgs-${Number(index)}`} className="border-0 mr-1">
-              <div className="mb-4 close-div">
-                <button
-                  type="button"
-                  className="close btn btn-sm"
-                  aria-label="Close"
-                  onClick={() => (
-                    handleImageClose(imgKey)
-                  )}
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <img src={editData.images[imgKey]} className="rounded card-img-top edit-img" alt="..." />
-            </div>
+            displayImage(imgKey, index, true)
           ))}
+          {/* {newImagesUploaded.map((imageSrc, arrIndex) => (
+            displayImage(imageSrc, arrIndex, false)
+          ))} */}
         </div>
       </div>
 
@@ -367,12 +419,15 @@ export default function EditListing() {
       {borderElement()}
       <div className="row m-3 pl-2 justify-content-between">
         <div className="col-6">
-          <LinkContainer to="/listingdetails" onClick={handleCancel}>
+          <LinkContainer to={`/listingdetails/${editData.id}`} onClick={handleCancel}>
             <span className="btn btn-sm btn-primary">Cancel</span>
           </LinkContainer>
         </div>
         <div className="col-6">
-          <button type="button" className="btn btn-sm btn-primary" onClick={handleSaveChanges}>Save</button>
+          <LinkContainer to={`/listingdetails/${editData.id}`} onClick={handleSaveChanges}>
+            <span className="btn btn-sm btn-primary">Save</span>
+          </LinkContainer>
+          {/* <button type="button" className="btn btn-sm btn-primary" onClick={handleSaveChanges}>Save</button> */}
         </div>
       </div>
     </div>

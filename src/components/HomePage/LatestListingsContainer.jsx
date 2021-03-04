@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 // import { GroupBuyContext } from '../../store.jsx';
 import LatestListingsListCard from './LatestListingsListCard.jsx';
 import './LatestListingsCard.css';
+import { isListingCancelled } from '../utility/listingHelper.js';
 
 export default function LatestListingsContainer({ latestListings }) {
   // const { store, dispatch } = useContext(GroupBuyContext);
@@ -28,8 +29,10 @@ export default function LatestListingsContainer({ latestListings }) {
       </div>
       <div className={`row row-cols-2 row-cols-sm-4 row-cols-lg-5 latest-listings-card-row ${isSeeMore ? 'flex-nowrap' : 'flex-wrap'} `}>
         {latestListings.map((singleListing, index) => (
+          (!isListingCancelled(singleListing.listingStatus))
+          && (
           <LatestListingsListCard key={`latest-${Number(index)}`} singleListing={singleListing} />
-        ))}
+          )))}
       </div>
     </div>
   );

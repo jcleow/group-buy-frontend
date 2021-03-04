@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { GroupBuyContext } from '../../store.jsx';
+import { LISTING_STATUSES, isListingCancelled } from '../utility/listingHelper.js';
 import EndingSoonListCard from './EndingSoonListCard.jsx';
 
 export default function EndingSoonContainer({ endingSoonListings }) {
@@ -34,7 +35,7 @@ export default function EndingSoonContainer({ endingSoonListings }) {
       </div>
       <div className={`row row-cols-2 row-cols-sm-4 row-cols-lg-5 listings-card-row ${isSeeMore ? 'flex-nowrap' : 'flex-wrap'} `}>
         {endingSoonListings.map((singleListing, index) => (
-          (!isListingExpired(singleListing)
+          (!isListingExpired(singleListing) && (!isListingCancelled(singleListing.listingStatus))
           && (
           <EndingSoonListCard
             key={`endsoon-${Number(index)}`}
