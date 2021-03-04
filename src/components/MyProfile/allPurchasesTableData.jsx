@@ -1,6 +1,8 @@
 import React from 'react';
 import moment from 'moment';
-import PaymentConfirmation from './OrderHistoryComponents/PaymentConfirmation.jsx';
+import PurchaseDateTracker from './OrderHistoryComponents/PurchaseDateTracker.jsx';
+import ReceiptApprovalDateTracker from './OrderHistoryComponents/ReceiptApprovalDateTracker.jsx';
+import MoqReachedDateTracker from './OrderHistoryComponents/MoqReachedDateTracker.jsx';
 
 /* ======================================
 Manage the column headers and data type for that column
@@ -82,17 +84,24 @@ const manageDataInExpandRow = (allPurchases) => {
       <div className="container-fluid responsive">
         <div className="row">
           <div className="col">
-            {JSON.parse(row.orderTrackerDetails).purchaseDate && (`Purchased: ${moment(JSON.parse(row.orderTrackerDetails).purchaseDate).format('DD/MM/YYYY')}`)}
-            {/* {`Purchased: ${moment(JSON.parse(row.orderTrackerDetails).purchaseDate).format('DD/MM/YYYY')}`} */}
-            <br />
-            {JSON.parse(row.orderTrackerDetails).purchaseDate && (`Receipt approval: ${moment(JSON.parse(row.orderTrackerDetails).dateReceiptApproved).format('DD/MM/YYYY')}`)}
-
-            {/* {`Receipt approval: ${moment(JSON.parse(row.orderTrackerDetails).dateReceiptApproved).format('DD/MM/YYYY')}`} */}
-            <br />
-            {JSON.parse(row.orderTrackerDetails).purchaseDate && (`MOQ reached on: ${moment(JSON.parse(row.orderTrackerDetails).dateMoqReached).format('DD/MM/YYYY')}`)}
-            {/* {`MOQ reached on: ${moment(JSON.parse(row.orderTrackerDetails).dateMoqReached).format('DD/MM/YYYY')}`} */}
+            <PurchaseDateTracker orderTrackerDetails={row.orderTrackerDetails} />
           </div>
         </div>
+        <ReceiptApprovalDateTracker orderTrackerDetails={row.orderTrackerDetails} />
+        <MoqReachedDateTracker orderTrackerDetails={row.orderTrackerDetails} />
+        {/* conditionally render purchase date if it exists in order history */}
+        {/* {JSON.parse(row.orderTrackerDetails).purchaseDate && (`Purchased: ${moment(JSON.parse(row.orderTrackerDetails).purchaseDate).format('DD/MM/YYYY')}`)} */}
+
+        {/* {`Purchased: ${moment(JSON.parse(row.orderTrackerDetails).purchaseDate).format('DD/MM/YYYY')}`} */}
+
+        {/* conditionally render receipt approval date if it exists in order history */}
+        {/* {JSON.parse(row.orderTrackerDetails).purchaseDate && (`Receipt approval: ${moment(JSON.parse(row.orderTrackerDetails).dateReceiptApproved).format('DD/MM/YYYY')}`)} */}
+
+        {/* {`Receipt approval: ${moment(JSON.parse(row.orderTrackerDetails).dateReceiptApproved).format('DD/MM/YYYY')}`} */}
+
+        {/* conditionally render MOQ date if it exists in order history */}
+        {/* {JSON.parse(row.orderTrackerDetails).purchaseDate && (`MOQ reached on: ${moment(JSON.parse(row.orderTrackerDetails).dateMoqReached).format('DD/MM/YYYY')}`)} */}
+        {/* {`MOQ reached on: ${moment(JSON.parse(row.orderTrackerDetails).dateMoqReached).format('DD/MM/YYYY')}`} */}
 
         {/* NOTES:
         <p>{ `This expanded row belongs to rowKey ${row.id}` }</p>
