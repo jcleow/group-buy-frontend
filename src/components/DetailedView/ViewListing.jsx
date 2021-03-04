@@ -18,13 +18,13 @@ export default function ViewListing() {
   const [getDetailedListView] = useLocalStorage('detailedListView');
   const [getListViewDisplayMode] = useLocalStorage('ListViewDisplayMode');
   const { listingId } = useParams();
-  console.log('useParams', useParams());
+  // console.log('useParams', useParams());
 
   /**
    * Function to write the lisitings data into storage or to read it from storage
    */
   const handleSelectAndLocalStorage = () => {
-    console.log('handleSelectAndLocalStorage');
+    // console.log('handleSelectAndLocalStorage');
     selectListing(dispatch, listingId);
     writeStorage('detailedListView', { ...selectedListingData });
     // Check whether the data received in the component is empty or not
@@ -49,7 +49,7 @@ export default function ViewListing() {
   // Set the specified mode
   useEffect(() => {
     handleSelectAndLocalStorage();
-    console.log(loggedInUserId, 'loggedInUserId');
+    // console.log(loggedInUserId, 'loggedInUserId');
 
     if (loggedInUserId === null) {
       if (getListViewDisplayMode) {
