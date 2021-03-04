@@ -24,10 +24,10 @@ export default function EditListing() {
   const [getEditedListingData, setEditedListingData, deleteEditedListingData] = useLocalStorage('editedListingData');
   const [getAddedImages, setAddedImages, deleteAddedImages] = useLocalStorage('addedImages');
   const { listingId } = useParams();
-  console.log('listingId', listingId);
+  // console.log('listingId', listingId);
 
   const getDefaultLoadingListingData = () => {
-    console.log('getDefaultLoadingListingData');
+    // console.log('getDefaultLoadingListingData');
     if (getEditedListingData) {
       if (getEditedListingData.id === listingId) {
         return getEditedListingData;
@@ -39,7 +39,7 @@ export default function EditListing() {
       return selectedListingData;
     }
 
-    console.log('selectListing');
+    // console.log('selectListing');
     selectListing(dispatch, listingId);
     return selectedListingData;
   };
@@ -49,11 +49,11 @@ export default function EditListing() {
   const [editData, setEditData] = useState((getEditedListingData)
     ? { ...getEditedListingData } : { ...selectedListingData });
 
-  console.log(editData);
+  // console.log(editData);
 
   // const [editData, setEditData] = useState(null);
   if (!editData) {
-    console.log('calling');
+    // console.log('calling');
     setEditData({ ...getDefaultLoadingListingData() });
   }
 
@@ -90,7 +90,7 @@ export default function EditListing() {
     const modifiedData = { ...editData };
     if (attrName === 'allowOversubscription') {
       modifiedData[attrName] = event.target.checked;
-      console.log(modifiedData.allowOversubscription);
+      // console.log(modifiedData.allowOversubscription);
     } else {
       modifiedData[attrName] = event.target.value;
     }
@@ -136,7 +136,7 @@ export default function EditListing() {
     if (fromEditData) {
       const modifiedData = { ...editData };
       delete modifiedData.images[imageKeyOrIndex];
-      console.log(modifiedData.images);
+      // console.log(modifiedData.images);
       setModifiedDataAsEditData({ ...modifiedData });
     }
     else {
@@ -146,14 +146,12 @@ export default function EditListing() {
   };
 
   const handleUploadPictures = (event) => {
-    // console.log(event.target.files);
+    // // console.log(event.target.files);
     // console.log(newImagesUploaded);
     // console.log([...newImagesUploaded, ...event.target.files]);
-    console.log(event.target.files);
+    // console.log(event.target.files);
     setNewImagesUploaded([...newImagesUploaded, ...event.target.files]);
     writeStorage('addedImages', [...newImagesUploaded]);
-    // console.log([...newImagesUploaded]);
-    // event.target.files = null;
   };
 
   const handleCancel = () => {
@@ -168,19 +166,19 @@ export default function EditListing() {
     writeStorage('editedListingData', { ...editData });
     writeStorage('addedImages', [...newImagesUploaded]);
     const imageFormData = new FormData();
-    console.log('newImagesUploaded', [...newImagesUploaded]);
-    console.log(Object.entries(newImagesUploaded));
+    // console.log('newImagesUploaded', [...newImagesUploaded]);
+    // console.log(Object.entries(newImagesUploaded));
     Object.entries(newImagesUploaded).forEach(([key, value]) => {
-      console.log('convert to form all entry: ', key, value);
+      // console.log('convert to form all entry: ', key, value);
       if (key !== 'length') {
         imageFormData.append('file', value);
-        console.log('convert to form: ', value);
-        console.log(imageFormData.get('file'));
+        // console.log('convert to form: ', value);
+        // console.log(imageFormData.get('file'));
       }
     });
 
-    console.log('imageFormData');
-    console.log(imageFormData.getAll('file'));
+    // console.log('imageFormData');
+    // console.log(imageFormData.getAll('file'));
     updateListing(dispatch, editData, imageFormData);
     deleteEditedListingData();
     deleteAddedImages();

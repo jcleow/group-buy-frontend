@@ -342,8 +342,8 @@ export function loadListings(dispatch, setAllCategories, setBtnArray) {
 export function selectListing(dispatch, listingId) {
   axios.get(`${BACKEND_URL}/listing/${listingId}`)
     .then((result) => {
-      console.log(result.data.selectedListing);
-      console.log('result.data.selectedListing', result.data.selectedListing);
+      // console.log(result.data.selectedListing);
+      // console.log('result.data.selectedListing', result.data.selectedListing);
       dispatch(selectListingAction(result.data.selectedListing));
     })
     .catch((err) => {
@@ -377,10 +377,10 @@ export function updateListing(dispatch, updatedListingData, imageFormData) {
   return axios.post(`${BACKEND_URL}/listings/${updatedListingData.id}/update`,
     { updatedListingData }).then((result) =>
   {
-    console.log('update result: ', result.data.updatedListing);
+    console.log('update successfully: ', result.data.updatedListing.id);
     // Upload added images
     return axios.post(`${BACKEND_URL}/listings/${updatedListingData.id}/update/images`, imageFormData).then((resImageUpload) => {
-      console.log('update image result: ', resImageUpload.data.updatedListing);
+      console.log('update image successfully: ', resImageUpload.data.updatedListing.id);
       dispatch(selectListingAction(resImageUpload.data.updatedListing));
       return resImageUpload.data.updatedListing.id;
     })
