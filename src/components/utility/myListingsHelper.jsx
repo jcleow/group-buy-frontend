@@ -21,7 +21,7 @@ export const myListingsColumns = [
     formatter: (cellContent, row) => {
       console.log(row, 'row');
       return (
-        <Link to={`/listing/${row.id}`}>
+        <Link to={`/listingDetails/${row.id}`}>
           {row.title}
         </Link>
       ); },

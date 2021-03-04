@@ -85,11 +85,12 @@ export function loadCurrListingPurchases(dispatchCampaign, currListingId) {
 }
 
 export function updatePurchaseDateDelivered(dispatchCampaign, currListingId, purchaseId, newDate) {
-  const formattedNewDate = new Date(newDate);
+  // Convert newDate of dd/mm/yyyy to mm/dd/yyyy as Date constructor only accepts the latter format
+  const newDateArr = newDate.split('/');
+  const formattedDateStr = `${newDateArr[1]}/${newDateArr[0]}/${newDateArr[2]}`;
+  const formattedNewDate = new Date(formattedDateStr);
+
   axios.put(`${BACKEND_URL}/listing/${currListingId}/purchase/${purchaseId}/date`, { formattedNewDate })
-    .then((result) => {
-      console.log(result, 'result');
-      return loadCurrListingPurchases(dispatchCampaign, currListingId);
-    })
+    .then(() => loadCurrListingPurchases(dispatchCampaign, currListingId))
     .catch((err) => console.log(err));
 }
