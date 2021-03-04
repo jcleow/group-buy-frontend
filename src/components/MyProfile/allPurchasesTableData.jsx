@@ -82,11 +82,15 @@ const manageDataInExpandRow = (allPurchases) => {
       <div className="container-fluid responsive">
         <div className="row">
           <div className="col">
-            {`Purchased: ${moment(JSON.parse(row.orderTrackerDetails).purchaseDate).format('DD/MM/YYYY')}`}
+            {JSON.parse(row.orderTrackerDetails).purchaseDate && (`Purchased: ${moment(JSON.parse(row.orderTrackerDetails).purchaseDate).format('DD/MM/YYYY')}`)}
+            {/* {`Purchased: ${moment(JSON.parse(row.orderTrackerDetails).purchaseDate).format('DD/MM/YYYY')}`} */}
             <br />
-            {`Receipt approval: ${moment(JSON.parse(row.orderTrackerDetails).dateReceiptApproved).format('DD/MM/YYYY')}`}
+            {JSON.parse(row.orderTrackerDetails).purchaseDate && (`Receipt approval: ${moment(JSON.parse(row.orderTrackerDetails).dateReceiptApproved).format('DD/MM/YYYY')}`)}
+
+            {/* {`Receipt approval: ${moment(JSON.parse(row.orderTrackerDetails).dateReceiptApproved).format('DD/MM/YYYY')}`} */}
             <br />
-            {`MOQ reached on: ${moment(JSON.parse(row.orderTrackerDetails).dateMoqReached).format('DD/MM/YYYY')}`}
+            {JSON.parse(row.orderTrackerDetails).purchaseDate && (`MOQ reached on: ${moment(JSON.parse(row.orderTrackerDetails).dateMoqReached).format('DD/MM/YYYY')}`)}
+            {/* {`MOQ reached on: ${moment(JSON.parse(row.orderTrackerDetails).dateMoqReached).format('DD/MM/YYYY')}`} */}
           </div>
         </div>
 
