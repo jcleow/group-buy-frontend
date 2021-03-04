@@ -23,13 +23,13 @@ function App() {
         <Switch>
           <Route path="/home" component={HomePage} />
           <Route path="/createListing" component={CreateListingForm} />
-          <Route path="/listingdetails" component={ViewListing} />
+          <Route path="/listingdetails/:listingId" component={ViewListing} />
           <Route path="/payment" component={MainPaymentPage} />
           <Route path="/viewAllListings" component={ViewAllListings} />
           <Route path="/MyProfile" component={MainProfilePage} />
           {/* <Route path="/viewAllMyPurchases" component={ViewAllMyPurchases} /> */}
           <Route path="/campaignProgress" component={CampaignProgress} />
-          <Route path="/editListing" component={EditListing} />
+          <Route path="/editListing/:listingId" component={EditListing} />
         </Switch>
       </Router>
     </GroupBuyProvider>

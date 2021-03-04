@@ -14,13 +14,9 @@ export default function ConfirmationOfReceipt({ setMode }) {
     // deleteFromStorage('mode');
   };
 
-  console.log('store.totalQuantityOrdered before reset');
-  console.log(store.totalQuantityOrdered);
   // clear the selected item and quantity in the store
   useEffect(() => {
     dispatch(resetSelectedItemNQty());
-    console.log('store.totalQuantityOrdered after reset');
-    console.log(store.totalQuantityOrdered);
   }, []);
 
   return (

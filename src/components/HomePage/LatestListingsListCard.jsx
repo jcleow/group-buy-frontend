@@ -28,7 +28,7 @@ export default function LatestListingListCard({ singleListing }) {
 
   return (
     <div className="col mb-4">
-      <LinkContainer to="/listingdetails" onClick={handleSelectListing}>
+      <LinkContainer to={`/listingdetails/${singleListing.id}`} onClick={handleSelectListing}>
         <div className="card h-100">
           { !isImagesPresent && (
           <img src="no-image-available-icon_m.jpg" className="latest-list-image rounded card-img-top" alt="..." />

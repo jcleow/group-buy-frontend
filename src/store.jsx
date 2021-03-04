@@ -339,6 +339,18 @@ export function loadListings(dispatch, setAllCategories, setBtnArray) {
   });
 }
 
+export function selectListing(dispatch, listingId) {
+  axios.get(`${BACKEND_URL}/listing/${listingId}`)
+    .then((result) => {
+      // console.log(result.data.selectedListing);
+      // console.log('result.data.selectedListing', result.data.selectedListing);
+      dispatch(selectListingAction(result.data.selectedListing));
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
 export function findPurchaseCountPerListing(listingId, setProgressPercent) {
   axios.get(`${BACKEND_URL}/purchases/count/${listingId}`).then((result) => {
     setProgressPercent(result.data.purchaseCount);
@@ -361,15 +373,21 @@ export function createListing(dispatch, listing) {
 }
 
 export function updateListing(dispatch, updatedListingData, imageFormData) {
+  // Upload the edited data to db
   return axios.post(`${BACKEND_URL}/listings/${updatedListingData.id}/update`,
     { updatedListingData }).then((result) =>
   {
+    console.log('update successfully: ', result.data.updatedListing.id);
     // Upload added images
-    axios.post(`${BACKEND_URL}/listings/${updatedListingData.id}/update/images`, imageFormData).then((resImageUpload) => {
+    return axios.post(`${BACKEND_URL}/listings/${updatedListingData.id}/update/images`, imageFormData).then((resImageUpload) => {
+      console.log('update image successfully: ', resImageUpload.data.updatedListing.id);
       dispatch(selectListingAction(resImageUpload.data.updatedListing));
       return resImageUpload.data.updatedListing.id;
     })
-      .catch((err) => result.data.updatedListing.id); });
+      .catch((err) => {
+        dispatch(selectListingAction(result.data.updatedListing));
+        return result.data.updatedListing.id;
+      }); });
 }
 
 export function recordPurchase(dispatch, uploadedFile, listingPK, qtyOrdered) {
