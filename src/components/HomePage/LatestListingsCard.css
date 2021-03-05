@@ -1,6 +1,13 @@
 .latest-list-image {
   width: 100%;
-  height: auto;
+  /* height: auto; */
+  height: 60%;
+}
+
+.latest-list-card {
+  /* display: flex;
+  flex-direction: column;
+  height: 50%; */
 }
 
 .latest-listings-card-row {
