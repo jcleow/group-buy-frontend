@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { useState, useContext, useEffect } from 'react';
 import moment from 'moment';
+import { useParams } from 'react-router';
 import {
   GroupBuyContext, findPurchaseCountPerListing, LISTING_VIEW_MODES,
 } from '../../store.jsx';
@@ -9,22 +10,15 @@ import { calcDiscountPct, getListingCurrentStatus, isListingCancelled } from '..
 
 export default function DetailedListingView({ children }) {
   const [progressPercent, setProgressPercent] = useState(0);
-  const [isImagesPresent, setIsImagesPresent] = useState(false);
   const { store, dispatch } = useContext(GroupBuyContext);
   const { selectedListingData, currentListViewDisplayMode, totalQuantityOrdered } = store;
-
-  // Calculate the progress of order
-  useEffect(() => {
-    // findPurchaseCountPerListing(selectedListingData.id, setProgressPercent);
-    if (selectedListingData.images === undefined || selectedListingData.images == null) {
-      setIsImagesPresent(false);
-    }
-    else {
-      setIsImagesPresent(true);
-    }
-  }, []);
+  const isImagesPresent = !(selectedListingData.images === undefined
+    || selectedListingData.images == null);
+  const { listingId } = useParams();
+  // console.log('useParams listingId', listingId);
 
   const findRelativeSaleEndingTime = () => {
+    // console.log('findRelativeSaleEndingTime', selectedListingData);
     const endDate = Date.parse(selectedListingData.endDate);
     const now = new Date();
     if ((endDate - now) < 0) {
@@ -50,14 +44,14 @@ export default function DetailedListingView({ children }) {
         <div className="col">
           <figure className="figure">
             { !isImagesPresent && (
-            <img src="no-image-available-icon_m.jpg" className="figure-img img-fluid ending-soon-image border" alt="..." />
+            <img src="/no-image-available-icon_m.jpg" className="figure-img img-fluid ending-soon-image border" alt="..." />
             )}
             { isImagesPresent && (
               <ListingImagesCarousel listImages={Object.values(selectedListingData.images)} />
             )}
             <figcaption className="figure-caption text-dark font-weight-bolder mt-1">{selectedListingData.title}</figcaption>
           </figure>
-          {findPurchaseCountPerListing(selectedListingData.id, setProgressPercent)}
+          {findPurchaseCountPerListing(listingId, setProgressPercent)}
           <div className="col-6">
             <div className="progress">
               <div id="order-progress" className="progress-bar progress-bar-striped bg-warning" role="progressbar" style={{ width: `${progressPercent}%` }} aria-valuenow={progressPercent} aria-valuemin="0" aria-valuemax="100" />

@@ -115,9 +115,11 @@ export function groupBuyReducer(state, action) {
     case SET_TOTAL_QUANTITY_ORDERED:
       return { ...state, totalQuantityOrdered: action.payload.totalQuantityOrdered };
     case LOAD_CATEGORIES:
-      return { ...state, categories: ['All', ...action.payload.categories] };
+    {
+      return { ...state, categories: ['All', ...action.payload.categories] }; }
     case LOAD_LISTING_STATUS:
-      return { ...state, listingStatus: [...action.payload.listingStatus] };
+    {
+      return { ...state, listingStatus: [...action.payload.listingStatus] }; }
     case UPDATE_SELECTED_LISTING:
       return { ...state, updatedListingData: { ...action.payload.updatedListingData } };
     case ADD_EXTRA_IMAGES:
@@ -179,6 +181,7 @@ export function sortAndFilterListingsByCreatedDate() {
 }
 
 export function selectListingAction(selectedListingData) {
+  console.log('inside selectListingAction', selectedListingData);
   return {
     type: SELECT_LISTING,
     payload: {
@@ -331,6 +334,8 @@ export function loadListings(dispatch, setAllCategories, setBtnArray) {
     dispatch(sortAndFilterListingsByCreatedDate());
     dispatch(loadCategoriesAction(result.data.categories));
     dispatch(loadListingStatusesAction(result.data.listingStatus));
+    writeStorage('categories', result.data.categories);
+    writeStorage('listingStatus', result.data.listingStatus);
     // to do: for delivery modes also
     // To set all the categories in the buttons
     setAllCategories(result.data.categories);
@@ -340,7 +345,8 @@ export function loadListings(dispatch, setAllCategories, setBtnArray) {
 }
 
 export function selectListing(dispatch, listingId) {
-  axios.get(`${BACKEND_URL}/listing/${listingId}`)
+  console.log('selectListing ', listingId);
+  return axios.get(`${BACKEND_URL}/listing/${listingId}`)
     .then((result) => {
       // console.log(result.data.selectedListing);
       // console.log('result.data.selectedListing', result.data.selectedListing);
@@ -352,7 +358,7 @@ export function selectListing(dispatch, listingId) {
 }
 
 export function findPurchaseCountPerListing(listingId, setProgressPercent) {
-  console.log(listingId, 'listingId');
+  // console.log('findPurchaseCountPerListing listingId', listingId);
   axios.get(`${BACKEND_URL}/purchases/count/${listingId}`).then((result) => {
     setProgressPercent(result.data.purchaseCount);
   });

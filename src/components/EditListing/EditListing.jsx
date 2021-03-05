@@ -9,7 +9,7 @@ import moment from 'moment';
 import { DateRangePicker, SingleDatePicker } from 'react-dates';
 import {
   GroupBuyContext, selectListingAction, updateSelectedListingAction,
-  updateSelectedListingImagesAction, updateListing, selectListing,
+  updateSelectedListingImagesAction, updateListing, selectListing, loadCategoriesAction, loadListingStatusesAction,
 } from '../../store.jsx';
 import { getListingCurrentStatus, calcDiscountPct, getListingStatusDesc } from '../utility/listingHelper.js';
 import './EditListing.css';
@@ -23,6 +23,8 @@ export default function EditListing() {
   } = store;
   const [getEditedListingData, setEditedListingData, deleteEditedListingData] = useLocalStorage('editedListingData');
   const [getAddedImages, setAddedImages, deleteAddedImages] = useLocalStorage('addedImages');
+  const [storedCategories] = useLocalStorage('categories');
+  const [storedListingStatus] = useLocalStorage('listingStatus');
   const { listingId } = useParams();
   // console.log('listingId', listingId);
 
@@ -38,8 +40,6 @@ export default function EditListing() {
     if (selectedListingData.id === listingId) {
       return selectedListingData;
     }
-
-    // console.log('selectListing');
     selectListing(dispatch, listingId);
     return selectedListingData;
   };
@@ -49,18 +49,30 @@ export default function EditListing() {
   const [editData, setEditData] = useState((getEditedListingData)
     ? { ...getEditedListingData } : { ...selectedListingData });
 
-  // console.log(editData);
+  console.log(editData);
 
-  // const [editData, setEditData] = useState(null);
+  const setDefaultData = () => {
+    console.log('storedCategories', storedCategories);
+    if (!categories || categories.length === 0) {
+      dispatch(loadCategoriesAction(storedCategories));
+    }
+    if (!listingStatus || listingStatus.length === 0) {
+      dispatch(loadListingStatusesAction(storedListingStatus));
+    }
+  };
+
   if (!editData) {
-    // console.log('calling');
+    console.log('calling');
     setEditData({ ...getDefaultLoadingListingData() });
+    setDefaultData();
   }
 
   useEffect(() => {
     if (!editData) {
       setEditData({ ...getDefaultLoadingListingData() });
     }
+    setDefaultData();
+    writeStorage('editedListingData', { ...editData });
   }, []);
 
   // Focus states for dateRangePicker and singleDatePicker
