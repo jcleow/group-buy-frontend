@@ -34,7 +34,6 @@ export default function TnC({ setMode }) {
     //* ** to shift into createListingStore */
     axios.post(`${BACKEND_URL}/createListing`, { updatedFormStore })
       .then((result) => {
-        console.log(result, 'result');
         setMode('SUBMITTED');
         return handleUploadPictures(result.data.newListing.id);
       })
@@ -47,20 +46,21 @@ export default function TnC({ setMode }) {
 
   return (
     <Form>
-      <Form.Group controlId="exampleForm.ControlTextarea1">
+      <div className="col payment-form-progress-bar d-flex flex-row justify-content-start">
+        <button type="button" onClick={handlePrevPage}>⬅️ </button>
+        <div className="create-listing-header ml-2">Terms and Conditions</div>
+      </div>
+      <Form.Group className="ml-3 mt-3" controlId="exampleForm.ControlTextarea1">
         <Form.Label>Terms and Conditions</Form.Label>
         <Form.Control
           name="tnc"
           as="textarea"
-          rows={3}
+          rows={10}
           value={formStore.tnc}
           onChange={handleOnChange}
         />
       </Form.Group>
-      <div className="d-flex flex-row justify-content-between">
-        <Button variant="primary" onClick={handlePrevPage}>
-          Previous
-        </Button>
+      <div className="d-flex flex-column align-items-center">
         <Button variant="info" onClick={handleSubmitForm}>
           Submit New Listing
         </Button>

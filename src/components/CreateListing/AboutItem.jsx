@@ -59,7 +59,10 @@ export default function AboutItem({ setMode }) {
 
   return (
     <Form>
-      <Form.Group controlId="formBasicEmail">
+      <div className="col payment-form-progress-bar d-flex flex-row justify-content-start">
+        <div className="create-listing-header ml-1">About Item</div>
+      </div>
+      <Form.Group className="ml-3 mt-3" controlId="formBasicEmail">
         <Form.Label>Title</Form.Label>
         <Form.Control
           name="title"
@@ -69,12 +72,12 @@ export default function AboutItem({ setMode }) {
           onChange={handleOnChange}
           required
         />
-        <Form.Text className="text-muted">
+        <Form.Text className="text-muted ml-3 mt-3">
           {'Enter a catchy title to grab people\'s attentions!'}
         </Form.Text>
       </Form.Group>
 
-      <Form.Group controlId="exampleForm.ControlTextarea1">
+      <Form.Group className="ml-3 mt-3" controlId="exampleForm.ControlTextarea1">
         <Form.Label>Description</Form.Label>
         <Form.Control
           name="description"
@@ -87,20 +90,23 @@ export default function AboutItem({ setMode }) {
       </Form.Group>
 
       <DropdownButton
+        className="ml-3 mt-3"
         id="dropdown-basic-button"
         title={formLocalStorage.category ? formLocalStorage.category : formStore.category}
         variant="outline-dark"
       >
         {arrOfCategoriesDropDown}
       </DropdownButton>
-
-      <input type="file" name="campaignImages" multiple onChange={handleUploadPictures} />
-      <div className="d-flex flex-row justify-content-between mt-3">
-        <Button variant="danger" onClick={handleCancelForm}>
-          Cancel
-        </Button>
+      <Button variant="outline-primary" className="ml-3 mt-3" type="file" name="campaignImages" multiple onChange={handleUploadPictures}> Upload Files </Button>
+      <div className="d-flex flex-row justify-content-center mb-3">
         <Button variant="primary" onClick={handleNextPage}>
           Next
+        </Button>
+      </div>
+
+      <div className="d-flex flex-row justify-content-center mt-5">
+        <Button variant="danger" onClick={handleCancelForm}>
+          Cancel
         </Button>
       </div>
     </Form>

@@ -20,7 +20,6 @@ export default function QtyAndPrice({ setMode }) {
     dispatchListingForm({ field: ALLOW_OVERSUBSCRIPTION, value: !formStore.allowOversubscription });
     writeStorage(CREATE_LISTING_FORM, { ...formLocalStorage, [ALLOW_OVERSUBSCRIPTION]: !formStore.allowOversubscription });
   };
-  console.log(formStore, 'formStore');
   const handleNextPage = () => {
     setMode('CAMPAIGN_DATES');
     writeStorage('formstep', CAMPAIGN_DATES);
@@ -30,18 +29,13 @@ export default function QtyAndPrice({ setMode }) {
     setMode('ABOUT_ITEM');
   };
 
-  // const calcDiscountPct = () => {
-  //   const discountDecimals = 100 - (Number(formStore.discountedPrice?.replace(/[$,]/g, '')) / Number(formStore.usualPrice?.replace(/[$,]/g, ''))) * 100;
-  //   const discountPct = discountDecimals.toFixed(2);
-  //   if (discountPct !== Infinity && discountPct !== 'NaN') {
-  //     return discountPct;
-  //   }
-  //   return '0.00';
-  // };
-
   return (
     <Form>
-      <Form.Group controlId="qtyAvailable">
+      <div className="col payment-form-progress-bar d-flex flex-row justify-content-start">
+        <button type="button" onClick={handlePrevPage}>⬅️ </button>
+        <div className="create-listing-header ml-2">Quantity and Price</div>
+      </div>
+      <Form.Group className="ml-3 mt-3" controlId="qtyAvailable">
         <Form.Label>Quantity Available</Form.Label>
         <Form.Control
           name="quantity"
@@ -66,7 +60,7 @@ export default function QtyAndPrice({ setMode }) {
         />
       </Form.Group>
 
-      <Form.Group controlId="minOrderQty">
+      <Form.Group className="ml-3 mt-3" controlId="minOrderQty">
         <Form.Label>Minimum Order Quantity (MOQ)</Form.Label>
         <Form.Control
           type="number"
@@ -80,7 +74,7 @@ export default function QtyAndPrice({ setMode }) {
         </Form.Text>
       </Form.Group>
 
-      <Form.Group controlId="usualPrice">
+      <Form.Group className="ml-3 mt-3" controlId="usualPrice">
         <Form.Label>Usual Price</Form.Label>
         <NumberFormat
           className="form-control"
@@ -97,7 +91,7 @@ export default function QtyAndPrice({ setMode }) {
         </Form.Text>
       </Form.Group>
 
-      <Form.Group controlId="discountedPrice">
+      <Form.Group className="ml-3 mt-3" controlId="discountedPrice">
         <Form.Label>Discounted Price (per unit)</Form.Label>
         <NumberFormat
           className="form-control"
@@ -113,7 +107,7 @@ export default function QtyAndPrice({ setMode }) {
           Discount Percentage will be calculated for you.
         </Form.Text>
       </Form.Group>
-      <Form.Group controlId="discountPct">
+      <Form.Group className="ml-3 mt-3" controlId="discountPct">
         <Form.Label>
           Discount:
           {' '}
@@ -122,13 +116,9 @@ export default function QtyAndPrice({ setMode }) {
           %
         </Form.Label>
         <Form.Label />
-
       </Form.Group>
 
-      <div className="d-flex flex-row justify-content-between">
-        <Button variant="primary" onClick={handlePrevPage}>
-          Previous
-        </Button>
+      <div className="d-flex flex-row justify-content-center">
         <Button variant="primary" onClick={handleNextPage}>
           Next
         </Button>

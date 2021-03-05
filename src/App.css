@@ -1,6 +1,8 @@
-:root{
---fadedDescription: #CDCDCD;
---headerBackground: #383e56;
+/** @format */
+
+:root {
+  --fadedDescription: #cdcdcd;
+  --headerBackground: #383e56;
 }
 
 /**
@@ -42,46 +44,49 @@
  * @keyframes App-logo-spin { from { transform: rotate(0deg);
  */
 
- .price-breakdown{
-   margin: 0px 5px 0px;
-   text-align: center;
- }
-.price-breakdown span{
+.price-breakdown {
+  margin: 0px 5px 0px;
+  text-align: center;
+}
+.price-breakdown span {
   height: 60px;
   line-height: 60px;
 }
- .price-breakdown-container{
+.price-breakdown-container {
   display: inline-flex;
-   flex-direction: row;
-   justify-content: center;
- } 
+  flex-direction: row;
+  justify-content: center;
+}
 
- .faded-description{
-   color: var(--fadedDescription)
- }
+.faded-description {
+  color: var(--fadedDescription);
+}
 
- .payment-form-progress-bar{
-   background-color: var(--headerBackground);
- }
- .payment-form-progress-bar button{
-   background-color: transparent;
-   border:none;
-   color:white;
- }
- .ProfilePg-ListingsTable{
-    margin-left:auto;
-   margin-right:auto;
-   height:60vh;
-   overflow:scroll;
- }
- .ProfilePg-PurchasesTable{
-   margin-left:auto;
-   margin-right:auto;
-   height:60vh;
-   overflow:scroll;
- }
+.payment-form-progress-bar {
+  background-color: var(--headerBackground);
+}
+.payment-form-progress-bar button {
+  background-color: transparent;
+  border: none;
+  color: white;
+}
+.ProfilePg-ListingsTable {
+  margin-left: auto;
+  margin-right: auto;
+  height: 60vh;
+  overflow: scroll;
+}
+.ProfilePg-PurchasesTable {
+  margin-left: auto;
+  margin-right: auto;
+  height: 60vh;
+  overflow: scroll;
+}
 
- .ProfilePg-PurchasesTable .col{
-   height:100px;
- }
-
+.ProfilePg-PurchasesTable .col {
+  height: 100px;
+}
+.create-listing-header {
+  color: white;
+  font-size: 2rem;
+}

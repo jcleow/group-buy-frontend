@@ -64,7 +64,11 @@ export default function CampaignDates({ setMode }) {
 
   return (
     <Form>
-      <Form.Group controlId="qtyAvailable">
+      <div className="col payment-form-progress-bar  d-flex flex-row justify-content-start">
+        <button type="button" onClick={handlePrevPage}>⬅️ </button>
+        <div className="create-listing-header ml-2">Campaign Dates</div>
+      </div>
+      <Form.Group className="ml-3 mt-3" controlId="qtyAvailable">
         <Form.Label>Campaign Start and End Date</Form.Label>
         <div>
           <DateRangePicker
@@ -79,7 +83,7 @@ export default function CampaignDates({ setMode }) {
         </div>
       </Form.Group>
 
-      <Form.Group controlId="minOrderQty">
+      <Form.Group className="ml-3 mt-3" controlId="minOrderQty">
         <Form.Label>Delivery Date</Form.Label>
         <div>
           <SingleDatePicker
@@ -92,11 +96,10 @@ export default function CampaignDates({ setMode }) {
           />
         </div>
       </Form.Group>
-      <Form.Group controlId="usualPrice">
+      <Form.Group className="ml-3 mt-3" controlId="usualPrice">
         <Form.Label>Delivery Mode</Form.Label>
         <div>
-          <label htmlFor="pickup">
-            Pick Up
+          <div>
             <input
               inline
               className="ml-1"
@@ -107,26 +110,28 @@ export default function CampaignDates({ setMode }) {
               checked={(formLocalStorage.deliveryMode === 'pickup' || formStore.deliveryMode === 'pickup')}
               onClick={handleOnChange}
             />
-          </label>
+            <label className="ml-2" htmlFor="pickup">
+              Pick Up
+            </label>
+          </div>
+
+          <input
+            inline
+            className="ml-1"
+            name="deliveryMode"
+            value="electronic"
+            type="radio"
+            id="electronic"
+            checked={(formLocalStorage.deliveryMode === 'electronic' || formStore.deliveryMode === 'electronic')}
+            onClick={handleOnChange}
+          />
           <label className="ml-2" htmlFor="electronic">
             Electronic
-            <input
-              inline
-              className="ml-1"
-              name="deliveryMode"
-              value="electronic"
-              type="radio"
-              id="electronic"
-              checked={(formLocalStorage.deliveryMode === 'electronic' || formStore.deliveryMode === 'electronic')}
-              onClick={handleOnChange}
-            />
           </label>
+
         </div>
       </Form.Group>
-      <div className="d-flex flex-row justify-content-between">
-        <Button variant="primary" onClick={handlePrevPage}>
-          Previous
-        </Button>
+      <div className="d-flex flex-row justify-content-center">
         <Button variant="primary" onClick={handleNextPage}>
           Next
         </Button>
