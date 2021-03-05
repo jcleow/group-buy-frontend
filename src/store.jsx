@@ -181,7 +181,6 @@ export function sortAndFilterListingsByCreatedDate() {
 }
 
 export function selectListingAction(selectedListingData) {
-  console.log('inside selectListingAction', selectedListingData);
   return {
     type: SELECT_LISTING,
     payload: {
@@ -345,7 +344,7 @@ export function loadListings(dispatch, setAllCategories, setBtnArray) {
 }
 
 export function selectListing(dispatch, listingId) {
-  console.log('selectListing ', listingId);
+  // console.log('selectListing ', listingId);
   return axios.get(`${BACKEND_URL}/listing/${listingId}`)
     .then((result) => {
       // console.log(result.data.selectedListing);
@@ -366,10 +365,6 @@ export function findPurchaseCountPerListing(listingId, setProgressPercent) {
 
 export function getPurchaseCountPerListing(listingId) {
   axios.get(`${BACKEND_URL}/purchases/count/${listingId}`).then((result) => (result.data.purchaseCount));
-}
-
-export function setLocalStorageForViewListing(setProgressPercent) {
-
 }
 
 export function createListing(dispatch, listing) {
