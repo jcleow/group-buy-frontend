@@ -1,18 +1,22 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { writeStorage } from '@rehooks/local-storage';
+import { writeStorage, deleteFromStorage } from '@rehooks/local-storage';
 import {
   Form, Button, Dropdown, DropdownButton,
 } from 'react-bootstrap';
-import { CreateListingContext, CREATE_LISTING_FORM, loadCategories } from '../../createListingStore.jsx';
+import {
+  CreateListingContext, CREATE_LISTING_FORM, loadCategories, formModes,
+} from '../../createListingStore.jsx';
 import { getUserIdFromCookie } from '../../helper.js';
 
 export default function AboutItem({ setMode }) {
   const CATEGORY = 'category';
+  const IMAGES = 'images';
   const [allCategories, setAllCategories] = useState([]);
   const {
     formStore, dispatchListingForm, handleOnChange, formLocalStorage,
   } = useContext(CreateListingContext);
 
+  const { QTY_AND_PRICE, FORM_STEP } = formModes;
   // If there is no storage relating to the form, create one now
   if (!formLocalStorage) {
     writeStorage(CREATE_LISTING_FORM, {});
@@ -20,6 +24,9 @@ export default function AboutItem({ setMode }) {
 
   const handleCancelForm = () => {
     // setMode('ABOUT_ITEMS');
+    window.location.href = '/home';
+    deleteFromStorage(CREATE_LISTING_FORM);
+    deleteFromStorage(FORM_STEP);
   };
 
   // Change the title of the dropdown button when a category is selected
@@ -29,8 +36,15 @@ export default function AboutItem({ setMode }) {
   };
 
   const handleNextPage = () => {
-    setMode('QTY_AND_PRICE');
-    writeStorage('formstep', 'QTY_AND_PRICE');
+    setMode(QTY_AND_PRICE);
+    writeStorage(FORM_STEP, QTY_AND_PRICE);
+  };
+
+  // Create a ref to hidden file input element
+  const hiddenFileInput = React.useRef(null);
+
+  const handleClickUpload = () => {
+    hiddenFileInput.current.click();
   };
 
   useEffect(() => {
@@ -49,7 +63,8 @@ export default function AboutItem({ setMode }) {
   ));
 
   const handleUploadPictures = (e) => {
-    dispatchListingForm({ field: 'images', value: e.target.files });
+    dispatchListingForm({ field: IMAGES, value: e.target.files });
+    writeStorage(CREATE_LISTING_FORM, { ...formLocalStorage, [IMAGES]: e.target.files });
   };
 
   // Load all categories available in the database
@@ -97,7 +112,16 @@ export default function AboutItem({ setMode }) {
       >
         {arrOfCategoriesDropDown}
       </DropdownButton>
-      <Button variant="outline-primary" className="ml-3 mt-3" type="file" name="campaignImages" multiple onChange={handleUploadPictures}> Upload Files </Button>
+      <Button role="button" className="mt-3 ml-3" variant="outline-primary" onClick={handleClickUpload}>Upload Files</Button>
+      <input
+        className="ml-3 mt-3"
+        type="file"
+        name="campaignImages"
+        multiple
+        style={{ display: 'none' }}
+        onChange={handleUploadPictures}
+        ref={hiddenFileInput}
+      />
       <div className="d-flex flex-row justify-content-center mb-3">
         <Button variant="primary" onClick={handleNextPage}>
           Next

@@ -2,12 +2,15 @@ import React, { useContext } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import { Form, Button } from 'react-bootstrap';
-import { CreateListingContext } from '../../createListingStore.jsx';
+import { writeStorage } from '@rehooks/local-storage';
+import { CreateListingContext, formModes } from '../../createListingStore.jsx';
 import BACKEND_URL from '../../helper.js';
 
 axios.defaults.withCredentials = true;
 export default function TnC({ setMode }) {
   const { formStore, handleOnChange } = useContext(CreateListingContext);
+
+  const { CAMPAIGN_DATES, SUBMITTED } = formModes;
 
   const handleUploadPictures = (listingId) => {
     const data = new FormData();
@@ -34,14 +37,15 @@ export default function TnC({ setMode }) {
     //* ** to shift into createListingStore */
     axios.post(`${BACKEND_URL}/createListing`, { updatedFormStore })
       .then((result) => {
-        setMode('SUBMITTED');
+        setMode(SUBMITTED);
         return handleUploadPictures(result.data.newListing.id);
       })
       .catch((error) => console.log(error));
   };
 
   const handlePrevPage = () => {
-    setMode('CAMPAIGN_DATES');
+    setMode(CAMPAIGN_DATES);
+    writeStorage('formstep', CAMPAIGN_DATES);
   };
 
   return (

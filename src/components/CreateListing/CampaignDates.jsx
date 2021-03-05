@@ -5,7 +5,7 @@ import React, { useState, useContext } from 'react';
 import { writeStorage } from '@rehooks/local-storage';
 import { Form, Button } from 'react-bootstrap';
 import { DateRangePicker, SingleDatePicker } from 'react-dates';
-import { CreateListingContext, CREATE_LISTING_FORM } from '../../createListingStore.jsx';
+import { CreateListingContext, CREATE_LISTING_FORM, formModes } from '../../createListingStore.jsx';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 
@@ -14,6 +14,8 @@ export default function CampaignDates({ setMode }) {
   const START_DATE = 'startDate';
   const END_DATE = 'endDate';
   const DELIVERY_DATE = 'deliveryDate';
+
+  const { TERMS_AND_CONDITIONS, QTY_AND_PRICE } = formModes;
 
   const {
     formStore, dispatchListingForm, handleOnChange, formLocalStorage,
@@ -52,12 +54,13 @@ export default function CampaignDates({ setMode }) {
   };
 
   const handleNextPage = () => {
-    setMode('TERMS_AND_CONDITIONS');
-    writeStorage('formstep', 'TERMS_AND_CONDITIONS');
+    setMode(TERMS_AND_CONDITIONS);
+    writeStorage('formstep', TERMS_AND_CONDITIONS);
   };
 
   const handlePrevPage = () => {
-    setMode('QTY_AND_PRICE');
+    setMode(QTY_AND_PRICE);
+    writeStorage('formstep', QTY_AND_PRICE);
   };
 
   console.log((formLocalStorage.startDate ? formLocalStorage.startDate : startDate), 'Campaign Details Start date');

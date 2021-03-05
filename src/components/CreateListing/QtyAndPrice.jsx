@@ -10,7 +10,7 @@ export default function QtyAndPrice({ setMode }) {
   const ALLOW_OVERSUBSCRIPTION = 'allowOversubscription';
 
   // Relevant form modes
-  const { CAMPAIGN_DATES } = formModes;
+  const { CAMPAIGN_DATES, ABOUT_ITEM } = formModes;
 
   const {
     formStore, dispatchListingForm, handleOnChange, formLocalStorage,
@@ -21,12 +21,13 @@ export default function QtyAndPrice({ setMode }) {
     writeStorage(CREATE_LISTING_FORM, { ...formLocalStorage, [ALLOW_OVERSUBSCRIPTION]: !formStore.allowOversubscription });
   };
   const handleNextPage = () => {
-    setMode('CAMPAIGN_DATES');
+    setMode(CAMPAIGN_DATES);
     writeStorage('formstep', CAMPAIGN_DATES);
   };
 
   const handlePrevPage = () => {
-    setMode('ABOUT_ITEM');
+    setMode(ABOUT_ITEM);
+    writeStorage('formstep', ABOUT_ITEM);
   };
 
   return (
