@@ -324,6 +324,8 @@ export function GroupBuyProvider({ children }) {
 //
 // these functions must be passed the dispatch from the current context
 
+// hiiii
+
 const BACKEND_URL = process.env.ENV === 'PRODUCTION' ? 'https://agile-fortress-78720.herokuapp.com/' : 'http://localhost:3004';
 
 export function loadListings(dispatch, setAllCategories, setBtnArray) {
@@ -357,6 +359,7 @@ export function selectListing(dispatch, listingId) {
 }
 
 export function findPurchaseCountPerListing(listingId, setProgressPercent) {
+  console.log('hello');
   // console.log('findPurchaseCountPerListing listingId', listingId);
   axios.get(`${BACKEND_URL}/purchases/count/${listingId}`).then((result) => {
     setProgressPercent(result.data.purchaseCount);
