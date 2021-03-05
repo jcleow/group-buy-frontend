@@ -7,6 +7,7 @@ import HomePage from './components/HomePage/HomePage.jsx';
 import ViewListing from './components/DetailedView/ViewListing.jsx';
 import CreateListingForm from './components/CreateListing/CreateListingForm.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import MyListings from './components/MyListings/MyListings.jsx';
 import MainPaymentPage from './components/Payments/MainPaymentPage.jsx';
 import ViewAllListings from './components/ViewAllListings/ViewAllListings.jsx';
 import MainProfilePage from './components/MyProfile/MainProfilePage.jsx';
@@ -27,9 +28,10 @@ function App() {
           <Route path="/payment" component={MainPaymentPage} />
           <Route path="/viewAllListings" component={ViewAllListings} />
           <Route path="/MyProfile" component={MainProfilePage} />
+          <Route path="/MyListings" component={MyListings} />
           {/* <Route path="/viewAllMyPurchases" component={ViewAllMyPurchases} /> */}
-          <Route path="/campaignProgress" component={CampaignProgress} />
           <Route path="/editListing/:listingId" component={EditListing} />
+          <Route path="/viewProgress/:listingId/" component={CampaignProgress} />
         </Switch>
       </Router>
     </GroupBuyProvider>

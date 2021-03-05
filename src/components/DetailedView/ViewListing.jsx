@@ -112,6 +112,11 @@ export default function ViewListing() {
             <div className={colClasses}>
               <button type="button" className="btn btn-sm btn-warning" onClick={handleDelete}>Delete</button>
             </div>
+            <div className={colClasses}>
+              <LinkContainer to={`/viewProgress/${listingId}`}>
+                <span className="btn btn-sm btn-warning">View Progress</span>
+              </LinkContainer>
+            </div>
           </div>
         );
       }

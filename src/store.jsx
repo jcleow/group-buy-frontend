@@ -359,7 +359,6 @@ export function selectListing(dispatch, listingId) {
 
 export function findPurchaseCountPerListing(listingId, setProgressPercent) {
   // console.log('findPurchaseCountPerListing listingId', listingId);
-
   axios.get(`${BACKEND_URL}/purchases/count/${listingId}`).then((result) => {
     setProgressPercent(result.data.purchaseCount);
   });
