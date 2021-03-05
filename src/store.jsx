@@ -324,7 +324,7 @@ export function GroupBuyProvider({ children }) {
 //
 // these functions must be passed the dispatch from the current context
 
-const BACKEND_URL = 'http://localhost:3004';
+const BACKEND_URL = process.env.ENV === 'PRODUCTION' ? 'https://agile-fortress-78720.herokuapp.com/' : 'http://localhost:3004';
 
 export function loadListings(dispatch, setAllCategories, setBtnArray) {
   axios.get(`${BACKEND_URL}/listings`).then((result) => {
