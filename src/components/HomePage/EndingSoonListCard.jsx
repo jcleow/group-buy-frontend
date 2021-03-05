@@ -26,7 +26,7 @@ export default function EndingSoonListCard({ singleListing }) {
   return (
     // <div className="col-6 col-md-3 ml-auto">
     <div className="col-6 col-md-3">
-      <LinkContainer to="/listingdetails" onClick={handleSelectListing}>
+      <LinkContainer to={`/listingdetails/${singleListing.id}`} onClick={handleSelectListing}>
         <figure className="figure">
           { (singleListing.images === undefined || singleListing.images == null) && (
             <img src="no-image-available-icon_m.jpg" className="figure-img img-fluid ending-soon-image border" alt="..." />
@@ -45,7 +45,12 @@ export default function EndingSoonListCard({ singleListing }) {
       </LinkContainer>
       {findPurchaseCountPerListing(singleListing.id, setProgressPercent)}
       <div className="progress">
-        <div id="order-progress" className="progress-bar progress-bar-striped bg-warning" role="progressbar" style={{ width: `${progressPercent}%` }} aria-valuenow={progressPercent} aria-valuemin="0" aria-valuemax="100" />
+        <div id="order-progress" className="progress-bar progress-bar-striped bg-warning" role="progressbar" style={{ width: `${progressPercent}%` }} aria-valuenow={progressPercent} aria-valuemin="0" aria-valuemax="100">
+          <small className="text-center">
+            {progressPercent}
+            %
+          </small>
+        </div>
       </div>
       <div className="text-muted order-progress-label">
         Ordered so far -

@@ -115,9 +115,11 @@ export function groupBuyReducer(state, action) {
     case SET_TOTAL_QUANTITY_ORDERED:
       return { ...state, totalQuantityOrdered: action.payload.totalQuantityOrdered };
     case LOAD_CATEGORIES:
-      return { ...state, categories: ['All', ...action.payload.categories] };
+    {
+      return { ...state, categories: ['All', ...action.payload.categories] }; }
     case LOAD_LISTING_STATUS:
-      return { ...state, listingStatus: [...action.payload.listingStatus] };
+    {
+      return { ...state, listingStatus: [...action.payload.listingStatus] }; }
     case UPDATE_SELECTED_LISTING:
       return { ...state, updatedListingData: { ...action.payload.updatedListingData } };
     case ADD_EXTRA_IMAGES:
@@ -331,6 +333,8 @@ export function loadListings(dispatch, setAllCategories, setBtnArray) {
     dispatch(sortAndFilterListingsByCreatedDate());
     dispatch(loadCategoriesAction(result.data.categories));
     dispatch(loadListingStatusesAction(result.data.listingStatus));
+    writeStorage('categories', result.data.categories);
+    writeStorage('listingStatus', result.data.listingStatus);
     // to do: for delivery modes also
     // To set all the categories in the buttons
     setAllCategories(result.data.categories);
@@ -339,7 +343,21 @@ export function loadListings(dispatch, setAllCategories, setBtnArray) {
   });
 }
 
+export function selectListing(dispatch, listingId) {
+  // console.log('selectListing ', listingId);
+  return axios.get(`${BACKEND_URL}/listing/${listingId}`)
+    .then((result) => {
+      // console.log(result.data.selectedListing);
+      // console.log('result.data.selectedListing', result.data.selectedListing);
+      dispatch(selectListingAction(result.data.selectedListing));
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
 export function findPurchaseCountPerListing(listingId, setProgressPercent) {
+  // console.log('findPurchaseCountPerListing listingId', listingId);
   axios.get(`${BACKEND_URL}/purchases/count/${listingId}`).then((result) => {
     setProgressPercent(result.data.purchaseCount);
   });
@@ -347,10 +365,6 @@ export function findPurchaseCountPerListing(listingId, setProgressPercent) {
 
 export function getPurchaseCountPerListing(listingId) {
   axios.get(`${BACKEND_URL}/purchases/count/${listingId}`).then((result) => (result.data.purchaseCount));
-}
-
-export function setLocalStorageForViewListing(setProgressPercent) {
-
 }
 
 export function createListing(dispatch, listing) {
@@ -361,15 +375,21 @@ export function createListing(dispatch, listing) {
 }
 
 export function updateListing(dispatch, updatedListingData, imageFormData) {
+  // Upload the edited data to db
   return axios.post(`${BACKEND_URL}/listings/${updatedListingData.id}/update`,
     { updatedListingData }).then((result) =>
   {
+    console.log('update successfully: ', result.data.updatedListing.id);
     // Upload added images
-    axios.post(`${BACKEND_URL}/listings/${updatedListingData.id}/update/images`, imageFormData).then((resImageUpload) => {
+    return axios.post(`${BACKEND_URL}/listings/${updatedListingData.id}/update/images`, imageFormData).then((resImageUpload) => {
+      console.log('update image successfully: ', resImageUpload.data.updatedListing.id);
       dispatch(selectListingAction(resImageUpload.data.updatedListing));
       return resImageUpload.data.updatedListing.id;
     })
-      .catch((err) => result.data.updatedListing.id); });
+      .catch((err) => {
+        dispatch(selectListingAction(result.data.updatedListing));
+        return result.data.updatedListing.id;
+      }); });
 }
 
 export function recordPurchase(dispatch, uploadedFile, listingPK, qtyOrdered) {

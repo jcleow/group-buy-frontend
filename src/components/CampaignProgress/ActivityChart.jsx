@@ -48,10 +48,10 @@ export default function ActivityChart() {
   return (
     <div>
       <h4 className="mt-2 ml-5">
-        Total Purchases:
+        Total Qty Purchased:
         {calcTotalPurchases()}
       </h4>
-      <h6 className="mt-2 ml-5">Daily Purchase Count (7 Days)</h6>
+      <h6 className="mt-2 ml-5">Daily Qty Purchased (7 Days)</h6>
       <div className="d-flex justify-content-center activity-graph">
         <FlexibleXYPlot onMouseLeave={() => { setValue(null); }} xType="ordinal">
           <YAxis tickValues={yAxisTickValues} />

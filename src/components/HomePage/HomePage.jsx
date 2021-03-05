@@ -14,6 +14,7 @@ export default function HomePage() {
   const [getDetailedListView, setDetailedListView, deleteDetailedListView] = useLocalStorage('detailedListView');
   const [getListViewDisplayMode, setListViewDisplayMode, deleteListViewDisplayMode] = useLocalStorage('ListViewDisplayMode');
   const [getTotalQuantityOrdered, setTotalQuantityOrdered, deleteTotalQuantityOrdered] = useLocalStorage('totalQuantityOrdered');
+  const [getEditedListingData, setEditedListingData, deleteEditedListingData] = useLocalStorage('editedListingData');
 
   // Manage the states for the categories to be displayed
   const [allCategories, setAllCategories] = useState([]);
@@ -31,6 +32,7 @@ export default function HomePage() {
     deleteDetailedListView();
     deleteListViewDisplayMode();
     deleteTotalQuantityOrdered();
+    deleteEditedListingData();
   }, []);
 
   useEffect(() => {
