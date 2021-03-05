@@ -1,8 +1,8 @@
 import React from 'react';
 import moment from 'moment';
 
-export default function ReceiptApprovalDateTracker({ orderTrackerDetails }) {
-  let { dateReceiptApproved } = JSON.parse(orderTrackerDetails);
+export default function ReceiptApprovalDateTracker({ allPurchases }) {
+  let { dateReceiptApproved } = JSON.parse(allPurchases);
   if (dateReceiptApproved !== null) {
     dateReceiptApproved = moment(dateReceiptApproved).format('DD/MM/YYYY');
   }
