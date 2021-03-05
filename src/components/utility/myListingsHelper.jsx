@@ -4,6 +4,11 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 export const generateLinkToListing = (cell) => (<LinkContainer>{cell?.title}</LinkContainer>);
 
+// export const handleSelectListing = () => {
+//   dispatch(selectListingAction(singleListing));
+//   dispatch(displayListingDetailsAction(true));
+// };
+
 export const myListingsColumns = [
   {
     dataField: 'serialNum',
@@ -18,13 +23,11 @@ export const myListingsColumns = [
     dataField: 'title',
     text: 'Campaign',
     editable: false,
-    formatter: (cellContent, row) => {
-      console.log(row, 'row');
-      return (
-        <Link to={`/listingDetails/${row.id}`}>
-          {row.title}
-        </Link>
-      ); },
+    formatter: (cellContent, row) => (
+      <Link to={`/listingdetails/${row.id}`}>
+        {row.title}
+      </Link>
+    ),
   }, {
     dataField: 'moq',
     text: 'Min Order Qty',

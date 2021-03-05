@@ -9,7 +9,7 @@ export default function UsernameBtn() {
   const { store, dispatch } = useContext(GroupBuyContext);
   const handleSignOut = () => {
     axios.put(`${BACKEND_URL}/signOut`, {}, { withCredentials: true })
-      .then((result) => {
+      .then(() => {
         dispatch(setLoggedInUsername(null));
       })
       .catch((err) => console.log(err));

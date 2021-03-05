@@ -44,7 +44,6 @@ export const generateListingsStoreActions = () => {
 export function loadMyListings(dispatchMyListings) {
   axios.get(`${BACKEND_URL}/myListings`)
     .then((result) => {
-      console.log(result, 'result');
       dispatchMyListings(loadMyListingsAction(result.data.formattedMyListings));
     })
     .catch((err) => console.log(err));
