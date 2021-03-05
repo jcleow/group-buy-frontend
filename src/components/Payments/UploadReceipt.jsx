@@ -5,12 +5,12 @@ import PropTypes from 'prop-types';
 import { GroupBuyContext, recordPurchase } from '../../store.jsx';
 import PAGE_NAMES from '../utility/paymentPageNames.js';
 
-export default function UploadReceipt({ setMode }) {
+export default function UploadReceipt({ setMode, selectedListingData, totalQuantityOrdered }) {
 // create a state that saves the img of the paynow receipt
   const [selectedFile, setSelectedFile] = useState(null);
   // destructuring to get dispatch
   const { store, dispatch } = useContext(GroupBuyContext);
-  const { selectedListingData, totalQuantityOrdered } = store;
+  // const { selectedListingData, totalQuantityOrdered } = store;
 
   const handleBtnClick = () => {
     // save the state to the cookie
