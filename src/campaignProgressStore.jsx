@@ -5,7 +5,6 @@ const BACKEND_URL = 'http://localhost:3004';
 
 const LOAD_CURR_LISTING_PURCHASES = 'LOAD_CURR_LISTING_PURCHASES';
 const LOAD_PAST_SEVEN_DAYS_COUNT = 'LOAD_PAST_SEVEN_DAYS_COUNT';
-// const SET_CURR_LISTING_ID = 'SET_CURR_LISTING_ID';
 
 export const initialCampaignState = {
   allPurchases: [],
@@ -21,8 +20,7 @@ export function campaignProgressReducer(state, action) {
         allPurchases: [...action.payload.currListingPurchases],
         currListingId: action.payload.currListingId,
       };
-    // case SET_CURR_LISTING_ID:
-    //   return { ...state, currListing: action.payload.currListingId };
+
     case LOAD_PAST_SEVEN_DAYS_COUNT:
       return { ...state, pastSevenDaysCount: action.payload.pastSevenDaysCount };
     default:
@@ -40,15 +38,6 @@ export function loadPurchasesAction(currListingPurchases, currListingId) {
     },
   };
 }
-
-// export function setCurrListingId(currListingId) {
-//   return {
-//     type: SET_CURR_LISTING_ID,
-//     payload: {
-//       currListingId,
-//     },
-//   };
-// }
 
 export function loadPastSevenDayPurchaseCountAction(pastSevenDaysCount) {
   return {
@@ -85,11 +74,12 @@ export function loadCurrListingPurchases(dispatchCampaign, currListingId) {
 }
 
 export function updatePurchaseDateDelivered(dispatchCampaign, currListingId, purchaseId, newDate) {
-  const formattedNewDate = new Date(newDate);
+  // Convert newDate of dd/mm/yyyy to mm/dd/yyyy as Date constructor only accepts the latter format
+  const newDateArr = newDate.split('/');
+  const formattedDateStr = `${newDateArr[1]}/${newDateArr[0]}/${newDateArr[2]}`;
+  const formattedNewDate = new Date(formattedDateStr);
+
   axios.put(`${BACKEND_URL}/listing/${currListingId}/purchase/${purchaseId}/date`, { formattedNewDate })
-    .then((result) => {
-      console.log(result, 'result');
-      return loadCurrListingPurchases(dispatchCampaign, currListingId);
-    })
+    .then(() => loadCurrListingPurchases(dispatchCampaign, currListingId))
     .catch((err) => console.log(err));
 }
