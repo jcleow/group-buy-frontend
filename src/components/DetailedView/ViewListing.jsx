@@ -18,32 +18,39 @@ export default function ViewListing() {
   const [getDetailedListView] = useLocalStorage('detailedListView');
   const [getListViewDisplayMode] = useLocalStorage('ListViewDisplayMode');
   const { listingId } = useParams();
-  // console.log('useParams', useParams());
+  console.log('useParams listingId', listingId);
 
   /**
    * Function to write the lisitings data into storage or to read it from storage
    */
   const handleSelectAndLocalStorage = () => {
-    // console.log('handleSelectAndLocalStorage');
-    selectListing(dispatch, listingId);
-    writeStorage('detailedListView', { ...selectedListingData });
+    console.log('handleSelectAndLocalStorage');
+    // selectListing(dispatch, listingId);
+    // writeStorage('detailedListView', { ...selectedListingData });
+
     // Check whether the data received in the component is empty or not
-    // if (Object.keys(selectedListingData).length === 0) {
-    //   // Empty ==> Page might have refreshed and data from the store is not avaialable.
-    //   // Restore it from local storage
-    //   if (getDetailedListView && (getDetailedListView.id === listingId)) {
-    //     dispatch(selectListingAction(getDetailedListView));
-    //     dispatch(setDisplayListingMode(getListViewDisplayMode));
-    //   }
-    //   else {
-    //     selectListing(dispatch, listingId);
-    //     writeStorage('detailedListView', { ...selectedListingData });
-    //   }
-    // }
-    // // If the data is received in the component, write it to the local storage
-    // else {
-    //   writeStorage('detailedListView', { ...selectedListingData });
-    // }
+    if (Object.keys(selectedListingData).length === 0) {
+      // Empty ==> Page might have refreshed and data from the store is not avaialable.
+      // Restore it from local storage
+
+      if (getDetailedListView && (Number(getDetailedListView.id) === Number(listingId))) {
+        console.log('getDetailedListView.images', getDetailedListView.images);
+
+        dispatch(selectListingAction(getDetailedListView));
+        dispatch(setDisplayListingMode(getListViewDisplayMode));
+      }
+      else {
+        console.log('calling selectListing');
+        selectListing(dispatch, listingId);
+        writeStorage('detailedListView', { ...selectedListingData });
+      }
+    }
+    // If the data is received in the component, write it to the local storage
+    else {
+      console.log('calling selectListing');
+      selectListing(dispatch, listingId);
+      writeStorage('detailedListView', { ...selectedListingData });
+    }
   };
 
   // Set the specified mode
@@ -121,6 +128,7 @@ export default function ViewListing() {
 
   return (
     <div className="container mb-5">
+      {/* {init()} */}
       <DetailedListingView>
         {handleDisplayePerMode()}
       </DetailedListingView>
