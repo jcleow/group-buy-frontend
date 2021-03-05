@@ -3,6 +3,16 @@
   height: 25rem;
 }
 
+/* .see-more:focus {
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+.see-more:focus:not(:focus-visible) {
+  outline: 0 !important;
+  box-shadow: none !important;
+  transition: none;
+} */
+
 .listings-card-row {
   /* flex-wrap: nowrap; */
   overflow: auto;

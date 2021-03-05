@@ -18,7 +18,6 @@ export default function DetailedListingView({ children }) {
   // console.log('useParams listingId', listingId);
 
   const findRelativeSaleEndingTime = () => {
-    // console.log('findRelativeSaleEndingTime', selectedListingData);
     const endDate = Date.parse(selectedListingData.endDate);
     const now = new Date();
     if ((endDate - now) < 0) {
