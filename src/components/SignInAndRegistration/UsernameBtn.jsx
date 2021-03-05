@@ -11,6 +11,7 @@ export default function UsernameBtn() {
     axios.put(`${BACKEND_URL}/signOut`, {}, { withCredentials: true })
       .then(() => {
         dispatch(setLoggedInUsername(null));
+        window.location.reload();
       })
       .catch((err) => console.log(err));
   };

@@ -25,6 +25,7 @@ export default function SignInForm({ handleClose, setFormDisplay }) {
         setPasswordInput('');
         if (result.data.auth) {
           dispatch(setLoggedInUsername(result.data.user.username));
+          window.location.reload();
         }
         handleClose();
       })
