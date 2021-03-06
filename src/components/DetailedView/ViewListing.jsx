@@ -75,7 +75,7 @@ export default function ViewListing() {
 
   const handleDisplayePerMode = () => {
     const rowClasses = 'row mt-3 ml-3';
-    const colClasses = 'col';
+    const colClasses = 'col-3 m-1';
     switch (currentListViewDisplayMode)
     {
       case LISTING_VIEW_MODES.BUYER_LISTING_VIEW:
@@ -94,16 +94,19 @@ export default function ViewListing() {
       case LISTING_VIEW_MODES.LISTER_LISTING_VIEW:
       {
         return (
-          <div className={rowClasses}>
-            <div className={colClasses}>
+          // <div className={`${rowClasses} mb-3 justify-content-center`}>
+          <div className="row mt-2 mb-3 justify-content-around">
+            <div className={`${colClasses} mb-1 `}>
               <LinkContainer to={`/editListing/${listingId}`}>
-                <span className="btn btn-sm btn-warning">Edit</span>
+                <span className="btn btn-sm  btn-warning">Edit Listing</span>
               </LinkContainer>
             </div>
-            <div className={colClasses}>
-              <button type="button" className="btn btn-sm btn-warning" onClick={handleDelete}>Delete</button>
+            <div className={`${colClasses} mb-1 `}>
+              <LinkContainer to={`/delete/${listingId}`} onClick={handleDelete}>
+                <span className="btn btn-sm  btn-warning">Delete Listing</span>
+              </LinkContainer>
             </div>
-            <div className={colClasses}>
+            <div className={`${colClasses} mb-1 `}>
               <LinkContainer to={`/viewProgress/${listingId}`}>
                 <span className="btn btn-sm btn-warning">View Progress</span>
               </LinkContainer>

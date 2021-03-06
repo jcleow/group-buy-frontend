@@ -177,7 +177,7 @@ export default function EditListing() {
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <img src={(fromEditData) ? editData.images[imageKeyOrSource] : imageKeyOrSource.name} className="rounded card-img-top edit-img" alt="..." />
+      <img src={(fromEditData) ? editData.images[imageKeyOrSource] : URL.createObjectURL(imageKeyOrSource)} className="rounded card-img-top edit-img" alt="images" />
     </div>
   );
 
@@ -377,9 +377,9 @@ export default function EditListing() {
           {Object.keys(editData.images).map((imgKey, index) => (
             displayImage(imgKey, index, true)
           ))}
-          {/* {newImagesUploaded.map((imageSrc, arrIndex) => (
+          {newImagesUploaded.map((imageSrc, arrIndex) => (
             displayImage(imageSrc, arrIndex, false)
-          ))} */}
+          ))}
         </div>
       </div>
 
