@@ -18,7 +18,7 @@ export default function SubmittedListing({ setMode }) {
   ));
 
   const handleReturnToHome = () => {
-    window.location.href = '/home';
+    window.location = '/';
     deleteFromStorage(CREATE_LISTING_FORM);
     deleteFromStorage(FORM_STEP);
   };
