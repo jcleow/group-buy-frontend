@@ -84,7 +84,6 @@ export default function AboutItem({ setMode }) {
     writeStorage(CREATE_LISTING_FORM, { ...formLocalStorage, imageLocations: [...allImageLocations] });
     setImgLocations([...imgLocations, ...allImageLocations]);
   };
-  console.log(formLocalStorage.images?.get('File'));
 
   const handleDeleteUploadedPicture = (idx) => {
     const remainingImagesUploaded = formLocalStorage.images.splice(idx, 1);
