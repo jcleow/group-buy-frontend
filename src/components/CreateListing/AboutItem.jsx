@@ -9,11 +9,22 @@ import {
 } from '../../createListingStore.jsx';
 import { getUserIdFromCookie } from '../../helper.js';
 
+// Helper
+const generateAllImageLocations = (files) => {
+  const allImageLocations = Object.entries(files).map(([key, file]) => {
+    if (key !== 'length') {
+      return URL.createObjectURL(file);
+    }
+    return null;
+  });
+  return allImageLocations;
+};
+
 export default function AboutItem({ setMode }) {
   const CATEGORY = 'category';
   const IMAGES = 'images';
   const [allCategories, setAllCategories] = useState([]);
-  const [imagesUploaded, setImagesUploaded] = useState([]);
+  const [imgLocations, setImgLocations] = useState([]);
   const {
     formStore, dispatchListingForm, handleOnChange, formLocalStorage,
   } = useContext(CreateListingContext);
@@ -65,32 +76,36 @@ export default function AboutItem({ setMode }) {
   ));
 
   const handleUploadPictures = (e) => {
+    console.log(e.target.files, 'e.target.files');
     dispatchListingForm({ field: IMAGES, value: e.target.files });
     writeStorage(CREATE_LISTING_FORM, { ...formLocalStorage, [IMAGES]: [...e.target.files] });
-    const allImageLocations = Object.entries(e.target.files).map(([key, file]) => {
-      if (key !== 'length') {
-        return URL.createObjectURL(file);
-      }
-      return null;
-    });
+
+    const allImageLocations = generateAllImageLocations(e.target.files);
     writeStorage(CREATE_LISTING_FORM, { ...formLocalStorage, imageLocations: [...allImageLocations] });
-    setImagesUploaded([...imagesUploaded, ...allImageLocations]);
+    setImgLocations([...imgLocations, ...allImageLocations]);
+  };
+  console.log(formLocalStorage.images?.get('File'));
+
+  const handleDeleteUploadedPicture = (idx) => {
+    const remainingImagesUploaded = formLocalStorage.images.splice(idx, 1);
+    const remainingImageLocations = imgLocations.splice(idx, 1);
+
+    writeStorage(CREATE_LISTING_FORM, { ...formLocalStorage, [IMAGES]: [...remainingImagesUploaded] });
+    console.log(formLocalStorage.images?.getAll('File'));
+
+    writeStorage(CREATE_LISTING_FORM, { ...formLocalStorage, imageLocations: [...remainingImageLocations] });
+    setImgLocations([...remainingImageLocations]);
   };
 
-  // const displayDeletePicBtn = () => {
-  //   return(
-
-  //   )
-  // };
-
   const displayImages = () => {
-    const images = formLocalStorage.imageLocations.map((location) => (
+    const images = formLocalStorage.imageLocations.map((location, i) => (
       <div className="col uploaded-img-container">
         <div className="d-flex justify-content-end delete-img-btn">
           <button
             type="button"
             className="btn btn-sm"
             aria-label="Close"
+            onClick={() => { handleDeleteUploadedPicture(i); }}
           >
             <span className="delete-img" aria-hidden="true">&times;</span>
           </button>
@@ -158,13 +173,13 @@ export default function AboutItem({ setMode }) {
         ref={hiddenFileInput}
       />
       {/* Uploaded Images */}
-      <div className="d-flex flex-row justify-content-start">
+      <div className="d-flex flex-row justify-content-start mt-3">
         <div className="row d-flex justify-content-between">
           {formLocalStorage.imageLocations && displayImages()}
         </div>
       </div>
 
-      <div className="d-flex flex-row justify-content-center mb-3">
+      <div className="d-flex flex-row justify-content-center mt-5 mb-3">
         <Button variant="primary" onClick={handleNextPage}>
           Next
         </Button>
