@@ -4,7 +4,7 @@ import moment from 'moment';
 import { Form, Button } from 'react-bootstrap';
 import { writeStorage } from '@rehooks/local-storage';
 import { CreateListingContext, formModes } from '../../createListingStore.jsx';
-import BACKEND_URL from '../../helper.js';
+import { BACKEND_URL } from '../../store.jsx';
 
 axios.defaults.withCredentials = true;
 export default function TnC({ setMode }) {

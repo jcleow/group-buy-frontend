@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useReducer } from 'react';
-
-const BACKEND_URL = process.env.ENV === 'PRODUCTION' ? 'https://agile-fortress-78720.herokuapp.com/' : 'http://localhost:3004';
+import { BACKEND_URL } from '../store.jsx';
 
 const LOAD_MY_LISTINGS = 'LOAD_MY_LISTINGS';
 // const SET_CURR_LISTING_ID = 'SET_CURR_LISTING_ID';

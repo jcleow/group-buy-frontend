@@ -1,5 +1,3 @@
-export default 'http://localhost:3004';
-
 export const getUsernameFromCookie = () => {
   if (document.cookie) {
     const splitCookieVal = document.cookie.split(' ');

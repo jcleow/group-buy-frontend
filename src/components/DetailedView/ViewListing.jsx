@@ -8,7 +8,6 @@ import {
 } from '../../store.jsx';
 import DetailedListingView from './DetailedListingView.jsx';
 import QuantityPicker from './QuantityPicker.jsx';
-import { getUserIdFromCookie } from '../../helper.js';
 
 export default function ViewListing() {
   const { store, dispatch } = useContext(GroupBuyContext);

@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { Button, Form } from 'react-bootstrap';
-import BACKEND_URL from '../../helper.js';
-import { GroupBuyContext, setLoggedInUsername, setLoggedInUserId } from '../../store.jsx';
+import {
+  BACKEND_URL, GroupBuyContext, setLoggedInUsername, setLoggedInUserId,
+} from '../../store.jsx';
 
 export default function SignInForm({ handleClose, setFormDisplay }) {
   const [usernameInput, setUsernameInput] = useState('');
@@ -28,7 +29,7 @@ export default function SignInForm({ handleClose, setFormDisplay }) {
         if (result.data.auth) {
           dispatch(setLoggedInUsername(result.data.user.username));
           dispatch(setLoggedInUserId(result.data.user.id));
-          window.location.reload();
+          // window.location.reload();
         }
         handleClose();
       })

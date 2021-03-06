@@ -4,8 +4,7 @@ import {
   Button, Form,
 } from 'react-bootstrap';
 import NumberFormat from 'react-number-format';
-import BACKEND_URL from '../../helper.js';
-import { GroupBuyContext, setLoggedInUsername } from '../../store.jsx';
+import { BACKEND_URL, GroupBuyContext, setLoggedInUsername } from '../../store.jsx';
 
 export default function RegistrationForm() {
   // const { setLoggedIn, setUsername } = registrationFormProps;
