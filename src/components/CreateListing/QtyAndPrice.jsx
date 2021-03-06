@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { writeStorage } from '@rehooks/local-storage';
 import { Form, Button } from 'react-bootstrap';
 import NumberFormat from 'react-number-format';
+import Asterisk from './Asterisk.jsx';
 import { CreateListingContext, CREATE_LISTING_FORM, formModes } from '../../createListingStore.jsx';
 import { calcDiscountPct } from '../utility/listingHelper.js';
 
@@ -30,6 +31,8 @@ export default function QtyAndPrice({ setMode }) {
     writeStorage(FORM_STEP, ABOUT_ITEM);
   };
 
+  const validationToProceed = () => formLocalStorage.quantity && formLocalStorage.moq && formLocalStorage.usualPrice && formLocalStorage.discountedPrice;
+
   return (
     <Form>
       <div className="col payment-form-progress-bar d-flex flex-row justify-content-start">
@@ -37,7 +40,10 @@ export default function QtyAndPrice({ setMode }) {
         <div className="create-listing-header ml-2">Quantity and Price (2/4)</div>
       </div>
       <Form.Group className="ml-3 mt-3" controlId="qtyAvailable">
-        <Form.Label>Quantity Available</Form.Label>
+        <Form.Label>
+          Quantity Available
+          <Asterisk />
+        </Form.Label>
         <Form.Control
           name="quantity"
           type="number"
@@ -62,7 +68,10 @@ export default function QtyAndPrice({ setMode }) {
       </Form.Group>
 
       <Form.Group className="ml-3 mt-3" controlId="minOrderQty">
-        <Form.Label>Minimum Order Quantity (MOQ)</Form.Label>
+        <Form.Label>
+          Minimum Order Quantity (MOQ)
+          <Asterisk />
+        </Form.Label>
         <Form.Control
           type="number"
           name="moq"
@@ -76,7 +85,10 @@ export default function QtyAndPrice({ setMode }) {
       </Form.Group>
 
       <Form.Group className="ml-3 mt-3" controlId="usualPrice">
-        <Form.Label>Usual Price</Form.Label>
+        <Form.Label>
+          Usual Price
+          <Asterisk />
+        </Form.Label>
         <NumberFormat
           className="form-control"
           name="usualPrice"
@@ -93,7 +105,10 @@ export default function QtyAndPrice({ setMode }) {
       </Form.Group>
 
       <Form.Group className="ml-3 mt-3" controlId="discountedPrice">
-        <Form.Label>Discounted Price (per unit)</Form.Label>
+        <Form.Label>
+          Discounted Price (per unit)
+          <Asterisk />
+        </Form.Label>
         <NumberFormat
           className="form-control"
           name="discountedPrice"
@@ -120,9 +135,15 @@ export default function QtyAndPrice({ setMode }) {
       </Form.Group>
 
       <div className="d-flex flex-row justify-content-center">
-        <Button variant="primary" onClick={handleNextPage}>
+        {/* <Button variant="primary" onClick={handleNextPage}>
           Next
-        </Button>
+        </Button> */}
+        {
+          validationToProceed()
+            ? (<Button variant="primary" onClick={handleNextPage}> Next </Button>)
+            : (<Button variant="primary" disabled> Next </Button>)
+        }
+
       </div>
     </Form>
   );

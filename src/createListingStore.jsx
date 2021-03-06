@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react';
 import { writeStorage, useLocalStorage } from '@rehooks/local-storage';
 import axios from 'axios';
+import sampleTnC from './components/CreateListing/SampleTnC.jsx';
 
 /* ********************************
  * ********************************
@@ -44,8 +45,8 @@ export const initialFormState = {
   endDate: null,
   deliveryDate: null,
   deliveryMode: null,
-  tnc: null,
-  category: 'Select Category',
+  tnc: sampleTnC,
+  category: 'Categories',
   lister_id: null,
   images: [],
   imageLocations: [],

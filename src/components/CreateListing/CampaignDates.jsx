@@ -8,6 +8,7 @@ import { DateRangePicker, SingleDatePicker } from 'react-dates';
 import { CreateListingContext, CREATE_LISTING_FORM, formModes } from '../../createListingStore.jsx';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
+import Asterisk from './Asterisk.jsx';
 
 export default function CampaignDates({ setMode }) {
   // constant field names
@@ -63,7 +64,7 @@ export default function CampaignDates({ setMode }) {
     writeStorage(FORM_STEP, QTY_AND_PRICE);
   };
 
-  console.log((formLocalStorage.startDate ? formLocalStorage.startDate : startDate), 'Campaign Details Start date');
+  const validationToProceed = () => formLocalStorage.startDate && formLocalStorage.endDate && formLocalStorage.deliveryDate && formLocalStorage.deliveryMode;
 
   return (
     <Form>
@@ -72,7 +73,10 @@ export default function CampaignDates({ setMode }) {
         <div className="create-listing-header ml-2">Campaign Dates (3/4)</div>
       </div>
       <Form.Group className="ml-3 mt-3" controlId="qtyAvailable">
-        <Form.Label>Campaign Start and End Date</Form.Label>
+        <Form.Label>
+          Campaign Start and End Date
+          <Asterisk />
+        </Form.Label>
         <div>
           <DateRangePicker
             startDate={formLocalStorage.startDate ? formLocalStorage.startDate : startDate}
@@ -87,7 +91,10 @@ export default function CampaignDates({ setMode }) {
       </Form.Group>
 
       <Form.Group className="ml-3 mt-3" controlId="minOrderQty">
-        <Form.Label>Delivery Date</Form.Label>
+        <Form.Label>
+          Delivery Date
+          <Asterisk />
+        </Form.Label>
         <div>
           <SingleDatePicker
             date={formLocalStorage.deliveryDate ? formLocalStorage.deliveryDate : deliveryDate}
@@ -100,7 +107,10 @@ export default function CampaignDates({ setMode }) {
         </div>
       </Form.Group>
       <Form.Group className="ml-3 mt-3" controlId="usualPrice">
-        <Form.Label>Delivery Mode</Form.Label>
+        <Form.Label>
+          Delivery Mode
+          <Asterisk />
+        </Form.Label>
         <div>
           <div>
             <input
@@ -135,9 +145,15 @@ export default function CampaignDates({ setMode }) {
         </div>
       </Form.Group>
       <div className="d-flex flex-row justify-content-center">
-        <Button variant="primary" onClick={handleNextPage}>
+        {/* <Button variant="primary" onClick={handleNextPage}>
           Next
-        </Button>
+        </Button> */}
+        {
+          validationToProceed()
+            ? (<Button variant="primary" onClick={handleNextPage}> Next </Button>)
+            : (<Button variant="primary" disabled> Next </Button>)
+        }
+
       </div>
     </Form>
   );

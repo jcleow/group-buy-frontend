@@ -1,9 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
-import './UploadedImg.css';
+import './createListing.css';
 import { writeStorage, deleteFromStorage } from '@rehooks/local-storage';
 import {
   Form, Button, Dropdown, DropdownButton,
 } from 'react-bootstrap';
+import Asterisk from './Asterisk.jsx';
 import {
   CreateListingContext, CREATE_LISTING_FORM, loadCategories, formModes,
 } from '../../createListingStore.jsx';
@@ -96,6 +97,8 @@ export default function AboutItem({ setMode }) {
     setImgLocations([...remainingImageLocations]);
   };
 
+  const validationToProceed = () => formLocalStorage.title && formLocalStorage.description && formLocalStorage.category;
+
   const displayImages = () => {
     const images = formLocalStorage.imageLocations.map((location, i) => (
       <div className="col uploaded-img-container">
@@ -127,7 +130,10 @@ export default function AboutItem({ setMode }) {
         <div className="create-listing-header ml-1">About Item (1/4)</div>
       </div>
       <Form.Group className="ml-3 mt-3" controlId="formBasicEmail">
-        <Form.Label>Title</Form.Label>
+        <Form.Label>
+          Title
+          <Asterisk />
+        </Form.Label>
         <Form.Control
           name="title"
           type="text"
@@ -136,32 +142,45 @@ export default function AboutItem({ setMode }) {
           onChange={handleOnChange}
           required
         />
-        <Form.Text className="text-muted ml-3 mt-3">
+        <Form.Text className="text-muted">
           {'Enter a catchy title to grab people\'s attentions!'}
         </Form.Text>
       </Form.Group>
 
       <Form.Group className="ml-3 mt-3" controlId="exampleForm.ControlTextarea1">
-        <Form.Label>Description</Form.Label>
+        <Form.Label>
+          Description
+          <Asterisk />
+        </Form.Label>
         <Form.Control
           name="description"
           as="textarea"
           rows={3}
           value={formLocalStorage.description ? formLocalStorage.description : formStore.description}
           onChange={handleOnChange}
+          placeholder="Describe in detail the relevant product/service that you are offering."
           required
         />
       </Form.Group>
-
-      <DropdownButton
-        className="ml-3 mt-3"
-        id="dropdown-basic-button"
-        title={formLocalStorage.category ? formLocalStorage.category : formStore.category}
-        variant="outline-dark"
-      >
-        {arrOfCategoriesDropDown}
-      </DropdownButton>
-      <Button role="button" className="mt-3 ml-3" variant="outline-primary" onClick={handleClickUpload}>Upload Files</Button>
+      <Form.Group className="ml-3 mt-3" controlId="exampleForm.ControlTextarea1">
+        <Form.Label>
+          Choose a Category
+          <Asterisk />
+        </Form.Label>
+        <DropdownButton
+          id="dropdown-basic-button"
+          title={formLocalStorage.category ? formLocalStorage.category : formStore.category}
+          variant="outline-dark"
+        >
+          {arrOfCategoriesDropDown}
+        </DropdownButton>
+      </Form.Group>
+      <Form.Group className="ml-3 mt-4" controlId="exampleForm.ControlTextarea1">
+        <Form.Label>Upload pictures for your campaign</Form.Label>
+        <div>
+          <Button role="button" variant="outline-primary" onClick={handleClickUpload}>Upload Files</Button>
+        </div>
+      </Form.Group>
       <input
         className="ml-3 mt-3"
         type="file"
@@ -179,9 +198,11 @@ export default function AboutItem({ setMode }) {
       </div>
 
       <div className="d-flex flex-row justify-content-center mt-5 mb-3">
-        <Button variant="primary" onClick={handleNextPage}>
-          Next
-        </Button>
+        {
+          validationToProceed()
+            ? (<Button variant="primary" onClick={handleNextPage}> Next </Button>)
+            : (<Button variant="primary" disabled> Next </Button>)
+        }
       </div>
 
       <div className="d-flex flex-row justify-content-center mt-5">

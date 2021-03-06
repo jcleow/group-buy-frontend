@@ -8,7 +8,7 @@ import BACKEND_URL from '../../helper.js';
 
 axios.defaults.withCredentials = true;
 export default function TnC({ setMode }) {
-  const { formStore, handleOnChange } = useContext(CreateListingContext);
+  const { formStore, handleOnChange, dispatchListingForm } = useContext(CreateListingContext);
 
   const { FORM_STEP, CAMPAIGN_DATES, SUBMITTED } = formModes;
 
@@ -59,7 +59,7 @@ export default function TnC({ setMode }) {
         <Form.Control
           name="tnc"
           as="textarea"
-          rows={10}
+          rows={20}
           value={formStore.tnc}
           onChange={handleOnChange}
         />
