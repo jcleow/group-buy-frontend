@@ -2,15 +2,17 @@ import React, { useContext } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import { Form, Button } from 'react-bootstrap';
-import { writeStorage } from '@rehooks/local-storage';
-import { CreateListingContext, formModes } from '../../createListingStore.jsx';
+import { writeStorage, deleteFromStorage } from '@rehooks/local-storage';
+import { CreateListingContext, CREATE_LISTING_FORM, formModes } from '../../createListingStore.jsx';
 import { BACKEND_URL } from '../../store.jsx';
 
 axios.defaults.withCredentials = true;
 export default function TnC({ setMode }) {
   const { formStore, handleOnChange, dispatchListingForm } = useContext(CreateListingContext);
 
-  const { FORM_STEP, CAMPAIGN_DATES, SUBMITTED } = formModes;
+  const {
+    FORM_STEP, CAMPAIGN_DATES, SUBMITTED,
+  } = formModes;
 
   const handleUploadPictures = (listingId) => {
     const data = new FormData();
@@ -33,12 +35,18 @@ export default function TnC({ setMode }) {
       endDate: moment(formStore.endDate).toDate(),
       deliveryDate: moment(formStore.endDate).toDate(),
     };
-
+    let newListingId;
     //* ** to shift into createListingStore */
     axios.post(`${BACKEND_URL}/createListing`, { updatedFormStore })
       .then((result) => {
-        setMode(SUBMITTED);
-        return handleUploadPictures(result.data.newListing.id);
+        // setMode(SUBMITTED);
+        deleteFromStorage(CREATE_LISTING_FORM);
+        deleteFromStorage(FORM_STEP);
+        newListingId = result.data.newListing.id;
+        return handleUploadPictures(newListingId);
+      })
+      .then(() => {
+        window.location = `/listingdetails/${newListingId}`;
       })
       .catch((error) => console.log(error));
   };

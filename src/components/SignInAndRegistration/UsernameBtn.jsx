@@ -11,7 +11,7 @@ export default function UsernameBtn() {
       .then(() => {
         // window.location = '/';
         dispatch(setLoggedInUsername(null));
-        // window.location.reload();
+        window.location.reload();
       })
       .catch((err) => console.log(err));
   };

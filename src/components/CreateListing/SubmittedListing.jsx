@@ -3,6 +3,7 @@ import moment from 'moment';
 import { Form, Button } from 'react-bootstrap';
 import { deleteFromStorage } from '@rehooks/local-storage';
 import { CreateListingContext, CREATE_LISTING_FORM, formModes } from '../../createListingStore.jsx';
+import ViewListing from '../DetailedView/ViewListing.jsx';
 
 export default function SubmittedListing({ setMode }) {
   const { formStore } = useContext(CreateListingContext);
@@ -30,5 +31,8 @@ export default function SubmittedListing({ setMode }) {
         <Button variant="info" onClick={handleReturnToHome}> Return to Home </Button>
       </div>
     </Form>
+
+  // <ViewListing />
+
   );
 }
