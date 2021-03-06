@@ -5,15 +5,18 @@ import React, { useState, useContext } from 'react';
 import { writeStorage } from '@rehooks/local-storage';
 import { Form, Button } from 'react-bootstrap';
 import { DateRangePicker, SingleDatePicker } from 'react-dates';
-import { CreateListingContext, CREATE_LISTING_FORM } from '../../createListingStore.jsx';
+import { CreateListingContext, CREATE_LISTING_FORM, formModes } from '../../createListingStore.jsx';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
+import Asterisk from './Asterisk.jsx';
 
 export default function CampaignDates({ setMode }) {
   // constant field names
   const START_DATE = 'startDate';
   const END_DATE = 'endDate';
   const DELIVERY_DATE = 'deliveryDate';
+
+  const { FORM_STEP, TERMS_AND_CONDITIONS, QTY_AND_PRICE } = formModes;
 
   const {
     formStore, dispatchListingForm, handleOnChange, formLocalStorage,
@@ -52,20 +55,28 @@ export default function CampaignDates({ setMode }) {
   };
 
   const handleNextPage = () => {
-    setMode('TERMS_AND_CONDITIONS');
-    writeStorage('formstep', 'TERMS_AND_CONDITIONS');
+    setMode(TERMS_AND_CONDITIONS);
+    writeStorage(FORM_STEP, TERMS_AND_CONDITIONS);
   };
 
   const handlePrevPage = () => {
-    setMode('QTY_AND_PRICE');
+    setMode(QTY_AND_PRICE);
+    writeStorage(FORM_STEP, QTY_AND_PRICE);
   };
 
-  console.log((formLocalStorage.startDate ? formLocalStorage.startDate : startDate), 'Campaign Details Start date');
+  const validationToProceed = () => formLocalStorage.startDate && formLocalStorage.endDate && formLocalStorage.deliveryDate && formLocalStorage.deliveryMode;
 
   return (
     <Form>
-      <Form.Group controlId="qtyAvailable">
-        <Form.Label>Campaign Start and End Date</Form.Label>
+      <div className="col payment-form-progress-bar  d-flex flex-row justify-content-start">
+        <button type="button" onClick={handlePrevPage}>⬅️ </button>
+        <div className="create-listing-header ml-2">Campaign Dates (3/4)</div>
+      </div>
+      <Form.Group className="ml-3 mt-3" controlId="qtyAvailable">
+        <Form.Label>
+          Campaign Start and End Date
+          <Asterisk />
+        </Form.Label>
         <div>
           <DateRangePicker
             startDate={formLocalStorage.startDate ? formLocalStorage.startDate : startDate}
@@ -79,8 +90,11 @@ export default function CampaignDates({ setMode }) {
         </div>
       </Form.Group>
 
-      <Form.Group controlId="minOrderQty">
-        <Form.Label>Delivery Date</Form.Label>
+      <Form.Group className="ml-3 mt-3" controlId="minOrderQty">
+        <Form.Label>
+          Delivery Date
+          <Asterisk />
+        </Form.Label>
         <div>
           <SingleDatePicker
             date={formLocalStorage.deliveryDate ? formLocalStorage.deliveryDate : deliveryDate}
@@ -92,11 +106,13 @@ export default function CampaignDates({ setMode }) {
           />
         </div>
       </Form.Group>
-      <Form.Group controlId="usualPrice">
-        <Form.Label>Delivery Mode</Form.Label>
+      <Form.Group className="ml-3 mt-3" controlId="usualPrice">
+        <Form.Label>
+          Delivery Mode
+          <Asterisk />
+        </Form.Label>
         <div>
-          <label htmlFor="pickup">
-            Pick Up
+          <div>
             <input
               inline
               className="ml-1"
@@ -107,29 +123,37 @@ export default function CampaignDates({ setMode }) {
               checked={(formLocalStorage.deliveryMode === 'pickup' || formStore.deliveryMode === 'pickup')}
               onClick={handleOnChange}
             />
-          </label>
+            <label className="ml-2" htmlFor="pickup">
+              Pick Up
+            </label>
+          </div>
+
+          <input
+            inline
+            className="ml-1"
+            name="deliveryMode"
+            value="electronic"
+            type="radio"
+            id="electronic"
+            checked={(formLocalStorage.deliveryMode === 'electronic' || formStore.deliveryMode === 'electronic')}
+            onClick={handleOnChange}
+          />
           <label className="ml-2" htmlFor="electronic">
             Electronic
-            <input
-              inline
-              className="ml-1"
-              name="deliveryMode"
-              value="electronic"
-              type="radio"
-              id="electronic"
-              checked={(formLocalStorage.deliveryMode === 'electronic' || formStore.deliveryMode === 'electronic')}
-              onClick={handleOnChange}
-            />
           </label>
+
         </div>
       </Form.Group>
-      <div className="d-flex flex-row justify-content-between">
-        <Button variant="primary" onClick={handlePrevPage}>
-          Previous
-        </Button>
-        <Button variant="primary" onClick={handleNextPage}>
+      <div className="d-flex flex-row justify-content-center">
+        {/* <Button variant="primary" onClick={handleNextPage}>
           Next
-        </Button>
+        </Button> */}
+        {
+          validationToProceed()
+            ? (<Button variant="primary" onClick={handleNextPage}> Next </Button>)
+            : (<Button variant="primary" disabled> Next </Button>)
+        }
+
       </div>
     </Form>
   );

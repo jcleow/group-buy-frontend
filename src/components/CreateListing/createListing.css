@@ -1,0 +1,28 @@
+/** @format */
+.image-container {
+  border-style: solid;
+}
+.uploaded-img-container {
+  position: relative;
+  width: 300px;
+  max-width: 300px;
+}
+.uploaded-img {
+  width: 300px;
+  height: auto;
+}
+
+.delete-img-btn {
+  position: absolute;
+  top: -5%;
+  left: 85%;
+  z-index: 1;
+}
+.delete-img {
+  color: silver;
+  font-size: 1.5rem;
+}
+
+.asterisk {
+  color: rgb(199, 18, 18);
+}

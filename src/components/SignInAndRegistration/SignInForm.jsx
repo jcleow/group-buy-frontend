@@ -19,6 +19,7 @@ export default function SignInForm({ handleClose, setFormDisplay }) {
 
   function handleSignIn() {
     const signInData = { usernameInput, passwordInput };
+    // window.location = '/home';
     axios.put(`${BACKEND_URL}/signIn`, signInData, { withCredentials: true })
       .then((result) => {
         setUsernameInput('');
@@ -27,6 +28,7 @@ export default function SignInForm({ handleClose, setFormDisplay }) {
           dispatch(setLoggedInUsername(result.data.user.username));
         }
         handleClose();
+        // window.location.reload();
       })
       .catch((error) => console.log(error));
   }
