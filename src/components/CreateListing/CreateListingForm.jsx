@@ -4,7 +4,7 @@ import AboutItem from './AboutItem.jsx';
 import CampaignDates from './CampaignDates.jsx';
 import QtyAndPrice from './QtyAndPrice.jsx';
 import TnC from './TnC.jsx';
-import SubmittedListing from './SubmittedListing.jsx';
+import LoadNewListing from './LoadNewListing.jsx';
 import {
   CreateListingProvider, formModes, CREATE_LISTING_FORM, CreateListingContext,
 } from '../../createListingStore.jsx';
@@ -39,7 +39,7 @@ export default function CreateListingForm() {
       case TERMS_AND_CONDITIONS:
         return <TnC setMode={setMode} />;
       case SUBMITTED:
-        return <SubmittedListing setMode={setMode} />;
+        return <LoadNewListing setMode={setMode} />;
       default:
         return null;
     }

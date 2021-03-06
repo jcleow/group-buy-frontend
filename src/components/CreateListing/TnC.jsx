@@ -39,13 +39,15 @@ export default function TnC({ setMode }) {
     //* ** to shift into createListingStore */
     axios.post(`${BACKEND_URL}/createListing`, { updatedFormStore })
       .then((result) => {
-        // setMode(SUBMITTED);
+        setMode(SUBMITTED);
         deleteFromStorage(CREATE_LISTING_FORM);
         deleteFromStorage(FORM_STEP);
         newListingId = result.data.newListing.id;
         return handleUploadPictures(newListingId);
       })
       .then(() => {
+        // Once loading is complete on the backend,
+        // redirect user to the newly created listing
         window.location = `/listingdetails/${newListingId}`;
       })
       .catch((error) => console.log(error));
