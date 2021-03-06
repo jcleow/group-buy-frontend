@@ -20,15 +20,15 @@ export default function ConfirmationOfReceipt({ setMode }) {
   }, []);
 
   return (
-    <div className="container m-4 ml-auto mr-auto">
+    <div className="container-fluid ml-auto mr-auto">
       <div className="row">
-        <div className="col payment-form-progress-bar">
-          <button type="button">⬅️ Payment instructions</button>
+        <div className="col payment-form-progress-bar backward">
+          <div> Confirmation</div>
         </div>
       </div>
 
       <div className="row">
-        <div className="col terms-n-conditions">
+        <div className="col mt-2">
           <div>
             Thank you for your purchase. Please give us up to 3 working days to
             confirm your payment. If needed, our staff will get in touch via
@@ -37,7 +37,7 @@ export default function ConfirmationOfReceipt({ setMode }) {
         </div>
       </div>
       <div className="row">
-        <div className="col">
+        <div className="col payment-btn-col">
           <Link to="/home">
             <Button className="btn btn-primary" onClick={handleBtnClick}>
               Back to home

@@ -30,7 +30,6 @@ export default function NavbarComponent() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-
             <LinkContainer to="/home">
               <Nav.Link> HomePage</Nav.Link>
             </LinkContainer>

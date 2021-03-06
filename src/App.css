@@ -1,5 +1,7 @@
 :root {
-  --fadedDescription: #cdcdcd;
+  --mutedText-light: #cdcdcd;
+  --mutedText-med: #b6b4b4;
+  --mutedText-dark: #9c9b9b;
   --headerBackground: hsl(228, 21%, 28%);
   --palette-lightBlue: #F1F8FD;
   --palette-lightPurple: #E2ECFD;
@@ -57,7 +59,9 @@ color: var(--palette-medYellow)
  * @keyframes App-logo-spin { from { transform: rotate(0deg);
  */
 
-
+body{
+  background-color: var(--palette-lightYellow);
+}
 
 .payment-form-progress-bar {
   background-color: var(--headerBackground);
