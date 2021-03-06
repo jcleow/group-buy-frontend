@@ -1,8 +1,8 @@
 import React from 'react';
 import moment from 'moment';
 
-export default function MoqReachedDateTracker({ orderTrackerDetails }) {
-  let { dateMoqReached } = JSON.parse(orderTrackerDetails);
+export default function MoqReachedDateTracker({ allPurchases }) {
+  let { dateMoqReached } = JSON.parse(allPurchases).listing;
   if (dateMoqReached !== null) {
     dateMoqReached = moment(dateMoqReached).format('DD/MM/YYYY');
   }

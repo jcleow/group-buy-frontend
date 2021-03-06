@@ -19,7 +19,7 @@ export default function AllPurchasesTable2() {
 
     setAllPurchases(AllPurchasesAssociatedWUser);
   }, []);
-
+  console.log(allPurchases);
   return (
     <div className="table-responsive">
       {/* conditionally render the table if and only if allPurchases is not null */}

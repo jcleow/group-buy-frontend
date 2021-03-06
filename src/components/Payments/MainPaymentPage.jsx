@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 // import { useLocalStorage } from '@rehooks/local-storage';
+import { writeStorage, useLocalStorage } from '@rehooks/local-storage';
 import PurchaseSummary from './PurchaseSummary.jsx';
 import ConfirmationOfReceipt from './ConfirmationOfReceipt.jsx';
 import UploadReceipt from './UploadReceipt.jsx';
@@ -16,35 +17,36 @@ const {
 
 export default function MainPaymentPage() {
   const { store } = useContext(GroupBuyContext);
-  const { totalQuantityOrdered, selectedListingData } = store;
-
-  console.log('selectedListingData is:');
-  console.log(selectedListingData);
-  console.log('totalQuantityOrdered is:');
-  console.log(totalQuantityOrdered);
-
+  let { selectedListingData, totalQuantityOrdered } = store;
   const [mode, setMode] = useState(PURCHASE_SUMMARY);
+  // if selectedListingData is empty or undefined, get the info from the user's local storage
 
-  // const [currPage] = useLocalStorage('mode');
-  // console.log('currPage is:');
-  // console.log(currPage);
-  // useEffect(() => {
-  //   if (currPage && (currPage !== null) && (currPage !== PURCHASE_SUMMARY)) {
-  //     setMode(currPage);
-  //   }
-  // }, []);
+  // if (!selectedListingData) {
+  if (Object.keys(selectedListingData).length < 1) {
+    [selectedListingData] = useLocalStorage('selectedListingData');
+    [totalQuantityOrdered] = useLocalStorage('totalQuantityOrdered');
+  }
+
+  console.log('selectedListingData at start of code is:');
+  console.log(selectedListingData);
+
+  useEffect(() => {
+    // write the listing data to the store
+    writeStorage('selectedListingData', selectedListingData);
+    writeStorage('totalQuantityOrdered', totalQuantityOrdered);
+  }, []);
 
   // use 'mode' to control when each page should display
   const managePageDisplay = () => {
     switch (mode) {
       case PURCHASE_SUMMARY:
-        return <PurchaseSummary setMode={setMode} />;
+        return <PurchaseSummary setMode={setMode} selectedListingData={selectedListingData} totalQuantityOrdered={totalQuantityOrdered} />;
 
       case PAYMENT_INSTRUCTIONS:
         return <PaymentInstructions setMode={setMode} />;
 
       case UPLOAD_RECEIPT:
-        return <UploadReceipt setMode={setMode} />;
+        return <UploadReceipt setMode={setMode} selectedListingData={selectedListingData} totalQuantityOrdered={totalQuantityOrdered} />;
 
       case CONFIRMATION_OF_RECEIPT:
         return <ConfirmationOfReceipt setMode={setMode} />;

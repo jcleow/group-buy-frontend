@@ -33,8 +33,8 @@ const columns = [{
   sort: true,
 },
 {
-  dataField: 'orderTrackerDetails',
-  text: 'Order tracker',
+  dataField: 'allPurchases',
+  text: 'allPurchases',
   sort: true,
   hidden: true,
 },
@@ -57,7 +57,7 @@ const mapDataIntoTable = (allPurchases) => {
         datePurchased: moment(el.createdAt).format('DD/MM/YYYY'),
         item: el.listing.title,
         paymentDetails: moment(el.updatedAt).format('DD/MM/YYYY'),
-        orderTrackerDetails: JSON.stringify(el.order_tracker),
+        allPurchases: JSON.stringify(el),
       },
     );
   });
@@ -75,20 +75,17 @@ const defaultSorted = [{
 /* ======================================
 Manage the data shown when the row is expanded
 ====================================== */
-const manageDataInExpandRow = (allPurchases) => {
-  console.log('allPurchases in manageDataInExpandRow is:');
-  console.log(allPurchases);
-
+const manageDataInExpandRow = () => {
   const expandRow = {
-    renderer: (row, rowIndex) => (
+    renderer: (row) => (
       <div className="container-fluid responsive">
         <div className="row">
           <div className="col">
-            <PurchaseDateTracker orderTrackerDetails={row.orderTrackerDetails} />
+            <PurchaseDateTracker allPurchases={row.allPurchases} />
           </div>
         </div>
-        <ReceiptApprovalDateTracker orderTrackerDetails={row.orderTrackerDetails} />
-        <MoqReachedDateTracker orderTrackerDetails={row.orderTrackerDetails} />
+        <ReceiptApprovalDateTracker allPurchases={row.allPurchases} />
+        <MoqReachedDateTracker allPurchases={row.allPurchases} />
         {/* conditionally render purchase date if it exists in order history */}
         {/* {JSON.parse(row.orderTrackerDetails).purchaseDate && (`Purchased: ${moment(JSON.parse(row.orderTrackerDetails).purchaseDate).format('DD/MM/YYYY')}`)} */}
 

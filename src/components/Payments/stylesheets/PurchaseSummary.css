@@ -1,0 +1,19 @@
+
+.price-breakdown {
+  margin: 0px 5px 0px;
+  text-align: center;
+}
+.price-breakdown span {
+  height: 60px;
+  line-height: 60px;
+}
+.price-breakdown-container {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.faded-description {
+  /* color: var(--fadedDescription); */
+  color: var(--fadedDescription);
+}

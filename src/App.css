@@ -1,7 +1,22 @@
 :root {
   --fadedDescription: #cdcdcd;
-  --headerBackground: #383e56;
+  --headerBackground: hsl(228, 21%, 28%);
+  --palette-lightBlue: #F1F8FD;
+  --palette-lightPurple: #E2ECFD;
+  --palette-medPurple: #C7D9FF;
+  --palette-darkPurple: #7E9CE2;
+  --palette-lightOrange: #FEE0D7;
+  --palette-medOrange: #FB9A80;
+  --palette-darkOrange: #F58764;
+  --palette-lightYellow: #FFF9EA;
+  --palette-medYellow: #FDEED1;
 }
+/* Expample: 
+.header{
+color: var(--palette-medYellow)
+*/
+
+
 
 /**
  * /* .App {
@@ -42,23 +57,7 @@
  * @keyframes App-logo-spin { from { transform: rotate(0deg);
  */
 
-.price-breakdown {
-  margin: 0px 5px 0px;
-  text-align: center;
-}
-.price-breakdown span {
-  height: 60px;
-  line-height: 60px;
-}
-.price-breakdown-container {
-  display: inline-flex;
-  flex-direction: row;
-  justify-content: center;
-}
 
-.faded-description {
-  color: var(--fadedDescription);
-}
 
 .payment-form-progress-bar {
   background-color: var(--headerBackground);
