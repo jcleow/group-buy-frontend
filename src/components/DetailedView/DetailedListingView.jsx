@@ -87,10 +87,15 @@ export default function DetailedListingView({ children }) {
             </del>
           </span>
 
-          <span className={`${itemLabelClassNames}`}>Discount:</span>
+          {/* <span className={`${itemLabelClassNames}`}>Discount:</span> */}
           {' '}
-          {calcDiscountPct(selectedListingData.discountedPrice, selectedListingData.usualPrice)}
-          %
+          <span className="font-italic">
+            save
+            {' '}
+            {Number(calcDiscountPct(selectedListingData.discountedPrice,
+              selectedListingData.usualPrice)).toFixed(1)}
+            % !
+          </span>
         </div>
       </div>
 
