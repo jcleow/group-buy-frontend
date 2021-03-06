@@ -25,15 +25,11 @@ export default function NavbarComponent() {
     <>
       <Navbar collapseOnSelect bg="light" expand="lg">
         <LinkContainer exact to="/">
-          <Navbar.Brand>Group Buy App</Navbar.Brand>
+          <Navbar.Brand>Group Buy</Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-
-            <LinkContainer exact to="/">
-              <Nav.Link> HomePage</Nav.Link>
-            </LinkContainer>
             {store.loggedInUsername && (
             <LinkContainer to="/createListing">
               <Nav.Link>Add</Nav.Link>
