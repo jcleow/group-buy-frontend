@@ -181,7 +181,6 @@ export function sortAndFilterListingsByCreatedDate() {
 }
 
 export function selectListingAction(selectedListingData) {
-  console.log('inside selectListingAction', selectedListingData);
   return {
     type: SELECT_LISTING,
     payload: {
@@ -325,7 +324,9 @@ export function GroupBuyProvider({ children }) {
 //
 // these functions must be passed the dispatch from the current context
 
-const BACKEND_URL = 'http://localhost:3004';
+// hiiii
+
+const BACKEND_URL = process.env.ENV === 'PRODUCTION' ? 'https://agile-fortress-78720.herokuapp.com/' : 'http://localhost:3004';
 
 export function loadListings(dispatch, setAllCategories, setBtnArray) {
   axios.get(`${BACKEND_URL}/listings`).then((result) => {
@@ -345,7 +346,7 @@ export function loadListings(dispatch, setAllCategories, setBtnArray) {
 }
 
 export function selectListing(dispatch, listingId) {
-  console.log('selectListing ', listingId);
+  // console.log('selectListing ', listingId);
   return axios.get(`${BACKEND_URL}/listing/${listingId}`)
     .then((result) => {
       // console.log(result.data.selectedListing);
@@ -358,6 +359,7 @@ export function selectListing(dispatch, listingId) {
 }
 
 export function findPurchaseCountPerListing(listingId, setProgressPercent) {
+  console.log('hello');
   // console.log('findPurchaseCountPerListing listingId', listingId);
   axios.get(`${BACKEND_URL}/purchases/count/${listingId}`).then((result) => {
     setProgressPercent(result.data.purchaseCount);
@@ -366,10 +368,6 @@ export function findPurchaseCountPerListing(listingId, setProgressPercent) {
 
 export function getPurchaseCountPerListing(listingId) {
   axios.get(`${BACKEND_URL}/purchases/count/${listingId}`).then((result) => (result.data.purchaseCount));
-}
-
-export function setLocalStorageForViewListing(setProgressPercent) {
-
 }
 
 export function createListing(dispatch, listing) {

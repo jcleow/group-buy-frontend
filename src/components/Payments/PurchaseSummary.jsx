@@ -1,22 +1,26 @@
 import React, { useEffect, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 // import PropTypes from 'prop-types';
-// import { writeStorage } from '@rehooks/local-storage';
 import PAGE_NAMES from '../utility/paymentPageNames.js';
 import { GroupBuyContext } from '../../store.jsx';
+import './stylesheets/PurchaseSummary.css';
 
-export default function PurchaseSummary({ setMode }) {
+export default function PurchaseSummary({ setMode, selectedListingData, totalQuantityOrdered }) {
   const { store } = useContext(GroupBuyContext);
-  const { selectedListingData, totalQuantityOrdered } = store;
+  // const { selectedListingData, totalQuantityOrdered } = store;
 
   const { PAYMENT_INSTRUCTIONS } = PAGE_NAMES;
 
+  // useWriteStorage to save selectedListingData to local storage;
+  // on page render, if local storage not empty, take data fromt there; else, take info from store.js.
   const handleBtnClick = () => {
     // save the state to the cookie
     // updateMode to switch to next page
     setMode(PAYMENT_INSTRUCTIONS);
     // writeStorage('mode', PAYMENT_INSTRUCTIONS);
   };
+
+  console.log('selectedListingData isndie purchaseSummary component');
   console.log(selectedListingData);
 
   const totalPrice = selectedListingData.discountedPrice * totalQuantityOrdered;
@@ -35,7 +39,7 @@ export default function PurchaseSummary({ setMode }) {
       </div>
       <div className="row summary-table-header">
         <div className="col col-12 col-md-4">
-          <img src={selectedListingData.images.img1} alt="itemImage" className="img-responsive" width="100%" />
+          <img src={selectedListingData.images?.img1} alt="itemImage" className="img-responsive" width="100%" />
         </div>
         <div className="col col-12 col-md-8">
           <div className="row">
@@ -65,6 +69,15 @@ export default function PurchaseSummary({ setMode }) {
               <div className="price-breakdown">
                 <div>{totalQuantityOrdered}</div>
                 <div className="faded-description">(Qty)</div>
+              </div>
+              <div className="price-breakdown">
+                <span>=</span>
+              </div>
+              <div className="total">
+                $
+                {totalPrice}
+
+                <div className="faded-description"> (Total) </div>
               </div>
             </div>
           </div>

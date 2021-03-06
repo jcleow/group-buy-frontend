@@ -25,12 +25,12 @@ export default function EndingSoonContainer({ endingSoonListings }) {
 
   return (
     <div className="container-sm mt-4">
-      <div className="row">
+      <div className="row mb-3">
         <div className="col-9">
           <h6>Ending Soon</h6>
         </div>
         <div className="col-2 mb-1 d-flex flex-row-reverse">
-          <button type="button" className="btn btn-sm btn-warning font-italic" onClick={handleSeeMore}>{seeMoreButtonName}</button>
+          <button type="button" className="see-more btn btn-sm btn-warning font-italic" onClick={handleSeeMore}>{seeMoreButtonName}</button>
         </div>
       </div>
       <div className={`row row-cols-2 row-cols-sm-4 row-cols-lg-5 listings-card-row ${isSeeMore ? 'flex-nowrap' : 'flex-wrap'} `}>

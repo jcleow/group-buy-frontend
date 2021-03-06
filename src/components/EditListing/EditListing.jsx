@@ -8,10 +8,10 @@ import { writeStorage, useLocalStorage } from '@rehooks/local-storage';
 import moment from 'moment';
 import { DateRangePicker, SingleDatePicker } from 'react-dates';
 import {
-  GroupBuyContext, selectListingAction, updateSelectedListingAction,
-  updateSelectedListingImagesAction, updateListing, selectListing, loadCategoriesAction, loadListingStatusesAction,
+  GroupBuyContext, selectListingAction, updateListing,
+  selectListing, loadCategoriesAction, loadListingStatusesAction,
 } from '../../store.jsx';
-import { getListingCurrentStatus, calcDiscountPct, getListingStatusDesc } from '../utility/listingHelper.js';
+import { calcDiscountPct, getListingStatusDesc } from '../utility/listingHelper.js';
 import './EditListing.css';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
@@ -19,20 +19,18 @@ import 'react-dates/lib/css/_datepicker.css';
 export default function EditListing() {
   const { store, dispatch } = useContext(GroupBuyContext);
   const {
-    selectedListingData, categories, listingStatus, updatedListingData, newUploadedImages,
+    selectedListingData, categories, listingStatus,
   } = store;
-  const [getEditedListingData, setEditedListingData, deleteEditedListingData] = useLocalStorage('editedListingData');
+  const [localStoreEditedListingData, setEditedListingData, deleteEditedListingData] = useLocalStorage('editedListingData');
   const [getAddedImages, setAddedImages, deleteAddedImages] = useLocalStorage('addedImages');
   const [storedCategories] = useLocalStorage('categories');
   const [storedListingStatus] = useLocalStorage('listingStatus');
   const { listingId } = useParams();
-  // console.log('listingId', listingId);
 
   const getDefaultLoadingListingData = () => {
-    // console.log('getDefaultLoadingListingData');
-    if (getEditedListingData) {
-      if (getEditedListingData.id === listingId) {
-        return getEditedListingData;
+    if (localStoreEditedListingData) {
+      if (localStoreEditedListingData.id === listingId) {
+        return localStoreEditedListingData;
       }
       selectListing(dispatch, listingId);
       return selectedListingData;
@@ -44,15 +42,10 @@ export default function EditListing() {
     return selectedListingData;
   };
 
-  // const [editData, setEditData] = useState((getEditedListingData)
-  //   ? { ...getEditedListingData } : { ...selectedListingData });
-  const [editData, setEditData] = useState((getEditedListingData)
-    ? { ...getEditedListingData } : { ...selectedListingData });
-
-  console.log(editData);
+  const [editData, setEditData] = useState((localStoreEditedListingData)
+    ? { ...localStoreEditedListingData } : { ...selectedListingData });
 
   const setDefaultData = () => {
-    console.log('storedCategories', storedCategories);
     if (!categories || categories.length === 0) {
       dispatch(loadCategoriesAction(storedCategories));
     }
@@ -62,7 +55,6 @@ export default function EditListing() {
   };
 
   if (!editData) {
-    console.log('calling');
     setEditData({ ...getDefaultLoadingListingData() });
     setDefaultData();
   }
@@ -79,10 +71,6 @@ export default function EditListing() {
   const [rangeFocus, setRangeFocus] = useState(false);
   const [deliveryFocus, setDeliveryFocus] = useState(false);
 
-  const getLoadingImages = () => {
-
-  };
-  // const [newImagesUploaded, setNewImagesUploaded] = useState([]);
   const [newImagesUploaded, setNewImagesUploaded] = useState((getAddedImages)
     ? [...getAddedImages] : []);
 
@@ -90,7 +78,7 @@ export default function EditListing() {
 
   const setModifiedDataAsEditData = (modifiedData) => {
     setEditData({ ...modifiedData });
-    if (getEditedListingData) {
+    if (localStoreEditedListingData) {
       setEditedListingData({ ...modifiedData });
     }
     else {
@@ -102,7 +90,6 @@ export default function EditListing() {
     const modifiedData = { ...editData };
     if (attrName === 'allowOversubscription') {
       modifiedData[attrName] = event.target.checked;
-      // console.log(modifiedData.allowOversubscription);
     } else {
       modifiedData[attrName] = event.target.value;
     }
@@ -113,15 +100,9 @@ export default function EditListing() {
     const modifiedData = { ...editData };
     if (startDate) {
       modifiedData.startDate = startDate.format();
-      // modifiedData.startDate = moment(startDate).toDate();
-      // console.log(startDate);
-      // console.log(startDate.format());
     }
     if (endDate) {
-      // modifiedData.endDate = moment(endDate).toDate();
       modifiedData.endDate = endDate.format();
-      // console.log(endDate);
-      // console.log(endDate.format());
     }
     setModifiedDataAsEditData({ ...modifiedData });
   };
@@ -133,22 +114,19 @@ export default function EditListing() {
   };
 
   // To delete images given the index
-  // const handleImageClose = (imageIndex) => {
-  //   // Remove the image at the index
-  //   const modifiedData = { ...editData };
-  //   // console.log(`img${imageIndex + 1}`);
-  //   // console.log(modifiedData.images[`img${imageIndex + 1}`]);
-  //   delete modifiedData.images[`img${imageIndex + 1}`];
-  //   console.log(modifiedData.images);
-  //   setModifiedDataAsEditData({ ...modifiedData });
-  // };
+  const removeImageFromEditData = (imageIndex) => {
+    // Remove the image at the index
+    const modifiedData = { ...editData };
+    delete modifiedData.images[`img${imageIndex + 1}`];
+    console.log(modifiedData.images);
+    setModifiedDataAsEditData({ ...modifiedData });
+  };
 
   const handleImageClose = (imageKeyOrIndex, fromEditData) => {
     // Remove the image at the index
     if (fromEditData) {
       const modifiedData = { ...editData };
       delete modifiedData.images[imageKeyOrIndex];
-      // console.log(modifiedData.images);
       setModifiedDataAsEditData({ ...modifiedData });
     }
     else {
@@ -158,10 +136,6 @@ export default function EditListing() {
   };
 
   const handleUploadPictures = (event) => {
-    // // console.log(event.target.files);
-    // console.log(newImagesUploaded);
-    // console.log([...newImagesUploaded, ...event.target.files]);
-    // console.log(event.target.files);
     setNewImagesUploaded([...newImagesUploaded, ...event.target.files]);
     writeStorage('addedImages', [...newImagesUploaded]);
   };
@@ -173,24 +147,15 @@ export default function EditListing() {
   };
 
   const handleSaveChanges = () => {
-    // dispatch(updateSelectedListingAction(editData));
-    // dispatch(updateSelectedListingImagesAction(newImagesUploaded));
     writeStorage('editedListingData', { ...editData });
     writeStorage('addedImages', [...newImagesUploaded]);
     const imageFormData = new FormData();
-    // console.log('newImagesUploaded', [...newImagesUploaded]);
-    // console.log(Object.entries(newImagesUploaded));
     Object.entries(newImagesUploaded).forEach(([key, value]) => {
-      // console.log('convert to form all entry: ', key, value);
       if (key !== 'length') {
         imageFormData.append('file', value);
-        // console.log('convert to form: ', value);
-        // console.log(imageFormData.get('file'));
       }
     });
 
-    // console.log('imageFormData');
-    // console.log(imageFormData.getAll('file'));
     updateListing(dispatch, editData, imageFormData);
     deleteEditedListingData();
     deleteAddedImages();
@@ -439,7 +404,6 @@ export default function EditListing() {
           <LinkContainer to={`/listingdetails/${editData.id}`} onClick={handleSaveChanges}>
             <span className="btn btn-sm btn-primary">Save</span>
           </LinkContainer>
-          {/* <button type="button" className="btn btn-sm btn-primary" onClick={handleSaveChanges}>Save</button> */}
         </div>
       </div>
     </div>
