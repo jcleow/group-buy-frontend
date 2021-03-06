@@ -2,8 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Nav, DropdownButton, Dropdown } from 'react-bootstrap';
 import axios from 'axios';
-import { GroupBuyContext, setLoggedInUsername } from '../../store.jsx';
-import BACKEND_URL from '../../helper.js';
+import { BACKEND_URL, GroupBuyContext, setLoggedInUsername } from '../../store.jsx';
 
 export default function UsernameBtn() {
   const { store, dispatch } = useContext(GroupBuyContext);
