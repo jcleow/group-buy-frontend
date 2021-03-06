@@ -22,7 +22,7 @@ function App() {
       <Router>
         <NavbarComponent />
         <Switch>
-          <Route path="/" component={HomePage} />
+          <Route exact path="/" component={HomePage} />
           <Route path="/createListing" component={CreateListingForm} />
           <Route path="/listingdetails/:listingId" component={ViewListing} />
           <Route path="/payment" component={MainPaymentPage} />
