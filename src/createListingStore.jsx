@@ -28,7 +28,7 @@ export const formModes = {
 // Name of the createListingForm
 export const CREATE_LISTING_FORM = 'create_listing_form';
 
-const BACKEND_URL = process.env.ENV === 'PRODUCTION' ? 'https://agile-fortress-78720.herokuapp.com/' : 'http://localhost:3004';
+const BACKEND_URL = process.env.ENV === 'PRODUCTION' ? 'https://radiant-dusk-04152.herokuapp.com/' : 'http://localhost:3004';
 
 // create an object that represents all the data contained in the app
 // we moved all of this data from the app component into the store
