@@ -1,24 +1,24 @@
+/** @format */
+
 :root {
   --mutedText-light: #cdcdcd;
   --mutedText-med: #b6b4b4;
   --mutedText-dark: #9c9b9b;
   --headerBackground: hsl(228, 21%, 28%);
-  --palette-lightBlue: #F1F8FD;
-  --palette-lightPurple: #E2ECFD;
-  --palette-medPurple: #C7D9FF;
-  --palette-darkPurple: #7E9CE2;
-  --palette-lightOrange: #FEE0D7;
-  --palette-medOrange: #FB9A80;
-  --palette-darkOrange: #F58764;
-  --palette-lightYellow: #FFF9EA;
-  --palette-medYellow: #FDEED1;
+  --palette-lightBlue: #f1f8fd;
+  --palette-lightPurple: #e2ecfd;
+  --palette-medPurple: #c7d9ff;
+  --palette-darkPurple: #7e9ce2;
+  --palette-lightOrange: #fee0d7;
+  --palette-medOrange: #fb9a80;
+  --palette-darkOrange: #f58764;
+  --palette-lightYellow: #fff9ea;
+  --palette-medYellow: #fdeed1;
 }
 /* Expample: 
 .header{
 color: var(--palette-medYellow)
 */
-
-
 
 /**
  * /* .App {
@@ -59,10 +59,6 @@ color: var(--palette-medYellow)
  * @keyframes App-logo-spin { from { transform: rotate(0deg);
  */
 
-body{
-  background-color: var(--palette-lightYellow);
-}
-
 .payment-form-progress-bar {
   background-color: var(--headerBackground);
 }
@@ -86,4 +82,8 @@ body{
 
 .ProfilePg-PurchasesTable .col {
   height: 100px;
+}
+.create-listing-header {
+  color: white;
+  font-size: 2rem;
 }

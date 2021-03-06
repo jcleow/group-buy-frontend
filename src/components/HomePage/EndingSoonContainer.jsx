@@ -40,7 +40,6 @@ export default function EndingSoonContainer({ endingSoonListings }) {
           <EndingSoonListCard
             key={`endsoon-${Number(index)}`}
             singleListing={singleListing}
-            // imgPresent={!((singleListing.images === undefined || singleListing.images == null))}
           />
           ))
         ))}

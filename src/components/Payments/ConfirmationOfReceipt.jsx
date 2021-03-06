@@ -37,8 +37,13 @@ export default function ConfirmationOfReceipt({ setMode }) {
         </div>
       </div>
       <div className="row">
+<<<<<<< HEAD
         <div className="col payment-btn-col">
           <Link to="/home">
+=======
+        <div className="col">
+          <Link exact to="/">
+>>>>>>> main
             <Button className="btn btn-primary" onClick={handleBtnClick}>
               Back to home
             </Button>

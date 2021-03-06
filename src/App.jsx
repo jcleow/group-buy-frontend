@@ -22,7 +22,7 @@ function App() {
       <Router>
         <NavbarComponent />
         <Switch>
-          <Route path="/home" component={HomePage} />
+          <Route exact path="/" component={HomePage} />
           <Route path="/createListing" component={CreateListingForm} />
           <Route path="/listingdetails/:listingId" component={ViewListing} />
           <Route path="/payment" component={MainPaymentPage} />
@@ -32,6 +32,7 @@ function App() {
           {/* <Route path="/viewAllMyPurchases" component={ViewAllMyPurchases} /> */}
           <Route path="/editListing/:listingId" component={EditListing} />
           <Route path="/viewProgress/:listingId/" component={CampaignProgress} />
+          <Route path="/delete/:listingId/" component={HomePage} />
         </Switch>
       </Router>
     </GroupBuyProvider>
