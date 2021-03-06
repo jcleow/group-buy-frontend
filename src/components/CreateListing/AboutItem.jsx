@@ -38,7 +38,7 @@ export default function AboutItem({ setMode }) {
 
   const handleCancelForm = () => {
     // setMode('ABOUT_ITEMS');
-    window.location.href = '/home';
+    window.location = '/';
     deleteFromStorage(CREATE_LISTING_FORM);
     deleteFromStorage(FORM_STEP);
   };
