@@ -326,7 +326,7 @@ export function GroupBuyProvider({ children }) {
 
 // hiiii
 
-const BACKEND_URL = process.env.ENV === 'PRODUCTION' ? 'https://radiant-dusk-04152.herokuapp.com' : 'http://localhost:3004';
+const BACKEND_URL = process.env.ENV === 'PRODUCTION' ? 'https://group-buy-backend-7087.herokuapp.com/' : 'http://localhost:3004';
 
 export function loadListings(dispatch, setAllCategories, setBtnArray) {
   axios.get(`${BACKEND_URL}/listings`).then((result) => {

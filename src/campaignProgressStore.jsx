@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useReducer } from 'react';
 
-const BACKEND_URL = process.env.ENV === 'PRODUCTION' ? 'https://radiant-dusk-04152.herokuapp.com' : 'http://localhost:3004';
+const BACKEND_URL = process.env.ENV === 'PRODUCTION' ? 'https://group-buy-backend-7087.herokuapp.com/' : 'http://localhost:3004';
 
 const LOAD_CURR_LISTING_PURCHASES = 'LOAD_CURR_LISTING_PURCHASES';
 const LOAD_PAST_SEVEN_DAYS_COUNT = 'LOAD_PAST_SEVEN_DAYS_COUNT';
