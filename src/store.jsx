@@ -2,6 +2,8 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import { writeStorage, useLocalStorage, deleteFromStorage } from '@rehooks/local-storage';
 
+export const BACKEND_URL = process.env.ENV === 'production' ? 'https://group-buy-backend-7087.herokuapp.com/' : 'http://localhost:3004';
+
 export const LISTING_VIEW_MODES = {
   BUYER_LISTING_VIEW: 'BUYER_LISTING_VIEW',
   LISTER_LISTING_VIEW: 'LISTER_LISTING_VIEW',
@@ -325,8 +327,6 @@ export function GroupBuyProvider({ children }) {
 // these functions must be passed the dispatch from the current context
 
 // hiiii
-
-export const BACKEND_URL = process.env.ENV === 'PRODUCTION' ? 'https://group-buy-backend-7087.herokuapp.com/' : 'http://localhost:3004';
 
 export function loadListings(dispatch, setAllCategories, setBtnArray) {
   axios.get(`${BACKEND_URL}/listings`).then((result) => {
