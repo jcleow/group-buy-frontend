@@ -174,7 +174,7 @@ export default function DetailedListingView({ children }) {
         <div className="col">
           <span className={`${itemLabelClassNames}`}>Listed By:</span>
           {' '}
-          {selectedListingData.listerId}
+          {selectedListingData.lister.username}
         </div>
       </div>
 
