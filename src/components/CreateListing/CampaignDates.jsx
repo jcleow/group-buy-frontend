@@ -87,6 +87,9 @@ export default function CampaignDates({ setMode }) {
             onDatesChange={handleDatesChange}
             focusedInput={rangeFocus}
             onFocusChange={(focus) => setRangeFocus(focus)}
+            verticalHeight={370}
+            orientation="vertical"
+            numberOfMonths={1}
           />
         </div>
       </Form.Group>
@@ -104,6 +107,9 @@ export default function CampaignDates({ setMode }) {
             onFocusChange={({ focused }) => {
               setDeliveryFocus(focused); }}
             id="delivery-dates"
+            verticalHeight={370}
+            orientation="vertical"
+            numberOfMonths={1}
           />
         </div>
       </Form.Group>

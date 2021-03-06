@@ -13,13 +13,14 @@ export default function CreateListingForm() {
   // Modes of the form
   const {
     ABOUT_ITEM, CAMPAIGN_DATES, QTY_AND_PRICE, TERMS_AND_CONDITIONS, SUBMITTED,
+    FORM_STEP,
   } = formModes;
 
   // Control the state of the multi-step form
   const [mode, setMode] = useState(ABOUT_ITEM);
 
   // Track which mode the form is at
-  const [existingMode] = useLocalStorage('formstep');
+  const [existingMode] = useLocalStorage(FORM_STEP);
 
   // If the existing mode suggets a different mode, switch to that mode
   useEffect(() => {

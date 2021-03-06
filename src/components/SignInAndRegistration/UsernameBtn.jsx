@@ -17,13 +17,13 @@ export default function UsernameBtn() {
   return (
     <Nav.Link>
       <DropdownButton id="dropdown-basic-button" key="left" drop="left" title={store.loggedInUsername}>
-        <Dropdown.Item onClick={handleSignOut}>Sign Out</Dropdown.Item>
 
         <Dropdown.Item>
           <Link to="/MyListings" style={{ textDecoration: 'none' }}>
             MyListings
           </Link>
         </Dropdown.Item>
+        <Dropdown.Item onClick={handleSignOut}>Sign Out</Dropdown.Item>
 
       </DropdownButton>
     </Nav.Link>

@@ -8,7 +8,9 @@ import { BACKEND_URL } from '../../store.jsx';
 
 axios.defaults.withCredentials = true;
 export default function TnC({ setMode }) {
-  const { formStore, handleOnChange, dispatchListingForm } = useContext(CreateListingContext);
+  const {
+    formStore, handleOnChange, dispatchListingForm, formLocalStorage,
+  } = useContext(CreateListingContext);
 
   const {
     FORM_STEP, CAMPAIGN_DATES, SUBMITTED,
@@ -28,16 +30,18 @@ export default function TnC({ setMode }) {
   };
 
   const handleSubmitForm = () => {
-    let updatedFormStore = formStore;
-    updatedFormStore = {
-      ...formStore,
-      startDate: moment(formStore.startDate).toDate(),
-      endDate: moment(formStore.endDate).toDate(),
-      deliveryDate: moment(formStore.endDate).toDate(),
+    const updatedFormFields = {
+      ...formLocalStorage,
+      tnc: formLocalStorage.tnc ? formLocalStorage.tnc : formStore.tnc,
+      startDate: moment(formLocalStorage.startDate).toDate(),
+      endDate: moment(formLocalStorage.endDate).toDate(),
+      deliveryDate: moment(formLocalStorage.endDate).toDate(),
     };
     let newListingId;
+
+    console.log(updatedFormFields, 'updatedFormStore');
     //* ** to shift into createListingStore */
-    axios.post(`${BACKEND_URL}/createListing`, { updatedFormStore })
+    axios.post(`${BACKEND_URL}/createListing`, { updatedFormStore: updatedFormFields })
       .then((result) => {
         setMode(SUBMITTED);
         deleteFromStorage(CREATE_LISTING_FORM);
