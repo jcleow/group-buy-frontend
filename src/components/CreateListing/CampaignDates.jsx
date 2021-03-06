@@ -15,7 +15,7 @@ export default function CampaignDates({ setMode }) {
   const END_DATE = 'endDate';
   const DELIVERY_DATE = 'deliveryDate';
 
-  const { TERMS_AND_CONDITIONS, QTY_AND_PRICE } = formModes;
+  const { FORM_STEP, TERMS_AND_CONDITIONS, QTY_AND_PRICE } = formModes;
 
   const {
     formStore, dispatchListingForm, handleOnChange, formLocalStorage,
@@ -55,12 +55,12 @@ export default function CampaignDates({ setMode }) {
 
   const handleNextPage = () => {
     setMode(TERMS_AND_CONDITIONS);
-    writeStorage('formstep', TERMS_AND_CONDITIONS);
+    writeStorage(FORM_STEP, TERMS_AND_CONDITIONS);
   };
 
   const handlePrevPage = () => {
     setMode(QTY_AND_PRICE);
-    writeStorage('formstep', QTY_AND_PRICE);
+    writeStorage(FORM_STEP, QTY_AND_PRICE);
   };
 
   console.log((formLocalStorage.startDate ? formLocalStorage.startDate : startDate), 'Campaign Details Start date');

@@ -76,7 +76,6 @@ export default function AboutItem({ setMode }) {
   ));
 
   const handleUploadPictures = (e) => {
-    console.log(e.target.files, 'e.target.files');
     dispatchListingForm({ field: IMAGES, value: e.target.files });
     writeStorage(CREATE_LISTING_FORM, { ...formLocalStorage, [IMAGES]: [...e.target.files] });
 

@@ -10,7 +10,7 @@ axios.defaults.withCredentials = true;
 export default function TnC({ setMode }) {
   const { formStore, handleOnChange } = useContext(CreateListingContext);
 
-  const { CAMPAIGN_DATES, SUBMITTED } = formModes;
+  const { FORM_STEP, CAMPAIGN_DATES, SUBMITTED } = formModes;
 
   const handleUploadPictures = (listingId) => {
     const data = new FormData();
@@ -45,7 +45,7 @@ export default function TnC({ setMode }) {
 
   const handlePrevPage = () => {
     setMode(CAMPAIGN_DATES);
-    writeStorage('formstep', CAMPAIGN_DATES);
+    writeStorage(FORM_STEP, CAMPAIGN_DATES);
   };
 
   return (
