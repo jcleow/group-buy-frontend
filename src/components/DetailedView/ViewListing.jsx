@@ -8,6 +8,7 @@ import {
 } from '../../store.jsx';
 import DetailedListingView from './DetailedListingView.jsx';
 import QuantityPicker from './QuantityPicker.jsx';
+import { getUserIdFromCookie } from '../../helper.js';
 
 export default function ViewListing() {
   const { store, dispatch } = useContext(GroupBuyContext);
@@ -48,15 +49,10 @@ export default function ViewListing() {
   // Set the specified mode
   useEffect(() => {
     handleSelectAndLocalStorage();
-
     if (loggedInUserId === null) {
-      if (localStoreListViewDisplayMode) {
-        dispatch(setDisplayListingMode(localStoreListViewDisplayMode));
-      }
-      else {
       // If no user is logged in just display the details of the item
-        dispatch(setDisplayListingMode(LISTING_VIEW_MODES.DEFAULT_LISTING_VIEW)); }
-    }
+      dispatch(setDisplayListingMode(LISTING_VIEW_MODES.DEFAULT_LISTING_VIEW)); }
+
     else if (loggedInUserId === selectedListingData.listerId)
     {
       // If the logged in user id is equal to the lister id,
@@ -67,7 +63,7 @@ export default function ViewListing() {
     {
       dispatch(setDisplayListingMode(LISTING_VIEW_MODES.BUYER_LISTING_VIEW));
     }
-  }, []);
+  }, [loggedInUserId]);
 
   const handleDelete = () => {
     console.log('Delete');

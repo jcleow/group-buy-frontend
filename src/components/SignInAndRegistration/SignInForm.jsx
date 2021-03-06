@@ -24,11 +24,13 @@ export default function SignInForm({ handleClose, setFormDisplay }) {
       .then((result) => {
         setUsernameInput('');
         setPasswordInput('');
+        console.log(result.data.user, 'data.user');
         if (result.data.auth) {
           dispatch(setLoggedInUsername(result.data.user.username));
+          dispatch(setLoggedInUserId(result.data.user.id));
+          window.location.reload();
         }
         handleClose();
-        // window.location.reload();
       })
       .catch((error) => console.log(error));
   }
