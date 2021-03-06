@@ -76,16 +76,17 @@ export default function DetailedListingView({ children }) {
       </div>
       <div className="row mt-3 ml-3 pl-2">
         <div className="col">
+          <span className="font-weight-bolder mr-2 pr-2 lead">
+            $
+            {Number(selectedListingData.discountedPrice).toFixed(2)}
+          </span>
           <span className="mr-2 pr-2 text-muted">
             <del>
               $
               {Number(selectedListingData.usualPrice).toFixed(2)}
             </del>
           </span>
-          <span className="font-weight-bolder mr-2 pr-2">
-            $
-            {Number(selectedListingData.discountedPrice).toFixed(2)}
-          </span>
+
           <span className={`${itemLabelClassNames}`}>Discount:</span>
           {' '}
           {calcDiscountPct(selectedListingData.discountedPrice, selectedListingData.usualPrice)}
