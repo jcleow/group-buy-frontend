@@ -7,6 +7,7 @@ import {
 } from '../../store.jsx';
 import ListingImagesCarousel from './ListingImagesCarousel.jsx';
 import { calcDiscountPct, getListingCurrentStatus, isListingCancelled } from '../utility/listingHelper.js';
+import './ListView.css';
 
 export default function DetailedListingView({ children }) {
   const [progressPercent, setProgressPercent] = useState(0);
@@ -31,14 +32,16 @@ export default function DetailedListingView({ children }) {
     return (`Deal ends ${timeSpan}`);
   };
 
+  const itemLabelClassNames = 'font-italic small font-weight-bold pr-1';
+
   return (
-    <div className="container mt-4 shadow p-3">
-      <div className="row mt-3 ml-3 p-2">
+    <div className="container mt-4 p-3 detailed-view">
+      <div className="row mt-3 ml-3 pl-2">
         <div className="col">
           <h5 className="mt-2 text-capitalize">{selectedListingData.title}</h5>
         </div>
       </div>
-      <div className="row mt-2 ml-3 mr-3 p-2">
+      <div className="row mt-2 ml-3 mr-3 pl-2">
         <div />
         <div className="col">
           <figure className="figure">
@@ -51,9 +54,12 @@ export default function DetailedListingView({ children }) {
             <figcaption className="figure-caption text-dark font-weight-bolder mt-1">{selectedListingData.title}</figcaption>
           </figure>
           {findPurchaseCountPerListing(listingId, setProgressPercent)}
-          <div className="col-6">
+          <div className="col col-md-6">
             <div className="progress">
-              <div id="order-progress" className="progress-bar progress-bar-striped bg-warning" role="progressbar" style={{ width: `${progressPercent}%` }} aria-valuenow={progressPercent} aria-valuemin="0" aria-valuemax="100" />
+              <div id="order-progress" className="progress-bar progress-bar-striped bg-warning" role="progressbar" style={{ width: `${progressPercent}%` }} aria-valuenow={progressPercent} aria-valuemin="0" aria-valuemax="100">
+                {progressPercent}
+                %
+              </div>
             </div>
           </div>
           <div className="col text-muted order-progress-label">
@@ -68,24 +74,28 @@ export default function DetailedListingView({ children }) {
           </div>
         </div>
       </div>
-      <div className="row mt-3 ml-3">
+      <div className="row mt-3 ml-3 pl-2">
         <div className="col">
+          <span className="font-weight-bolder mr-2 pr-2 lead">
+            $
+            {Number(selectedListingData.discountedPrice).toFixed(2)}
+          </span>
           <span className="mr-2 pr-2 text-muted">
             <del>
               $
-              {Number(selectedListingData.usualPrice)}
+              {Number(selectedListingData.usualPrice).toFixed(2)}
             </del>
           </span>
-          <span className="font-weight-bolder">
-            $
-            {Number(selectedListingData.discountedPrice)}
-          </span>
-        </div>
-        <div className="col-12 mt-2 text-muted">
-          <span className="font-italic small">Discount:</span>
+
+          {/* <span className={`${itemLabelClassNames}`}>Discount:</span> */}
           {' '}
-          {calcDiscountPct(selectedListingData.discountedPrice, selectedListingData.usualPrice)}
-          %
+          <span className="font-italic">
+            save
+            {' '}
+            {Number(calcDiscountPct(selectedListingData.discountedPrice,
+              selectedListingData.usualPrice)).toFixed(1)}
+            % !
+          </span>
         </div>
       </div>
 
@@ -93,42 +103,40 @@ export default function DetailedListingView({ children }) {
         && !isListingCancelled(selectedListingData.listingStatus)) && children}
 
       {(totalQuantityOrdered !== 0) && (
-      <div className="row mt-3 ml-3">
+      <div className="row mt-3 ml-3 pl-2">
         <div className="col">
-          <span className="font-italic small">Total Price:</span>
+          <span className={`${itemLabelClassNames}`}>Total Price:</span>
           {' '}
           {(Number(totalQuantityOrdered) * Number(selectedListingData.discountedPrice)).toFixed(2)}
         </div>
       </div>
       )}
 
-      <div className="row mt-3 ml-3">
+      <div className="row mt-3 ml-3 pl-2">
         <div className="col">
-          <span className="font-italic small">Quantity available:</span>
+          <span className={itemLabelClassNames}>Quantity available:</span>
           { ' '}
           {selectedListingData.quantity}
-        </div>
-        <div className="col">
-          <span className="font-italic small">MOQ:</span>
+          <span className={`${itemLabelClassNames} pl-1 ml-3`}>MOQ:</span>
           { ' '}
           {selectedListingData.moq}
         </div>
-        <div className="col">
-          {/* No:of purchases already */}
-        </div>
+        {/* <div className="col"> */}
+        {/* No:of purchases already */}
+        {/* </div> */}
       </div>
 
-      <div className="row mt-3 ml-3">
+      <div className="row mt-3 ml-3 pl-2">
         <div className="col">
-          <span className="font-italic small">Status:</span>
+          <span className={`${itemLabelClassNames}`}>Status:</span>
           {' '}
           {getListingCurrentStatus(selectedListingData.listingStatus)}
         </div>
       </div>
 
-      <div className="row mt-3 ml-3">
+      <div className="row mt-3 ml-3 pl-2">
         <div className="col">
-          <span className="font-italic small">
+          <span className={`${itemLabelClassNames}`}>
             Category:
           </span>
           {' '}
@@ -136,76 +144,60 @@ export default function DetailedListingView({ children }) {
         </div>
       </div>
 
-      <div className="row mt-3 ml-3">
-        <div className="col">
-          <span className="font-italic small">Start Date:</span>
-          {' '}
-          {' '}
-          {new Date(selectedListingData.startDate).toDateString()}
-        </div>
+      <div className="row mt-3 ml-3 pl-2 justify-content-start">
+        <div className={`col-6 col-md-3  ${itemLabelClassNames}`}>Start Date:</div>
+        <div className={`col-6 col-md-3 ${itemLabelClassNames}`}>End Date:</div>
       </div>
-      <div className="row mt-3 ml-3">
-        <div className="col">
-          <span className="font-italic small">End Date:</span>
-          {' '}
-          {' '}
-          {new Date(selectedListingData.endDate).toDateString()}
-        </div>
+      <div className="row ml-3 pl-2 justify-content-start">
+        <div className="col-6 col-md-3 ">{moment(new Date(selectedListingData.startDate)).format('DD/MM/YYYY')}</div>
+        <div className="col-6 col-md-3 ">{moment(new Date(selectedListingData.endDate)).format('DD/MM/YYYY')}</div>
       </div>
-      <div className="row mt-3 ml-3">
-        <div className="col">
-          <span className="font-italic small">Posted On:</span>
-          {' '}
-          {' '}
-          {new Date(selectedListingData.createdAt).toDateString()}
-        </div>
+
+      <div className="row mt-3 ml-3 pl-2 justify-content-start">
+        <div className={`col-6 col-md-3 ${itemLabelClassNames}`}>Posted On:</div>
+        <div className={`col-6 col-md-3 ${itemLabelClassNames}`}>Updated On:</div>
       </div>
-      <div className="row mt-3 ml-3">
-        <div className="col">
-          <span className="font-italic small">Last updated On:</span>
-          {' '}
-          {' '}
-          {new Date(selectedListingData.updatedAt).toDateString()}
-        </div>
+      <div className="row ml-3 pl-2 justify-content-start">
+        <div className="col-6 col-md-3">{moment(new Date(selectedListingData.createdAt)).format('DD/MM/YYYY')}</div>
+        <div className="col-6 col-md-3">{moment(new Date(selectedListingData.updatedAt)).format('DD/MM/YYYY')}</div>
       </div>
-      <div className="row mt-3 ml-3">
+
+      <div className="row mt-3 ml-3 pl-2">
         <div className="col">
-          <span className="font-italic small">Delivery Mode:</span>
+          <span className={`${itemLabelClassNames}`}>Delivery Mode:</span>
           {' '}
           {selectedListingData.deliveryMode}
         </div>
       </div>
 
-      <div className="row mt-3 ml-3">
+      <div className="row mt-3 ml-3 pl-2">
         <div className="col">
-          <span className="font-italic small">Listed By:</span>
+          <span className={`${itemLabelClassNames}`}>Listed By:</span>
           {' '}
           {selectedListingData.listerId}
         </div>
       </div>
 
-      <div className="row mt-3 ml-3">
+      <div className="row mt-3 ml-3 pl-2">
         <div className="col">
-          <h6>
-            Details of
-            { ' '}
-            {selectedListingData.title}
+          <h6 className={`${itemLabelClassNames}`}>
+            Description:
           </h6>
         </div>
         <div className="col-12">
-          <p>
+          <p className="desc-text">
             {selectedListingData.description}
           </p>
         </div>
       </div>
-      <div className="row mt-3 ml-3">
+      <div className="row mt-3 ml-3 pl-2">
         <div className="col">
-          <h6>
+          <h6 className={`${itemLabelClassNames}`}>
             Terms and Conditions:
           </h6>
         </div>
         <div className="col-12">
-          <p>
+          <p className="desc-text">
             {selectedListingData.tnc}
           </p>
         </div>

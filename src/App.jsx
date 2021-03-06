@@ -32,6 +32,7 @@ function App() {
           {/* <Route path="/viewAllMyPurchases" component={ViewAllMyPurchases} /> */}
           <Route path="/editListing/:listingId" component={EditListing} />
           <Route path="/viewProgress/:listingId/" component={CampaignProgress} />
+          <Route path="/delete/:listingId/" component={HomePage} />
         </Switch>
       </Router>
     </GroupBuyProvider>
