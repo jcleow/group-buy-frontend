@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 // import PropTypes from 'prop-types';
 import PAGE_NAMES from '../utility/paymentPageNames.js';
 import { GroupBuyContext } from '../../store.jsx';
+import './stylesheets/PurchaseSummary.css';
 
 export default function PurchaseSummary({ setMode, selectedListingData, totalQuantityOrdered }) {
   const { store } = useContext(GroupBuyContext);
@@ -68,6 +69,15 @@ export default function PurchaseSummary({ setMode, selectedListingData, totalQua
               <div className="price-breakdown">
                 <div>{totalQuantityOrdered}</div>
                 <div className="faded-description">(Qty)</div>
+              </div>
+              <div className="price-breakdown">
+                <span>=</span>
+              </div>
+              <div className="total">
+                $
+                {totalPrice}
+
+                <div className="faded-description"> (Total) </div>
               </div>
             </div>
           </div>

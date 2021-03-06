@@ -3,6 +3,10 @@
   height: 25rem;
 }
 
+div .container-sm{
+  background-color: #F1F8FD;
+}
+
 /* .see-more:focus {
   outline: 0 !important;
   box-shadow: none !important;
