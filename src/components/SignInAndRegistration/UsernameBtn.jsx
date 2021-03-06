@@ -10,7 +10,9 @@ export default function UsernameBtn() {
   const handleSignOut = () => {
     axios.put(`${BACKEND_URL}/signOut`, {}, { withCredentials: true })
       .then(() => {
+        window.location = '/home';
         dispatch(setLoggedInUsername(null));
+        window.location.reload();
       })
       .catch((err) => console.log(err));
   };
