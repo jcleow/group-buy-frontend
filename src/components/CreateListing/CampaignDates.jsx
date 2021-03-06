@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { useState, useContext } from 'react';
+import moment from 'moment';
 import { writeStorage } from '@rehooks/local-storage';
 import { Form, Button } from 'react-bootstrap';
 import { DateRangePicker, SingleDatePicker } from 'react-dates';
@@ -79,13 +80,16 @@ export default function CampaignDates({ setMode }) {
         </Form.Label>
         <div>
           <DateRangePicker
-            startDate={formLocalStorage.startDate ? formLocalStorage.startDate : startDate}
+            startDate={formLocalStorage.startDate ? moment(formLocalStorage.startDate) : startDate}
             startDateId={`${startDate}id`}
-            endDate={formLocalStorage.endDate ? formLocalStorage.endDate : endDate}
+            endDate={formLocalStorage.endDate ? moment(formLocalStorage.endDate) : endDate}
             endDateId={`${endDate}id`}
             onDatesChange={handleDatesChange}
             focusedInput={rangeFocus}
             onFocusChange={(focus) => setRangeFocus(focus)}
+            verticalHeight={370}
+            orientation="vertical"
+            numberOfMonths={1}
           />
         </div>
       </Form.Group>
@@ -97,12 +101,15 @@ export default function CampaignDates({ setMode }) {
         </Form.Label>
         <div>
           <SingleDatePicker
-            date={formLocalStorage.deliveryDate ? formLocalStorage.deliveryDate : deliveryDate}
+            date={formLocalStorage.deliveryDate ? moment(formLocalStorage.deliveryDate) : deliveryDate}
             onDateChange={handleDeliveryDateChange}
             focused={deliveryFocus}
             onFocusChange={({ focused }) => {
               setDeliveryFocus(focused); }}
             id="delivery-dates"
+            verticalHeight={370}
+            orientation="vertical"
+            numberOfMonths={1}
           />
         </div>
       </Form.Group>
