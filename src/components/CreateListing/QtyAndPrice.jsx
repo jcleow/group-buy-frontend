@@ -34,7 +34,7 @@ export default function QtyAndPrice({ setMode }) {
     <Form>
       <div className="col payment-form-progress-bar d-flex flex-row justify-content-start">
         <button type="button" onClick={handlePrevPage}>⬅️ </button>
-        <div className="create-listing-header ml-2">Quantity and Price</div>
+        <div className="create-listing-header ml-2">Quantity and Price (2/4)</div>
       </div>
       <Form.Group className="ml-3 mt-3" controlId="qtyAvailable">
         <Form.Label>Quantity Available</Form.Label>

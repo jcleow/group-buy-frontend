@@ -23,7 +23,7 @@ export default function NavbarComponent() {
 
   return (
     <>
-      <Navbar bg="light" expand="lg">
+      <Navbar collapseOnSelect bg="light" expand="lg">
         <LinkContainer to="/home">
           <Navbar.Brand>Group Buy App</Navbar.Brand>
         </LinkContainer>

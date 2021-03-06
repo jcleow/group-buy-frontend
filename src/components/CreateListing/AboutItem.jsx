@@ -124,7 +124,7 @@ export default function AboutItem({ setMode }) {
   return (
     <Form>
       <div className="col payment-form-progress-bar d-flex flex-row justify-content-start">
-        <div className="create-listing-header ml-1">About Item</div>
+        <div className="create-listing-header ml-1">About Item (1/4)</div>
       </div>
       <Form.Group className="ml-3 mt-3" controlId="formBasicEmail">
         <Form.Label>Title</Form.Label>

@@ -52,7 +52,7 @@ export default function TnC({ setMode }) {
     <Form>
       <div className="col payment-form-progress-bar d-flex flex-row justify-content-start">
         <button type="button" onClick={handlePrevPage}>⬅️ </button>
-        <div className="create-listing-header ml-2">Terms and Conditions</div>
+        <div className="create-listing-header ml-2">Terms and Conditions (4/4)</div>
       </div>
       <Form.Group className="ml-3 mt-3" controlId="exampleForm.ControlTextarea1">
         <Form.Label>Terms and Conditions</Form.Label>
