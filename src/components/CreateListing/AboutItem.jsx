@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import './UploadedImg.css';
 import { writeStorage, deleteFromStorage } from '@rehooks/local-storage';
 import {
   Form, Button, Dropdown, DropdownButton,
@@ -12,6 +13,7 @@ export default function AboutItem({ setMode }) {
   const CATEGORY = 'category';
   const IMAGES = 'images';
   const [allCategories, setAllCategories] = useState([]);
+  const [imagesUploaded, setImagesUploaded] = useState([]);
   const {
     formStore, dispatchListingForm, handleOnChange, formLocalStorage,
   } = useContext(CreateListingContext);
@@ -64,7 +66,40 @@ export default function AboutItem({ setMode }) {
 
   const handleUploadPictures = (e) => {
     dispatchListingForm({ field: IMAGES, value: e.target.files });
-    writeStorage(CREATE_LISTING_FORM, { ...formLocalStorage, [IMAGES]: e.target.files });
+    writeStorage(CREATE_LISTING_FORM, { ...formLocalStorage, [IMAGES]: [...e.target.files] });
+    const allImageLocations = Object.entries(e.target.files).map(([key, file]) => {
+      if (key !== 'length') {
+        return URL.createObjectURL(file);
+      }
+      return null;
+    });
+    writeStorage(CREATE_LISTING_FORM, { ...formLocalStorage, imageLocations: [...allImageLocations] });
+    setImagesUploaded([...imagesUploaded, ...allImageLocations]);
+  };
+
+  // const displayDeletePicBtn = () => {
+  //   return(
+
+  //   )
+  // };
+
+  const displayImages = () => {
+    const images = formLocalStorage.imageLocations.map((location) => (
+      <div className="col uploaded-img-container">
+        <div className="d-flex justify-content-end delete-img-btn">
+          <button
+            type="button"
+            className="btn btn-sm"
+            aria-label="Close"
+          >
+            <span className="delete-img" aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <img className="rounded uploaded-img" src={location} alt="uploaded img" />
+      </div>
+
+    ));
+    return images;
   };
 
   // Load all categories available in the database
@@ -122,6 +157,13 @@ export default function AboutItem({ setMode }) {
         onChange={handleUploadPictures}
         ref={hiddenFileInput}
       />
+      {/* Uploaded Images */}
+      <div className="d-flex flex-row justify-content-start">
+        <div className="row d-flex justify-content-between">
+          {formLocalStorage.imageLocations && displayImages()}
+        </div>
+      </div>
+
       <div className="d-flex flex-row justify-content-center mb-3">
         <Button variant="primary" onClick={handleNextPage}>
           Next

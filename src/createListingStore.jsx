@@ -48,6 +48,7 @@ export const initialFormState = {
   category: 'Select Category',
   lister_id: null,
   images: [],
+  imageLocations: [],
 };
 
 // just like the todo app, define each action we want to do on the
