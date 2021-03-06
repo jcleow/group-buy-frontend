@@ -16,10 +16,11 @@ export default function PaymentInstructions({ setMode }) {
     setMode(PAGE_NAMES.PURCHASE_SUMMARY);
   };
   return (
-    <div className="container m-4 ml-auto mr-auto">
+    <div className="container-fluid ml-auto mr-auto ">
       <div className="row">
         <div className="col payment-form-progress-bar">
-          <button type="button" onClick={handleBackNavBtn}>⬅️ Purchase Summary</button>
+          <button className="backward" type="button" onClick={handleBackNavBtn}>⬅️ Purchase Summary</button>
+          <button className="forward" type="button" onClick={() => {}}> Upload Receipt ➡️</button>
         </div>
       </div>
       <div className="row">
@@ -44,7 +45,7 @@ export default function PaymentInstructions({ setMode }) {
         </div>
       </div>
       <div className="row">
-        <div className="col">
+        <div className="col payment-btn-col">
           <Button className="btn btn-primary" onClick={handleBtnClick}>
             Next
           </Button>

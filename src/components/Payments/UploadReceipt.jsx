@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 // import { writeStorage } from '@rehooks/local-storage';
 import { GroupBuyContext, recordPurchase } from '../../store.jsx';
+import './stylesheets/UploadReceipt.css';
 import PAGE_NAMES from '../utility/paymentPageNames.js';
 
 export default function UploadReceipt({ setMode, selectedListingData, totalQuantityOrdered }) {
@@ -67,7 +68,7 @@ export default function UploadReceipt({ setMode, selectedListingData, totalQuant
         <div className="form-group files">
           <label htmlFor="receiptImg">
             Upload Your File
-            <input type="file" id="receiptImg" name="receiptImg" className="" onChange={(e) => handleFileSelection(e)} />
+            <input type="file" id="receiptImg" name="receiptImg" className="form-control-file" onChange={(e) => handleFileSelection(e)} />
           </label>
         </div>
       </form>
@@ -78,10 +79,11 @@ export default function UploadReceipt({ setMode, selectedListingData, totalQuant
     setMode(PAGE_NAMES.PAYMENT_INSTRUCTIONS);
   };
   return (
-    <div className="container m-4 ml-auto mr-auto">
+    <div className="container-fluid  ml-auto mr-auto">
       <div className="row">
         <div className="col payment-form-progress-bar">
-          <button type="button" onClick={handleBackNavBtn}>⬅️ Payment instructions</button>
+          <button className="backward" type="button" onClick={handleBackNavBtn}>⬅️ Payment instructions</button>
+          <button className="forward" type="button" onClick={() => {}}>Confirmation ➡️</button>
         </div>
       </div>
       <div className="row">
@@ -95,7 +97,7 @@ export default function UploadReceipt({ setMode, selectedListingData, totalQuant
         </div>
       </div>
       <div className="row">
-        <div className="col">
+        <div className="col payment-btn-col">
 
           <Button type="button" className="btn btn-secorndary" onClick={handleFileUpload}>
             Upload
@@ -103,7 +105,7 @@ export default function UploadReceipt({ setMode, selectedListingData, totalQuant
         </div>
       </div>
       <div className="row">
-        <div className="col">
+        <div className="col ">
           {/* <Button className="btn btn-primary" onClick={handleBtnClick}> */}
           {/* <Button> */}
           {/* Next */}
