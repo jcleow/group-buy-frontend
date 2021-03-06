@@ -2,18 +2,40 @@
 .price-breakdown {
   margin: 0px 5px 0px;
   text-align: center;
+  font-size: 1em;
 }
 .price-breakdown span {
   height: 60px;
   line-height: 60px;
+  font-size: 1.2em;
 }
 .price-breakdown-container {
   display: inline-flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .faded-description {
-  /* color: var(--fadedDescription); */
-  color: var(--fadedDescription);
+  color: var(--mutedText-med);
+  font-size: 0.8em;
+}
+
+.disclaimer{
+  margin-top: 1em;
+  font-style: italic;
+  color: var(--mutedText-dark);
+  font-size: 0.8em;
+}
+
+.field-key{
+  font-weight: 600;
+  font-size: 0.8em;
+}
+.header{
+  margin-top:1em
+}
+.payment-btn-col{
+  display: flex;
+  justify-content: center;
+  padding-top: 0.5em;
 }

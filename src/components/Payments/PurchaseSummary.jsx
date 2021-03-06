@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 // import PropTypes from 'prop-types';
 import PAGE_NAMES from '../utility/paymentPageNames.js';
 import { GroupBuyContext } from '../../store.jsx';
+import './stylesheets/AllPaymentRelated.css';
 import './stylesheets/PurchaseSummary.css';
 
 export default function PurchaseSummary({ setMode, selectedListingData, totalQuantityOrdered }) {
@@ -20,16 +21,16 @@ export default function PurchaseSummary({ setMode, selectedListingData, totalQua
     // writeStorage('mode', PAYMENT_INSTRUCTIONS);
   };
 
-  console.log('selectedListingData isndie purchaseSummary component');
-  console.log(selectedListingData);
-
   const totalPrice = selectedListingData.discountedPrice * totalQuantityOrdered;
-
+  const unitPrice = Number(selectedListingData.discountedPrice);
   return (
-    <div className="container m-4 ml-auto mr-auto">
-      <div className="row">
-        <div className="col payment-form-progress-bar">
-          &nbsp;&nbsp;
+    <div className="container-fluid ml-auto mr-auto ">
+      <div className="row ">
+        <div className="col  payment-form-progress-bar">
+          <div className="backward">
+            {' '}
+          </div>
+          <div className="forward">Payment instructions ➡️ </div>
         </div>
       </div>
       <div className="row">
@@ -43,7 +44,7 @@ export default function PurchaseSummary({ setMode, selectedListingData, totalQua
         </div>
         <div className="col col-12 col-md-8">
           <div className="row">
-            <div className="col-4">
+            <div className="col-4 field-key">
               Item
             </div>
             <div className="col-8">
@@ -51,13 +52,13 @@ export default function PurchaseSummary({ setMode, selectedListingData, totalQua
             </div>
           </div>
           <div className="row">
-            <div className="col-4">
+            <div className="col-4 field-key">
               Price breakdown
             </div>
             <div className="col-8 price-breakdown-container">
               <div className="price-breakdown">
                 $
-                {selectedListingData.discountedPrice}
+                {unitPrice.toFixed(2)}
 
                 <div className="faded-description"> (Unit price) </div>
               </div>
@@ -73,39 +74,31 @@ export default function PurchaseSummary({ setMode, selectedListingData, totalQua
               <div className="price-breakdown">
                 <span>=</span>
               </div>
-              <div className="total">
+              <div className="price-breakdown">
                 $
-                {totalPrice}
+                {totalPrice.toFixed(2)}
 
                 <div className="faded-description"> (Total) </div>
               </div>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-4">
-              Total
-            </div>
-            <div className="col-8">
-              $
-              {totalPrice}
             </div>
           </div>
         </div>
       </div>
       <div className="row">
         <div className="col terms-n-conditions">
-          <div>
+
+          <div className="disclaimer">
+            Disclaimer:
             By proceeding, you agree that you have read, and abide by
             Group-Buy&apos;s terms and conditions.
           </div>
         </div>
       </div>
       <div className="row">
-        <div className="col">
+        <div className="col payment-btn-col">
           <Button className="btn btn-primary" onClick={handleBtnClick}>
             Pay $
-            {totalPrice}
+            {totalPrice.toFixed(2)}
           </Button>
         </div>
       </div>
