@@ -27,7 +27,7 @@ export default function CampaignPurchasersTable() {
   }));
 
   return (
-    <div className="purchaser-table">
+    <div className="purchaser-table-container">
       <BootstrapTable
         keyField="id"
         data={indexAllPurchases}
@@ -43,6 +43,7 @@ export default function CampaignPurchasersTable() {
 
         })}
         striped
+        bordered={false}
         hover
         condensed
       />

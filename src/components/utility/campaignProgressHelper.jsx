@@ -8,10 +8,10 @@ export const tableColumns = [
     text: 'S/N',
     editable: false,
   },
-  {
-    dataField: 'id',
-    text: 'UUID',
-  },
+  // {
+  //   dataField: 'id',
+  //   text: 'UUID',
+  // },
   {
     dataField: 'username',
     text: 'Username',

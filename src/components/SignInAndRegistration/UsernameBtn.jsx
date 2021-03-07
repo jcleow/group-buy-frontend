@@ -4,9 +4,11 @@ import { Nav, DropdownButton, Dropdown } from 'react-bootstrap';
 import axios from 'axios';
 import { BACKEND_URL, GroupBuyContext, setLoggedInUsername } from '../../store.jsx';
 
-export default function UsernameBtn() {
+export default function UsernameBtn({ collapseNavBar }) {
   const { store, dispatch } = useContext(GroupBuyContext);
+
   const handleSignOut = () => {
+    collapseNavBar();
     axios.put(`${BACKEND_URL}/signOut`, {}, { withCredentials: true })
       .then(() => {
         dispatch(setLoggedInUsername(null));
@@ -19,7 +21,11 @@ export default function UsernameBtn() {
       <DropdownButton id="dropdown-basic-button" key="left" drop="left" title={store.loggedInUsername}>
 
         <Dropdown.Item>
-          <Link to="/MyListings" style={{ textDecoration: 'none' }}>
+          <Link
+            to="/MyListings"
+            style={{ textDecoration: 'None', color: 'black' }}
+            onClick={collapseNavBar}
+          >
             MyListings
           </Link>
         </Dropdown.Item>
