@@ -35,20 +35,15 @@ export default function NavbarComponent() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(expanded ? false : 'expanded')} />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            {store.loggedInUsername && (
-            <LinkContainer to="/createListing" onClick={collapseNavBar}>
-              <Nav.Link>Add</Nav.Link>
-            </LinkContainer>
-            )}
             <LinkContainer to="/viewAllListings" onClick={collapseNavBar}>
               <Nav.Link>View All</Nav.Link>
             </LinkContainer>
             {/* <LinkContainer to="/payment">
               <Nav.Link>[test] payment</Nav.Link>
             </LinkContainer> */}
-            <LinkContainer to="/MyProfile" onClick={collapseNavBar}>
+            {/* <LinkContainer to="/MyProfile" onClick={collapseNavBar}>
               <Nav.Link>Profile</Nav.Link>
-            </LinkContainer>
+            </LinkContainer> */}
           </Nav>
           <Nav className="ml-auto">
             {store.loggedInUsername
