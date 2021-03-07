@@ -19,17 +19,6 @@ export default function UsernameBtn({ collapseNavBar }) {
   return (
     <Nav.Link>
       <DropdownButton id="dropdown-basic-button" key="left" drop="left" title={store.loggedInUsername}>
-
-        <Dropdown.Item>
-          <Link
-            to="/MyProfile"
-            style={{ textDecoration: 'None', color: 'black' }}
-            onClick={collapseNavBar}
-          >
-            My Profile
-          </Link>
-        </Dropdown.Item>
-
         <Dropdown.Item>
           <Link
             to="/createListing"
@@ -49,9 +38,13 @@ export default function UsernameBtn({ collapseNavBar }) {
             My Listings
           </Link>
         </Dropdown.Item>
+        <Dropdown.Item>
+          <Link to="/MyPurchases" style={{ textDecoration: 'None', color: 'black' }}>
+            MyPurchases
+          </Link>
+        </Dropdown.Item>
         <Dropdown.Divider />
         <Dropdown.Item onClick={handleSignOut}>Sign Out</Dropdown.Item>
-
       </DropdownButton>
     </Nav.Link>
   );
