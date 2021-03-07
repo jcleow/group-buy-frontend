@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 // import { GroupBuyContext } from '../../store.jsx';
 import LatestListingsListCard from './LatestListingsListCard.jsx';
+import './LatestListingsContainer.css';
 import './LatestListingsCard.css';
 import { isListingCancelled } from '../utility/listingHelper.js';
 
@@ -18,7 +19,7 @@ export default function LatestListingsContainer({ latestListings }) {
   };
 
   return (
-    <div className="container-sm mt-4">
+    <div className="container-sm mt-4 latestListingContainer">
       <div className="row mb-3 pt-2">
         <div className="col-9">
           <h6>Latest Listings</h6>
