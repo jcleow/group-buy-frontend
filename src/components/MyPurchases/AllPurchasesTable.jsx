@@ -3,12 +3,12 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import { GroupBuyContext, getAllPurchasesAssociatedWUser } from '../../store.jsx';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-import './AllPurchasesTable2.css';
+import './stylesheets/AllPurchasesTable.css';
 import {
   columns, manageDataInExpandRow, getPaginationOptions, defaultSorted, mapDataIntoTable,
 } from './allPurchasesTableData.jsx';
 
-export default function AllPurchasesTable2() {
+export default function AllPurchasesTable() {
   const { store, dispatch } = useContext(GroupBuyContext);
   const [allPurchases, setAllPurchases] = useState(null);
 

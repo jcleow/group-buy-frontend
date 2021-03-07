@@ -10,7 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import MyListings from './components/MyListings/MyListings.jsx';
 import MainPaymentPage from './components/Payments/MainPaymentPage.jsx';
 import ViewAllListings from './components/ViewAllListings/ViewAllListings.jsx';
-import MainProfilePage from './components/MyProfile/MainProfilePage.jsx';
+import MainMyPurchasesPage from './components/MyPurchases/MainMyPurchasesPage.jsx';
 
 // import MainPaymentPage from './components/Payments/MainPaymentPage.jsx';
 import CampaignProgress from './components/CampaignProgress/CampaignProgressContainer.jsx';
@@ -27,8 +27,8 @@ function App() {
           <Route path="/listingdetails/:listingId" component={ViewListing} />
           <Route path="/payment" component={MainPaymentPage} />
           <Route path="/viewAllListings" component={ViewAllListings} />
-          <Route path="/MyProfile" component={MainProfilePage} />
           <Route path="/MyListings" component={MyListings} />
+          <Route path="/MyPurchases" component={MainMyPurchasesPage} />
           {/* <Route path="/viewAllMyPurchases" component={ViewAllMyPurchases} /> */}
           <Route path="/editListing/:listingId" component={EditListing} />
           <Route path="/viewProgress/:listingId/" component={CampaignProgress} />

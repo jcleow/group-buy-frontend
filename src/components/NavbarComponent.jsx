@@ -41,9 +41,6 @@ export default function NavbarComponent() {
             {/* <LinkContainer to="/payment">
               <Nav.Link>[test] payment</Nav.Link>
             </LinkContainer> */}
-            <LinkContainer to="/MyProfile">
-              <Nav.Link>Profile</Nav.Link>
-            </LinkContainer>
           </Nav>
           <Nav className="ml-auto">
             {store.loggedInUsername

@@ -26,6 +26,11 @@ export default function UsernameBtn() {
             MyListings
           </Link>
         </Dropdown.Item>
+        <Dropdown.Item>
+          <Link to="/MyPurchases" style={{ textDecoration: 'none' }}>
+            MyPurchases
+          </Link>
+        </Dropdown.Item>
 
       </DropdownButton>
     </Nav.Link>
