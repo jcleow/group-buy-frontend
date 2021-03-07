@@ -11,8 +11,8 @@ export default function UsernameBtn({ collapseNavBar }) {
     collapseNavBar();
     axios.put(`${BACKEND_URL}/signOut`, {}, { withCredentials: true })
       .then(() => {
+        window.location = '/';
         dispatch(setLoggedInUsername(null));
-        window.location.reload();
       })
       .catch((err) => console.log(err));
   };
@@ -22,13 +22,34 @@ export default function UsernameBtn({ collapseNavBar }) {
 
         <Dropdown.Item>
           <Link
+            to="/MyProfile"
+            style={{ textDecoration: 'None', color: 'black' }}
+            onClick={collapseNavBar}
+          >
+            My Profile
+          </Link>
+        </Dropdown.Item>
+
+        <Dropdown.Item>
+          <Link
+            to="/createListing"
+            style={{ textDecoration: 'None', color: 'black' }}
+            onClick={collapseNavBar}
+          >
+            Add New Listing
+          </Link>
+        </Dropdown.Item>
+
+        <Dropdown.Item>
+          <Link
             to="/MyListings"
             style={{ textDecoration: 'None', color: 'black' }}
             onClick={collapseNavBar}
           >
-            MyListings
+            My Listings
           </Link>
         </Dropdown.Item>
+        <Dropdown.Divider />
         <Dropdown.Item onClick={handleSignOut}>Sign Out</Dropdown.Item>
 
       </DropdownButton>
