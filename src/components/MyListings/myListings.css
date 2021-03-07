@@ -20,7 +20,7 @@
 }
 
 /** @format */
-.purchaser-table-container {
+.my-listings-container {
   position: relative;
   overflow: auto;
   white-space: nowrap;
@@ -28,7 +28,7 @@
   margin-right: 10vw;
 }
 
-.purchaser-table-container::-webkit-scrollbar {
+.my-listings-container::-webkit-scrollbar {
   display: none;
 }
 
@@ -37,13 +37,13 @@
 }
 
 /* Freeze 1st column */
-.purchaser-table-container
+.my-listings-container
   .react-bootstrap-table
   table
   > tbody
   > tr
   > td:nth-child(1),
-.purchaser-table-container
+.my-listings-container
   .react-bootstrap-table
   table
   > thead
@@ -52,18 +52,17 @@
   background-color: #ccc;
   position: sticky;
   position: -webkit-sticky;
-  left: 0;
+  left: -2px;
   z-index: 1;
 }
 
-.purchaser-table-container .react-bootstrap-table-pagination,
-.purchaser-table-container .react-bootstrap-table-pagination-list {
-  position: relative;
+.my-listings-container .react-bootstrap-table-pagination,
+.my-listings-container .react-bootstrap-table-pagination-list {
   min-height: 300px;
 }
 
 @media (max-width: 767px) {
-  .purchaser-table-container .react-bootstrap-table-pagination {
+  .my-listings-container .react-bootstrap-table-pagination {
     position: sticky;
     position: -webkit-sticky;
     left: 0;

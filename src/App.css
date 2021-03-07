@@ -1,7 +1,9 @@
 /** @format */
 
 :root {
-  --fadedDescription: #cdcdcd;
+  --mutedText-light: #cdcdcd;
+  --mutedText-med: #b6b4b4;
+  --mutedText-dark: #9c9b9b;
   --headerBackground: hsl(228, 21%, 28%);
   --palette-lightBlue: #f1f8fd;
   --palette-lightPurple: #e2ecfd;

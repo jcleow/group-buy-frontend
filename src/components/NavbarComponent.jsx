@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   Navbar, Nav,
 } from 'react-bootstrap';
@@ -10,6 +10,7 @@ import { getUsernameFromCookie, getUserIdFromCookie } from '../helper.js';
 
 export default function NavbarComponent() {
   const { store, dispatch } = useContext(GroupBuyContext);
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     const currUsername = getUsernameFromCookie();
@@ -21,37 +22,41 @@ export default function NavbarComponent() {
     }
   }, []);
 
+  const collapseNavBar = () => {
+    setExpanded(false);
+  };
+
   return (
     <>
-      <Navbar collapseOnSelect bg="light" expand="lg">
+      <Navbar expanded={expanded} bg="light" expand="lg">
         <LinkContainer exact to="/">
           <Navbar.Brand>Group Buy</Navbar.Brand>
         </LinkContainer>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(expanded ? false : 'expanded')} />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             {store.loggedInUsername && (
-            <LinkContainer to="/createListing">
+            <LinkContainer to="/createListing" onClick={collapseNavBar}>
               <Nav.Link>Add</Nav.Link>
             </LinkContainer>
             )}
-            <LinkContainer to="/viewAllListings">
+            <LinkContainer to="/viewAllListings" onClick={collapseNavBar}>
               <Nav.Link>View All</Nav.Link>
             </LinkContainer>
             {/* <LinkContainer to="/payment">
               <Nav.Link>[test] payment</Nav.Link>
             </LinkContainer> */}
-            <LinkContainer to="/MyProfile">
+            <LinkContainer to="/MyProfile" onClick={collapseNavBar}>
               <Nav.Link>Profile</Nav.Link>
             </LinkContainer>
           </Nav>
           <Nav className="ml-auto">
             {store.loggedInUsername
               ? (
-                <UsernameBtn />
+                <UsernameBtn collapseNavBar={collapseNavBar} />
               )
               : (
-                <SignInModal />
+                <SignInModal collapseNavBar={collapseNavBar} />
               )}
 
           </Nav>

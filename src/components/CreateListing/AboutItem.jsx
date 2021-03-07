@@ -81,35 +81,37 @@ export default function AboutItem({ setMode }) {
     writeStorage(CREATE_LISTING_FORM, { ...formLocalStorage, [IMAGES]: [...e.target.files] });
 
     const allImageLocations = generateAllImageLocations(e.target.files);
-    writeStorage(CREATE_LISTING_FORM, { ...formLocalStorage, imageLocations: [...allImageLocations] });
+    // Disabling localStorage of image locations as they cannot be deleted for now
+    // writeStorage(CREATE_LISTING_FORM, { ...formLocalStorage, imageLocations: [...allImageLocations] });
     setImgLocations([...imgLocations, ...allImageLocations]);
   };
 
-  const handleDeleteUploadedPicture = (idx) => {
-    const remainingImagesUploaded = formLocalStorage.images.splice(idx, 1);
-    const remainingImageLocations = imgLocations.splice(idx, 1);
+  // const handleDeleteUploadedPicture = (idx) => {
+  //   const remainingImagesUploaded = formLocalStorage.images.splice(idx, 1);
+  //   const remainingImageLocations = imgLocations.splice(idx, 1);
 
-    writeStorage(CREATE_LISTING_FORM, { ...formLocalStorage, [IMAGES]: [...remainingImagesUploaded] });
-    console.log(formLocalStorage.images?.getAll('File'));
+  //   writeStorage(CREATE_LISTING_FORM, { ...formLocalStorage, [IMAGES]: [...remainingImagesUploaded] });
+  //   console.log(formLocalStorage.images?.getAll('File'));
 
-    writeStorage(CREATE_LISTING_FORM, { ...formLocalStorage, imageLocations: [...remainingImageLocations] });
-    setImgLocations([...remainingImageLocations]);
-  };
+  //   writeStorage(CREATE_LISTING_FORM, { ...formLocalStorage, imageLocations: [...remainingImageLocations] });
+  //   setImgLocations([...remainingImageLocations]);
+  // };
 
   const validationToProceed = () => formLocalStorage.title && formLocalStorage.description && formLocalStorage.category;
 
   const displayImages = () => {
-    const images = formLocalStorage.imageLocations.map((location, i) => (
+    const images = imgLocations.map((location, i) => (
       <div className="col uploaded-img-container">
         <div className="d-flex justify-content-end delete-img-btn">
-          <button
+          {/* Disabling button for now as it cannot remove a picture */}
+          {/* <button
             type="button"
             className="btn btn-sm"
             aria-label="Close"
             onClick={() => { handleDeleteUploadedPicture(i); }}
           >
             <span className="delete-img" aria-hidden="true">&times;</span>
-          </button>
+          </button> */}
         </div>
         <img className="rounded uploaded-img" src={location} alt="uploaded img" />
       </div>
@@ -192,7 +194,7 @@ export default function AboutItem({ setMode }) {
       {/* Uploaded Images */}
       <div className="d-flex flex-row justify-content-start mt-3">
         <div className="row d-flex justify-content-between">
-          {formLocalStorage.imageLocations && displayImages()}
+          {imgLocations && displayImages()}
         </div>
       </div>
 

@@ -4,7 +4,7 @@ import AboutItem from './AboutItem.jsx';
 import CampaignDates from './CampaignDates.jsx';
 import QtyAndPrice from './QtyAndPrice.jsx';
 import TnC from './TnC.jsx';
-import SubmittedListing from './SubmittedListing.jsx';
+import LoadNewListing from './LoadNewListing.jsx';
 import {
   CreateListingProvider, formModes, CREATE_LISTING_FORM, CreateListingContext,
 } from '../../createListingStore.jsx';
@@ -13,13 +13,14 @@ export default function CreateListingForm() {
   // Modes of the form
   const {
     ABOUT_ITEM, CAMPAIGN_DATES, QTY_AND_PRICE, TERMS_AND_CONDITIONS, SUBMITTED,
+    FORM_STEP,
   } = formModes;
 
   // Control the state of the multi-step form
   const [mode, setMode] = useState(ABOUT_ITEM);
 
   // Track which mode the form is at
-  const [existingMode] = useLocalStorage('formstep');
+  const [existingMode] = useLocalStorage(FORM_STEP);
 
   // If the existing mode suggets a different mode, switch to that mode
   useEffect(() => {
@@ -39,7 +40,7 @@ export default function CreateListingForm() {
       case TERMS_AND_CONDITIONS:
         return <TnC setMode={setMode} />;
       case SUBMITTED:
-        return <SubmittedListing setMode={setMode} />;
+        return <LoadNewListing setMode={setMode} />;
       default:
         return null;
     }
