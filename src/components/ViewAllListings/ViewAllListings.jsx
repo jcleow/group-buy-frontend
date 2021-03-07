@@ -70,7 +70,7 @@ export default function ViewAllListings() {
         dataLength={currListingsDisplayed.length}
         next={fetchMoreData}
         hasMore
-        loader={<h4 className="text-center">Loading...</h4>}
+        // loader={<h4 className="text-center">Loading...</h4>}
       >
         {displayRows()}
       </InfiniteScroll>
