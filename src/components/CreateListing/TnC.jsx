@@ -2,15 +2,19 @@ import React, { useContext } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import { Form, Button } from 'react-bootstrap';
-import { writeStorage } from '@rehooks/local-storage';
-import { CreateListingContext, formModes } from '../../createListingStore.jsx';
-import BACKEND_URL from '../../helper.js';
+import { writeStorage, deleteFromStorage } from '@rehooks/local-storage';
+import { CreateListingContext, CREATE_LISTING_FORM, formModes } from '../../createListingStore.jsx';
+import { BACKEND_URL } from '../../store.jsx';
 
 axios.defaults.withCredentials = true;
 export default function TnC({ setMode }) {
-  const { formStore, handleOnChange, dispatchListingForm } = useContext(CreateListingContext);
+  const {
+    formStore, handleOnChange, dispatchListingForm, formLocalStorage,
+  } = useContext(CreateListingContext);
 
-  const { FORM_STEP, CAMPAIGN_DATES, SUBMITTED } = formModes;
+  const {
+    FORM_STEP, CAMPAIGN_DATES, SUBMITTED,
+  } = formModes;
 
   const handleUploadPictures = (listingId) => {
     const data = new FormData();
@@ -26,19 +30,29 @@ export default function TnC({ setMode }) {
   };
 
   const handleSubmitForm = () => {
-    let updatedFormStore = formStore;
-    updatedFormStore = {
-      ...formStore,
-      startDate: moment(formStore.startDate).toDate(),
-      endDate: moment(formStore.endDate).toDate(),
-      deliveryDate: moment(formStore.endDate).toDate(),
+    const updatedFormFields = {
+      ...formLocalStorage,
+      tnc: formLocalStorage.tnc ? formLocalStorage.tnc : formStore.tnc,
+      startDate: moment(formLocalStorage.startDate).toDate(),
+      endDate: moment(formLocalStorage.endDate).toDate(),
+      deliveryDate: moment(formLocalStorage.endDate).toDate(),
     };
+    let newListingId;
 
+    console.log(updatedFormFields, 'updatedFormStore');
     //* ** to shift into createListingStore */
-    axios.post(`${BACKEND_URL}/createListing`, { updatedFormStore })
+    axios.post(`${BACKEND_URL}/createListing`, { updatedFormStore: updatedFormFields })
       .then((result) => {
         setMode(SUBMITTED);
-        return handleUploadPictures(result.data.newListing.id);
+        deleteFromStorage(CREATE_LISTING_FORM);
+        deleteFromStorage(FORM_STEP);
+        newListingId = result.data.newListing.id;
+        return handleUploadPictures(newListingId);
+      })
+      .then(() => {
+        // Once loading is complete on the backend,
+        // redirect user to the newly created listing
+        window.location = `/listingdetails/${newListingId}`;
       })
       .catch((error) => console.log(error));
   };
