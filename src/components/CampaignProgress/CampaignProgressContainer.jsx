@@ -1,7 +1,6 @@
 import React from 'react';
-import './CampaignProgress.css';
+import './campaignProgress.css';
 import { CampaignProgressProvider } from '../../campaignProgressStore.jsx';
-
 import ActivityChart from './ActivityChart.jsx';
 import CampaignPurchasersTable from './CampaignPurchasersTable.jsx';
 
