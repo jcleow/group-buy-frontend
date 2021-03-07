@@ -24,7 +24,7 @@ export default function EndingSoonContainer({ endingSoonListings }) {
   };
 
   return (
-    <div className="container-sm mt-4">
+    <div className="container-sm mt-4 endingSoonContainer">
       <div className="row pt-2 mb-3">
         <div className="col-9">
           <h6>Ending Soon</h6>

@@ -1,0 +1,6 @@
+.latestListingContainer{
+  background-color: var(--palette-darkPurple);
+  border-radius: 25px;
+  padding:1em 1em 1em
+  /* background-color: red; */
+}

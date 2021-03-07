@@ -3,9 +3,14 @@
   height: 25rem;
 }
 
-div .container-sm{
-  background-color: #F1F8FD;
+.endingSoonContainer{
+  background-color: var(--palette-darkPurple);
+  border-radius: 25px;
+  padding:.5em
 }
+/* div .container-sm{
+  background-color: #F1F8FD;
+} */
 
 /* .see-more:focus {
   outline: 0 !important;

@@ -59,9 +59,14 @@ export default function LatestListingListCard({ singleListing }) {
               </span>
               <br />
               <small className="text-muted">
+                <em>Listed By:</em>
+                {' '}
+                {singleListing.lister?.username}
+              </small>
+              <br />
+              <small className="text-muted">
                 <em>Posted:</em>
                 {' '}
-                {/* {moment(singleListing.createdAt).fromNow()} */}
                 {moment(singleListing.createdAt).format('DD/MM/YYYY')}
               </small>
             </p>

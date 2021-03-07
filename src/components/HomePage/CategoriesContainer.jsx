@@ -28,13 +28,13 @@ export default function CategoriesContainer({ selectCategoryProps }) {
   };
 
   return (
-    <div className="container-sm mt-4">
+    <div className="container-sm mt-4 categoriesContainer">
       <div className="row ml-auto">
         <div className="col">
           <h6>Categories</h6>
         </div>
       </div>
-      <div className="row ml-auto mb-1 pb-1 flex-md-wrap">
+      <div className="row ml-auto mr-auto mb-1 pb-1 flex-md-wrap">
         {categories.map((category, i) => (
           <div key={`category-${Number(i)}`} className="col-3 col-md mb-1 category pl-auto pr-1">
             <button
