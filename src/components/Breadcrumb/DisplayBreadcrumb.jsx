@@ -9,16 +9,18 @@ export default function DisplayBreadcrumb() {
   paths.parents = [];
   paths.parents.push({ link: '/', name: 'Home' });
   paths.current = { link: useLocation(), name: 'Listing' };
+  console.log(paths);
 
-  const createBreadcrumbParentItems = () => paths.parents.map((parentPath) => <Breadcrumb.Item href={parentPath.link}>{parentPath.name}</Breadcrumb.Item>);
-
-  const createBreadcrumbActiveItem = () => (
-    <Breadcrumb.Item href={paths.current.link} active>{paths.current.name}</Breadcrumb.Item>
-  );
+  const createBreadcrumbItems = () => {
+    paths.parents.map((parentPath) => (
+      <Breadcrumb.Item href={parentPath.link}>{parentPath.name}</Breadcrumb.Item>
+    ));
+    // <Breadcrumb.Item href={paths.current.link} active>{paths.current.name}</Breadcrumb.Item>;
+  };
 
   return (
     <Breadcrumb>
-      {createBreadcrumbParentItems()}
+      {createBreadcrumbItems()}
 
       {/* <Breadcrumb.Item href="/home">Home</Breadcrumb.Item>
       <Breadcrumb.Item href="https://getbootstrap.com/docs/4.0/components/breadcrumb/">
