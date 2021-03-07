@@ -8,6 +8,7 @@ import {
 } from '../../store.jsx';
 import DetailedListingView from './DetailedListingView.jsx';
 import QuantityPicker from './QuantityPicker.jsx';
+import DisplayBreadcrumb from '../Breadcrumb/DisplayBreadcrumb.jsx';
 
 export default function ViewListing() {
   const { store, dispatch } = useContext(GroupBuyContext);
@@ -123,6 +124,7 @@ export default function ViewListing() {
 
   return (
     <div className="container mb-5">
+      <DisplayBreadcrumb />
       <DetailedListingView>
         {handleDisplayePerMode()}
       </DetailedListingView>
