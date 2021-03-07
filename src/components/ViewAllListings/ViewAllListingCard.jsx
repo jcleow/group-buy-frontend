@@ -3,7 +3,7 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { useState, useContext, useEffect } from 'react';
 import moment from 'moment';
-import './ViewAllContainer.css';
+import './viewAllListings.css';
 import { LinkContainer } from 'react-router-bootstrap';
 import {
   GroupBuyContext, findPurchaseCountPerListing, selectListingAction, displayListingDetailsAction,
