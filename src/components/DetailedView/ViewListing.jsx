@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useLocalStorage } from '@rehooks/local-storage';
 import { useParams } from 'react-router';
@@ -15,6 +15,7 @@ export default function ViewListing() {
   const {
     currentListViewDisplayMode, loggedInUserId, selectedListingData,
   } = store;
+  const [disableBuy, setDisableBuy] = useState(true);
   const [localStoreDetailedListView] = useLocalStorage('detailedListView');
   const [localStoreListViewDisplayMode] = useLocalStorage('ListViewDisplayMode');
   const { listingId } = useParams();
@@ -81,7 +82,7 @@ export default function ViewListing() {
           <div className={rowClasses}>
             <QuantityPicker />
             <div className={colClasses}>
-              <LinkContainer to="/payment">
+              <LinkContainer to={disableBuy ? '#' : '/payment'}>
                 <span className="btn btn-sm btn-warning">Buy</span>
               </LinkContainer>
             </div>
@@ -125,7 +126,7 @@ export default function ViewListing() {
   return (
     <div className="container mb-5">
       <DisplayBreadcrumb />
-      <DetailedListingView>
+      <DetailedListingView setDisableBuy={setDisableBuy}>
         {handleDisplayePerMode()}
       </DetailedListingView>
     </div>

@@ -9,14 +9,22 @@ import ListingImagesCarousel from './ListingImagesCarousel.jsx';
 import { calcDiscountPct, getListingCurrentStatus, isListingCancelled } from '../utility/listingHelper.js';
 import './ListView.css';
 
-export default function DetailedListingView({ children }) {
+export default function DetailedListingView({ children, setDisableBuy }) {
   const [progressPercent, setProgressPercent] = useState(0);
   const { store, dispatch } = useContext(GroupBuyContext);
   const { selectedListingData, currentListViewDisplayMode, totalQuantityOrdered } = store;
   const isImagesPresent = !(selectedListingData.images === undefined
     || selectedListingData.images == null);
   const { listingId } = useParams();
-  // console.log('useParams listingId', listingId);
+
+  useEffect(() => {
+    if (totalQuantityOrdered !== 0) {
+      setDisableBuy(false);
+    }
+    else {
+      setDisableBuy(true);
+    }
+  }, [totalQuantityOrdered]);
 
   const findRelativeSaleEndingTime = () => {
     const endDate = Date.parse(selectedListingData.endDate);
