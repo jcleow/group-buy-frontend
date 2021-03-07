@@ -59,6 +59,12 @@ export default function EndingSoonListCard({ singleListing }) {
         {progressPercent}
         %
       </div>
+      <div className="text-muted order-progress-label">
+        Listed By:
+        {' '}
+        { ' '}
+        {singleListing.lister?.username}
+      </div>
     </div>
   );
 }
