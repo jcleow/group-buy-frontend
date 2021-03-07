@@ -32,7 +32,7 @@ export default function ViewAllListingCard({ singleListing }) {
 
   return (
     <div className="col-6 col-md-3 listing-min-width">
-      <LinkContainer to="/listingdetails" onClick={handleSelectListing}>
+      <LinkContainer to={`/listingdetails/${singleListing.id}`} onClick={handleSelectListing}>
         <figure className="figure">
           { !isImagesPresent && (
             <img src="no-image-available-icon_m.jpg" className="figure-img img-fluid ending-soon-image border" alt="..." />

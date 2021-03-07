@@ -4,21 +4,16 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 export const generateLinkToListing = (cell) => (<LinkContainer>{cell?.title}</LinkContainer>);
 
-// export const handleSelectListing = () => {
-//   dispatch(selectListingAction(singleListing));
-//   dispatch(displayListingDetailsAction(true));
-// };
-
 export const myListingsColumns = [
   {
     dataField: 'serialNum',
     text: 'S/N',
     editable: false,
   },
-  {
-    dataField: 'id',
-    text: 'UUID',
-  },
+  // {
+  //   dataField: 'id',
+  //   text: 'UUID',
+  // },
   {
     dataField: 'title',
     text: 'Campaign',
