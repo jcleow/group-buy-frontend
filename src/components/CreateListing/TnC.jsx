@@ -4,13 +4,16 @@ import moment from 'moment';
 import { Form, Button } from 'react-bootstrap';
 import { writeStorage, deleteFromStorage } from '@rehooks/local-storage';
 import { CreateListingContext, CREATE_LISTING_FORM, formModes } from '../../createListingStore.jsx';
-import { BACKEND_URL } from '../../store.jsx';
+import { BACKEND_URL, selectListing, GroupBuyContext } from '../../store.jsx';
 
 axios.defaults.withCredentials = true;
 export default function TnC({ setMode }) {
   const {
     formStore, handleOnChange, dispatchListingForm, formLocalStorage,
   } = useContext(CreateListingContext);
+
+  const { store, dispatch } = useContext(GroupBuyContext);
+  const { selectedListingData, loggedInUserId } = store;
 
   const {
     FORM_STEP, CAMPAIGN_DATES, SUBMITTED,
@@ -36,6 +39,7 @@ export default function TnC({ setMode }) {
       startDate: moment(formLocalStorage.startDate).toDate(),
       endDate: moment(formLocalStorage.endDate).toDate(),
       deliveryDate: moment(formLocalStorage.endDate).toDate(),
+      listerId: loggedInUserId,
     };
     let newListingId;
 
@@ -52,6 +56,7 @@ export default function TnC({ setMode }) {
       .then(() => {
         // Once loading is complete on the backend,
         // redirect user to the newly created listing
+        selectListing(dispatch, newListingId);
         window.location = `/listingdetails/${newListingId}`;
       })
       .catch((error) => console.log(error));
