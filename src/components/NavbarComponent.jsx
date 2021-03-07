@@ -30,7 +30,11 @@ export default function NavbarComponent() {
     <>
       <Navbar expanded={expanded} bg="light" expand="lg">
         <LinkContainer exact to="/">
-          <Navbar.Brand>Group Buy</Navbar.Brand>
+          <Navbar.Brand>
+            <img src="groupBuy_icon3.svg" alt="img" width="80px" />
+            Group Buy
+
+          </Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(expanded ? false : 'expanded')} />
         <Navbar.Collapse id="basic-navbar-nav">
