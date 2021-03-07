@@ -1,15 +1,16 @@
- .react-bootstrap-table table {
-  table-layout: auto ; 
+/** @format */
 
+.react-bootstrap-table table {
+  table-layout: auto;
 }
-#pageDropDown{
+#pageDropDown {
   margin-left: 1em;
 }
 
-.react-bootstrap-table-pagination-list{
+.react-bootstrap-table-pagination-list {
   display: flex;
   justify-content: flex-end;
 }
-.react-bootstrap-table-pagination-list li:last-child{
+.react-bootstrap-table-pagination-list li:last-child {
   margin-right: 1em;
- }
+}
