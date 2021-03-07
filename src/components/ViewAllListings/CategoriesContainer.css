@@ -1,3 +1,5 @@
+/** @format */
+
 .btn-category::first-letter {
   text-transform: capitalize;
 }

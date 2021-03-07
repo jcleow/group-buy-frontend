@@ -1,4 +1,11 @@
 /** @format */
+.infinite-scroll-container {
+  margin-top: 2vh;
+  margin-left: auto;
+}
+.infinite-scroll-container::-webkit-scrollbar {
+  display: none;
+}
 
 .img-fluid.ending-soon-image {
   border-radius: calc(2rem - 1px);

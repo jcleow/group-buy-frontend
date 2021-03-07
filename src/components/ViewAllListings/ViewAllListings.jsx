@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { GroupBuyContext, loadListings } from '../../store.jsx';
+import './viewAllListings.css';
 import CategoriesContainer from './CategoriesContainer.jsx';
 import ViewAllListingCard from './ViewAllListingCard.jsx';
 
@@ -59,18 +60,19 @@ export default function ViewAllListings() {
   };
 
   return (
-    <div className="container-sm mt-4">
+    <div className="mt-4 container-sm">
       <div className="row ml-auto mr-auto">
         <div className="col-8">
-          <h6>All Listings</h6>
+          <h3 className="ml-3">All Listings</h3>
         </div>
       </div>
       <CategoriesContainer selectCategoryProps={selectCategoryProps} />
       <InfiniteScroll
+        className="infinite-scroll-container"
         dataLength={currListingsDisplayed.length}
         next={fetchMoreData}
         hasMore
-        loader={<h4 className="text-center">Loading...</h4>}
+        // loader={<h4 className="text-center">Loading...</h4>}
       >
         {displayRows()}
       </InfiniteScroll>
