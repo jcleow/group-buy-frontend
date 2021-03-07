@@ -32,8 +32,7 @@ export default function NavbarComponent() {
         <LinkContainer exact to="/">
           <Navbar.Brand>
             <img src="groupBuy_icon3.svg" alt="img" width="80px" />
-            Group Buy
-
+            <div className="groupBuyLogoText">Group buy </div>
           </Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(expanded ? false : 'expanded')} />
