@@ -1,4 +1,4 @@
-.tableContainer{
+/* .tableContainer{
   max-width: 90%;
   min-height:1000px;
   margin-left: auto;
@@ -9,9 +9,9 @@
 
 .tableContainer::-webkit-scrollbar {
   display: none;
-}
+} */
 /* Hide scrollbar for IE, Edge and Firefox */
-.tableContainer {
+/* .tableContainer {
   -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
+  /*scrollbar-width: none;*/  /* Firefox */
+/* } */
