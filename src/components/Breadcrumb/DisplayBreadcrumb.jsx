@@ -5,6 +5,12 @@ import { useLocation } from 'react-router';
 import './DisplayBreadcrumb.css';
 
 export default function DisplayBreadcrumb() {
+  /**
+   * For the time being the data is constant.
+   * This component expects the following data structure.
+   * When it's being made with history data, update the datastructure and
+   * pass it as a prop
+   */
   const paths = {};
   paths.parents = [];
   paths.parents.push({ link: '/', name: 'Home' });
