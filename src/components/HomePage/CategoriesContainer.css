@@ -1,7 +1,12 @@
 .btn-category::first-letter {
   text-transform: capitalize;
 }
-
+.categoriesContainer{
+  background-color: var(--palette-darkPurple);
+  border-radius: 25px;
+  padding: .5em
+  /* background-color: red; */
+}
 /* 
 .category .btn-category:nth-of-type(odd) {
   background-color: yellow;

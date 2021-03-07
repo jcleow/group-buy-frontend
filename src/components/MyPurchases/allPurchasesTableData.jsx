@@ -9,28 +9,28 @@ Manage the column headers and data type for that column
 ====================================== */
 const columns = [{
   dataField: 'purchaseId',
-  text: 'Purchase ID',
+  text: 'Order ID',
   sort: true,
 },
-{
-  dataField: 'id',
-  text: 'Product ID',
-  sort: true,
-},
-{
-  dataField: 'datePurchased',
-  text: 'Date purchased',
-  sort: true,
-},
+// {
+//   dataField: 'id',
+//   text: 'Product ID',
+//   sort: true,
+// },
 {
   dataField: 'item',
   text: 'Item',
   sort: true,
 },
 {
+  dataField: 'datePurchased',
+  text: 'Date purchased',
+  // sort: true,
+},
+{
   dataField: 'paymentDetails',
   text: 'Payment details',
-  sort: true,
+  // sort: true,
 },
 {
   dataField: 'allPurchases',
@@ -52,11 +52,16 @@ const mapDataIntoTable = (allPurchases) => {
     tableData.push(
       {
         purchaseId: el.id,
-        id: el.listingId,
+        // id: el.listingId,
         // datePurchased: el.createdAt,
         datePurchased: moment(el.createdAt).format('DD/MM/YYYY'),
         item: el.listing.title,
-        paymentDetails: moment(el.updatedAt).format('DD/MM/YYYY'),
+        paymentDetails:
+  <div>
+    {moment(el.updatedAt).format('DD/MM/YYYY')}
+    <br />
+    <img src={`${el.paymentReceipt}`} alt="img" width="40px" className="tableReceipt" />
+  </div>,
         allPurchases: JSON.stringify(el),
       },
     );
@@ -68,7 +73,7 @@ const mapDataIntoTable = (allPurchases) => {
  Manage default sorting
 ====================================== */
 const defaultSorted = [{
-  dataField: 'item',
+  dataField: 'purchaseId',
   order: 'desc',
 }];
 
@@ -86,19 +91,6 @@ const manageDataInExpandRow = () => {
         </div>
         <ReceiptApprovalDateTracker allPurchases={row.allPurchases} />
         <MoqReachedDateTracker allPurchases={row.allPurchases} />
-        {/* conditionally render purchase date if it exists in order history */}
-        {/* {JSON.parse(row.orderTrackerDetails).purchaseDate && (`Purchased: ${moment(JSON.parse(row.orderTrackerDetails).purchaseDate).format('DD/MM/YYYY')}`)} */}
-
-        {/* {`Purchased: ${moment(JSON.parse(row.orderTrackerDetails).purchaseDate).format('DD/MM/YYYY')}`} */}
-
-        {/* conditionally render receipt approval date if it exists in order history */}
-        {/* {JSON.parse(row.orderTrackerDetails).purchaseDate && (`Receipt approval: ${moment(JSON.parse(row.orderTrackerDetails).dateReceiptApproved).format('DD/MM/YYYY')}`)} */}
-
-        {/* {`Receipt approval: ${moment(JSON.parse(row.orderTrackerDetails).dateReceiptApproved).format('DD/MM/YYYY')}`} */}
-
-        {/* conditionally render MOQ date if it exists in order history */}
-        {/* {JSON.parse(row.orderTrackerDetails).purchaseDate && (`MOQ reached on: ${moment(JSON.parse(row.orderTrackerDetails).dateMoqReached).format('DD/MM/YYYY')}`)} */}
-        {/* {`MOQ reached on: ${moment(JSON.parse(row.orderTrackerDetails).dateMoqReached).format('DD/MM/YYYY')}`} */}
 
         {/* NOTES:
         <p>{ `This expanded row belongs to rowKey ${row.id}` }</p>
