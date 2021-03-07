@@ -34,9 +34,9 @@ export default function CategoriesContainer({ selectCategoryProps }) {
           <h6>Categories</h6>
         </div>
       </div>
-      <div className="row ml-auto mb-1 flex-md-wrap">
+      <div className="row ml-auto mb-1 pb-1 flex-md-wrap">
         {categories.map((category, i) => (
-          <div key={`category-${Number(i)}`} className="col mb-1 category pl-auto pr-1">
+          <div key={`category-${Number(i)}`} className="col-3 col-md mb-1 category pl-auto pr-1">
             <button
               type="button"
               className={btnArray[i] ? 'btn btn-sm btn-block btn-category btn-info' : 'btn btn-sm btn-block btn-category btn-warning'}

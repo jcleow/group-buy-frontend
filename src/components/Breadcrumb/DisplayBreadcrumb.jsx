@@ -16,7 +16,6 @@ export default function DisplayBreadcrumb() {
   paths.parents.push({ link: '/', name: 'Home' });
   paths.parents.push({ link: '/viewAllListings', name: 'All Listings' });
   paths.current = { link: useLocation(), name: 'Listing' };
-  console.log(paths);
 
   const createBreadcrumbItems = () => (
     <Breadcrumb>
