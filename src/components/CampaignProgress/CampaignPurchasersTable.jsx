@@ -43,6 +43,7 @@ export default function CampaignPurchasersTable() {
 
         })}
         striped
+        bordered={false}
         hover
         condensed
       />

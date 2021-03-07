@@ -20,6 +20,8 @@ export default function AllMyListings() {
           keyField="id"
           data={generateIndexedListings(myListingsStore)}
           columns={myListingsColumns}
+          hover
+          bordered={false}
           pagination={paginationFactory()}
         />
       </div>
