@@ -14,25 +14,7 @@
 .activity-graph {
   height: 30vh;
 }
-/* Freeze 2nd column */
-.purchaser-table-container
-  .react-bootstrap-table
-  table
-  > tbody
-  > tr
-  > td:nth-child(2),
-.purchaser-table-container
-  .react-bootstrap-table
-  table
-  > thead
-  > tr:nth-child(1)
-  > th:nth-child(2) {
-  background-color: #ccc;
-  position: sticky;
-  position: -webkit-sticky;
-  left: 55px;
-  z-index: 1;
-}
+
 /* Freeze 1st column */
 .purchaser-table-container
   .react-bootstrap-table
