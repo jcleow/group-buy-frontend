@@ -2,10 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import { GroupBuyContext, getAllPurchasesAssociatedWUser } from '../../store.jsx';
+import './allPurchasesTableNew.css';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import './stylesheets/AllPurchasesTable.css';
 // import './AllPurchasesTable2.css';
-import './allPurchasesTableNew.css';
 import {
   columns, manageDataInExpandRow, getPaginationOptions, defaultSorted, mapDataIntoTable,
 } from './allPurchasesTableData.jsx';

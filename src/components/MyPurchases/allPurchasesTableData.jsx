@@ -126,8 +126,8 @@ const getPaginationOptions = (allPurchases) => ({
   // hideSizePerPage: true, // Hide the sizePerPage dropdown always
   hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
   // firstPageText: 'First',
-  prePageText: 'Back',
-  nextPageText: 'Next',
+  // prePageText: 'Back',
+  // nextPageText: 'Next',
   // lastPageText: 'Last',
   // nextPageTitle: 'First page',
   // prePageTitle: 'Pre page',
