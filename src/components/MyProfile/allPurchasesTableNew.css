@@ -20,7 +20,14 @@
 }
 
 /** @format */
-.my-listings-container {
+
+.purchase-history {
+  margin-left: 10vw;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
+.all-purchases-container {
   position: relative;
   overflow: auto;
   white-space: nowrap;
@@ -28,7 +35,7 @@
   margin-right: 10vw;
 }
 
-.my-listings-container::-webkit-scrollbar {
+.all-purchases-container::-webkit-scrollbar {
   display: none;
 }
 
@@ -36,14 +43,25 @@
   height: 30vh;
 }
 
+.all-purchases-container .react-bootstrap-table caption {
+  position: relative;
+}
+
 /* Freeze 1st column */
-.my-listings-container
+.all-purchases-container
   .react-bootstrap-table
   table
   > tbody
   > tr
   > td:nth-child(1),
-.my-listings-container
+.all-purchases-container
+  .react-bootstrap-table
+  table
+  > tbody
+  > tr
+  > td:nth-child(1)
+  .container-fluid,
+.all-purchases-container
   .react-bootstrap-table
   table
   > thead
@@ -52,17 +70,19 @@
   background-color: #ccc;
   position: sticky;
   position: -webkit-sticky;
+  top: 0;
   left: -2px;
   z-index: 1;
 }
 
-.my-listings-container .react-bootstrap-table-pagination,
-.my-listings-container .react-bootstrap-table-pagination-list {
+.all-purchases-container .react-bootstrap-table-pagination,
+.all-purchases-container .react-bootstrap-table-pagination-list {
   min-height: 300px;
 }
 
 @media (max-width: 767px) {
-  .my-listings-container .react-bootstrap-table-pagination {
+  .all-purchases-container .react-bootstrap-table-pagination,
+  .all-purchases-container caption {
     position: sticky;
     position: -webkit-sticky;
     left: 0;

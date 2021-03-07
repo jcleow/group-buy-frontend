@@ -3,7 +3,8 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import { GroupBuyContext, getAllPurchasesAssociatedWUser } from '../../store.jsx';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-import './AllPurchasesTable2.css';
+// import './AllPurchasesTable2.css';
+import './allPurchasesTableNew.css';
 import {
   columns, manageDataInExpandRow, getPaginationOptions, defaultSorted, mapDataIntoTable,
 } from './allPurchasesTableData.jsx';
@@ -21,29 +22,30 @@ export default function AllPurchasesTable2() {
   }, []);
   console.log(allPurchases);
   return (
-    <div className="table-responsive">
-      {/* conditionally render the table if and only if allPurchases is not null */}
-      {allPurchases && (
-      <BootstrapTable
-        bootstrap4
-        keyField="purchaseId" // Tells react-bootstrap-table2 which col is unique; shld be e name of a property tt is unique for each Item in e dataset
-        data={mapDataIntoTable(allPurchases)} // populate data into rows
-        columns={columns}
-        defaultSorted={defaultSorted}
-        expandRow={manageDataInExpandRow(allPurchases)} // determines what goes inside the expanded secton
+    <div>
+      <h3 className="purchase-history">Purchase History</h3>
+      <div className="all-purchases-container">
+        {/* conditionally render the table if and only if allPurchases is not null */}
+        {allPurchases && (
+        <BootstrapTable
+          bootstrap4
+          keyField="purchaseId" // Tells react-bootstrap-table2 which col is unique; shld be e name of a property tt is unique for each Item in e dataset
+          data={mapDataIntoTable(allPurchases)} // populate data into rows
+          columns={columns}
+          defaultSorted={defaultSorted}
+          expandRow={manageDataInExpandRow(allPurchases)} // determines what goes inside the expanded secton
         // className="table-responsive"
-        width="100%"
-        striped
-        loading
-        hover
-        condensed
-        noDataIndication={<h2>No data to display</h2>}
+          width="100%"
+          striped
+          loading
+          hover
+          condensed
+          noDataIndication={<h2>No data to display</h2>}
         // bordered={false}
-        caption={<h3>Purchase history</h3>}
-        pagination={paginationFactory(getPaginationOptions(allPurchases))}
-      />
-      )}
+          pagination={paginationFactory(getPaginationOptions(allPurchases))}
+        />
+        )}
+      </div>
     </div>
-
   );
 }
