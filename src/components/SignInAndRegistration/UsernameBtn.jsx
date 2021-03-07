@@ -11,14 +11,23 @@ export default function UsernameBtn({ collapseNavBar }) {
     collapseNavBar();
     axios.put(`${BACKEND_URL}/signOut`, {}, { withCredentials: true })
       .then(() => {
+        window.location = '/';
         dispatch(setLoggedInUsername(null));
-        window.location.reload();
       })
       .catch((err) => console.log(err));
   };
   return (
     <Nav.Link>
       <DropdownButton id="dropdown-basic-button" key="left" drop="left" title={store.loggedInUsername}>
+        <Dropdown.Item>
+          <Link
+            to="/createListing"
+            style={{ textDecoration: 'None', color: 'black' }}
+            onClick={collapseNavBar}
+          >
+            Add New Listing
+          </Link>
+        </Dropdown.Item>
 
         <Dropdown.Item>
           <Link
@@ -26,14 +35,15 @@ export default function UsernameBtn({ collapseNavBar }) {
             style={{ textDecoration: 'None', color: 'black' }}
             onClick={collapseNavBar}
           >
-            MyListings
+            My Listings
           </Link>
         </Dropdown.Item>
         <Dropdown.Item>
-          <Link to="/MyPurchases" style={{ textDecoration: 'none' }}>
+          <Link to="/MyPurchases" style={{ textDecoration: 'None', color: 'black' }}>
             MyPurchases
           </Link>
         </Dropdown.Item>
+        <Dropdown.Divider />
         <Dropdown.Item onClick={handleSignOut}>Sign Out</Dropdown.Item>
       </DropdownButton>
     </Nav.Link>

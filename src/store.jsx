@@ -183,6 +183,7 @@ export function sortAndFilterListingsByCreatedDate() {
 }
 
 export function selectListingAction(selectedListingData) {
+  writeStorage('detailedListView', { ...selectedListingData });
   return {
     type: SELECT_LISTING,
     payload: {
