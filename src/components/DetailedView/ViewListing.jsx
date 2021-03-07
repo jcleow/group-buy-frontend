@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useContext, useEffect } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
-import { writeStorage, useLocalStorage } from '@rehooks/local-storage';
+import { useLocalStorage } from '@rehooks/local-storage';
 import { useParams } from 'react-router';
 import {
   GroupBuyContext, setDisplayListingMode, LISTING_VIEW_MODES, selectListingAction, selectListing,
@@ -36,19 +36,20 @@ export default function ViewListing() {
       else {
         console.log('calling selectListing');
         selectListing(dispatch, listingId);
-        writeStorage('detailedListView', { ...selectedListingData });
+        // writeStorage('detailedListView', { ...selectedListingData });
       }
     }
     // If the data is received in the component, write it to the local storage
     else {
       selectListing(dispatch, listingId);
-      writeStorage('detailedListView', { ...selectedListingData });
+      // writeStorage('detailedListView', { ...selectedListingData });
     }
   };
 
   // Set the specified mode
   useEffect(() => {
     handleSelectAndLocalStorage();
+    console.log(loggedInUserId, 'loggedInUserId in ViewListing');
     if (loggedInUserId === null) {
       // If no user is logged in just display the details of the item
       dispatch(setDisplayListingMode(LISTING_VIEW_MODES.DEFAULT_LISTING_VIEW)); }
@@ -65,9 +66,9 @@ export default function ViewListing() {
     }
   }, [loggedInUserId]);
 
-  const handleDelete = () => {
-    console.log('Delete');
-  };
+  // const handleDelete = () => {
+  //   console.log('Delete');
+  // };
 
   const handleDisplayePerMode = () => {
     const rowClasses = 'row mt-3 ml-3';
@@ -97,11 +98,11 @@ export default function ViewListing() {
                 <span className="btn btn-sm  btn-warning">Edit Listing</span>
               </LinkContainer>
             </div>
-            <div className={`${colClasses} mb-1 `}>
+            {/* <div className={`${colClasses} mb-1 `}>
               <LinkContainer to={`/delete/${listingId}`} onClick={handleDelete}>
                 <span className="btn btn-sm  btn-warning">Delete Listing</span>
               </LinkContainer>
-            </div>
+            </div> */}
             <div className={`${colClasses} mb-1 `}>
               <LinkContainer to={`/viewProgress/${listingId}`}>
                 <span className="btn btn-sm btn-warning">View Progress</span>
