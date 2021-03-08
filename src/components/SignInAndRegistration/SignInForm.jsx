@@ -29,7 +29,7 @@ export default function SignInForm({ handleClose, setFormDisplay }) {
         if (result.data.auth) {
           dispatch(setLoggedInUsername(result.data.user.username));
           dispatch(setLoggedInUserId(result.data.user.id));
-          window.location.reload();
+          // window.location.reload();
         }
         handleClose();
       })
