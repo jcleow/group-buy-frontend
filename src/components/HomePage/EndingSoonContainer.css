@@ -4,10 +4,23 @@
 }
 
 .endingSoonContainer{
-  background-color: var(--palette-darkPurple);
+  background-color: var(--palette-lightOrange);
   border-radius: 25px;
-  padding:.5em
+  padding:.5em;
+  outline: none !important;
+  box-shadow: none;
 }
+
+.endingSoonContainer .btn:focus, .btn:active{
+  outline: none !important;
+  box-shadow: none;
+}
+.endingSoonContainer .btn{
+  color:var(--palette-darkBlue)
+}
+
+
+
 /* div .container-sm{
   background-color: #F1F8FD;
 } */

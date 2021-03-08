@@ -1,4 +1,4 @@
-/** @format */
+@import url('https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Recursive:wght@600&display=swap');/** @format */
 
 :root {
   --mutedText-light: #cdcdcd;
@@ -14,6 +14,7 @@
   --palette-darkOrange: #f58764;
   --palette-lightYellow: #fff9ea;
   --palette-medYellow: #fdeed1;
+  --palette-darkBlue: #202235;
 }
 /* Expample: 
 .header{
@@ -86,4 +87,10 @@ color: var(--palette-medYellow)
 .create-listing-header {
   color: white;
   font-size: 2rem;
+}
+
+.groupBuyLogoText{
+font-family: 'Recursive', sans-serif;
+font-weight: 600;
+display:inline-block
 }
