@@ -69,7 +69,10 @@ export function loadCurrListingPurchases(dispatchCampaign, currListingId) {
       dispatchCampaign(loadPurchasesAction(allFilteredPurchaseData, currListingId));
       dispatchCampaign(loadPastSevenDayPurchaseCountAction(pastSevenDaysCount));
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      window.location = '/error';
+    });
 }
 
 export function updatePurchaseDateDelivered(dispatchCampaign, currListingId, purchaseId, newDate) {

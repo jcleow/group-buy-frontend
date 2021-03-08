@@ -45,7 +45,10 @@ export function loadMyListings(dispatchMyListings) {
     .then((result) => {
       dispatchMyListings(loadMyListingsAction(result.data.formattedMyListings));
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      window.location = '/';
+    });
 }
 
 export function updatePurchaseDateDelivered(dispatchCampaign, currListingId, purchaseId, newDate) {

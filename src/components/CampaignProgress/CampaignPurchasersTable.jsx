@@ -12,11 +12,11 @@ import { convertToDdMm } from '../../helper.js';
 
 export default function CampaignPurchasersTable() {
   const { campaignStore, dispatchCampaign } = useContext(CampaignProgressContext);
-  const { listingId } = useParams();
-  useEffect(() => {
-    // pass in dispatch fn and currListingId
-    loadCurrListingPurchases(dispatchCampaign, listingId);
-  }, []);
+  // const { listingId } = useParams();
+  // useEffect(() => {
+  //   // pass in dispatch fn and currListingId
+  //   loadCurrListingPurchases(dispatchCampaign, listingId);
+  // }, []);
   // Assign an index based ID to each purchase (this ID is subject to change during filtering)
   const indexAllPurchases = campaignStore.allPurchases.map((purchase, idx) => ({
     ...purchase,

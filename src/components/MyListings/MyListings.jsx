@@ -14,7 +14,6 @@ export default function AllMyListings() {
   useEffect(() => {
     loadMyListings(dispatchMyListings);
   }, []);
-  console.log(myListingsStore.myListings, 'myListings');
 
   const handleListItemClick = (event, listingData) => {
   // console.log(event.target); // target is the anchor

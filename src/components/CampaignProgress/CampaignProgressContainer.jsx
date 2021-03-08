@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './CampaignProgress.css';
 import { CampaignProgressProvider } from '../../campaignProgressStore.jsx';
 import ActivityChart from './ActivityChart.jsx';

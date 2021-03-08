@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   FlexibleXYPlot,
   YAxis,
@@ -20,9 +21,10 @@ import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 export default function ActivityChart() {
   const [value, setValue] = useState(null);
   const { campaignStore, dispatchCampaign } = useContext(CampaignProgressContext);
+  const { listingId } = useParams();
   useEffect(() => {
     // pass in dispatch fn and currListingId
-    loadCurrListingPurchases(dispatchCampaign, 3);
+    loadCurrListingPurchases(dispatchCampaign, listingId);
   }, []);
 
   // Handler for hovering away from curr data point
