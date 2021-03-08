@@ -2,11 +2,15 @@
   text-transform: capitalize;
 }
 .categoriesContainer{
-  background-color: var(--palette-darkPurple);
+  /* background-color: var(#F8F9FA); */
+  background-color:#F8F9FA;
+  border-radius: 25px;
   border-radius: 25px;
   padding: .5em
   /* background-color: red; */
 }
+
+
 /* 
 .category .btn-category:nth-of-type(odd) {
   background-color: yellow;

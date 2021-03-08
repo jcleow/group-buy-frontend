@@ -17,6 +17,7 @@ export default function AllMyListings() {
       <h3>My Listings</h3>
       <div className="my-listings-container">
         <BootstrapTable
+          bootstrap4
           keyField="id"
           data={generateIndexedListings(myListingsStore)}
           columns={myListingsColumns}

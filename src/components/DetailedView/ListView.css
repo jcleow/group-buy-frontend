@@ -2,6 +2,8 @@
   .detailed-view {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
     margin-bottom: 2%;
+    background-color: var(--palette-lightBlue);
+    border-radius: 25px;
   }
   .desc-text {
     margin-right: 5rem;
