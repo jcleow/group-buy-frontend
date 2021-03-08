@@ -71,7 +71,6 @@ export default function SignInForm({ handleClose, setFormDisplay }) {
           </Button>
         </div>
       </Form>
-
     </div>
   );
 }
