@@ -7,13 +7,6 @@
 .react-bootstrap-table table {
   table-layout: auto;
 }
-
-.table{
-  /* overflow: hidden; */
-  /* display: inline-block; */
-  table-layout: auto;
-}
-
 #pageDropDown {
   margin-left: 1em;
 }
@@ -55,7 +48,7 @@
 }
 
 /* Freeze 1st column */
-/* .all-purchases-container
+.all-purchases-container
   .react-bootstrap-table
   table
   > tbody
@@ -80,7 +73,7 @@
   top: 0;
   left: -2px;
   z-index: 1;
-} */
+}
 
 .all-purchases-container .react-bootstrap-table-pagination,
 .all-purchases-container .react-bootstrap-table-pagination-list {

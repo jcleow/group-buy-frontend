@@ -1,32 +1,54 @@
+/**
+ * /* Generic CSS from Jeremy's original table
+ *
+ * @format
+ */
+
+.react-bootstrap-table table {
+  table-layout: auto;
+}
+#pageDropDown {
+  margin-left: 1em;
+}
+
+.react-bootstrap-table-pagination-list {
+  display: flex;
+  justify-content: flex-end;
+}
+.react-bootstrap-table-pagination-list li:last-child {
+  margin-right: 1em;
+}
+
 /** @format */
-.purchaser-table {
+.purchaser-table-container {
   position: relative;
   overflow: auto;
   white-space: nowrap;
-  margin: auto;
+  margin-left: 10vw;
+  margin-right: 10vw;
 }
 
-.first-col {
-  width: 100px;
-  min-width: 100px;
-  max-width: 100px;
-  left: 0px;
+.purchaser-table-container::-webkit-scrollbar {
+  display: none;
 }
 
-.second-col {
-  width: 100px;
-  min-width: 100px;
-}
-.normal-col {
-  width: 100px;
-  min-width: 100px;
-}
 .activity-graph {
   height: 30vh;
 }
 
-.react-bootstrap-table table > tbody > tr > td:nth-child(1),
-.react-bootstrap-table table > thead > tr:nth-child(1) > th:nth-child(1) {
+/* Freeze 1st column */
+.purchaser-table-container
+  .react-bootstrap-table
+  table
+  > tbody
+  > tr
+  > td:nth-child(1),
+.purchaser-table-container
+  .react-bootstrap-table
+  table
+  > thead
+  > tr:nth-child(1)
+  > th:nth-child(1) {
   background-color: #ccc;
   position: sticky;
   position: -webkit-sticky;
@@ -34,21 +56,17 @@
   z-index: 1;
 }
 
-@media (max-width: 767.98px) {
-  .react-bootstrap-table table {
-    width: 300px;
-  }
-  .sticky-col {
+.purchaser-table-container .react-bootstrap-table-pagination,
+.purchaser-table-container .react-bootstrap-table-pagination-list {
+  position: relative;
+  min-height: 300px;
+}
+
+@media (max-width: 767px) {
+  .purchaser-table-container .react-bootstrap-table-pagination {
     position: sticky;
     position: -webkit-sticky;
-    background-color: white;
-  }
-  .first-col {
-    width: 50px;
-    min-width: 50px;
-    max-width: 50px;
-  }
-  .second-col {
-    padding-left: 400px;
+    left: 0;
+    z-index: 1;
   }
 }
