@@ -15,6 +15,7 @@ import { calcDiscountPct, getListingStatusDesc } from '../utility/listingHelper.
 import './EditListing.css';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
+import { getUserIdFromCookie } from '../../helper.js';
 
 export default function EditListing() {
   const { store, dispatch } = useContext(GroupBuyContext);
@@ -65,6 +66,14 @@ export default function EditListing() {
     }
     setDefaultData();
     writeStorage('editedListingData', { ...editData });
+  }, []);
+
+  // Redirect user to error page if not signed in
+  useEffect(() => {
+    const loggedInUserId = getUserIdFromCookie();
+    if (!loggedInUserId) {
+      window.location = '/error';
+    }
   }, []);
 
   // Focus states for dateRangePicker and singleDatePicker
