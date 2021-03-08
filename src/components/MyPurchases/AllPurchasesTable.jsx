@@ -35,7 +35,7 @@ export default function AllPurchasesTable() {
           columns={columns}
           defaultSorted={defaultSorted}
           expandRow={manageDataInExpandRow(allPurchases)} // determines what goes inside the expanded secton
-        // className="table-responsive"
+          className="table-responsive"
           width="100"
           striped
           loading

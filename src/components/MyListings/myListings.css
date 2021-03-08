@@ -23,7 +23,7 @@
 .my-listings-container {
   position: relative;
   overflow: auto;
-  white-space: nowrap;
+  /* white-space: nowrap; */
   margin-left: 10vw;
   margin-right: 10vw;
 }
