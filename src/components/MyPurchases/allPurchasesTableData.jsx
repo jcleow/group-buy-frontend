@@ -12,11 +12,6 @@ const columns = [{
   text: 'Order ID',
   sort: true,
 },
-// {
-//   dataField: 'id',
-//   text: 'Product ID',
-//   sort: true,
-// },
 {
   dataField: 'item',
   text: 'Item',

@@ -7,6 +7,13 @@
 .react-bootstrap-table table {
   table-layout: auto;
 }
+
+.table{
+  /* overflow: hidden; */
+  /* display: inline-block; */
+  table-layout: auto;
+}
+
 #pageDropDown {
   margin-left: 1em;
 }
