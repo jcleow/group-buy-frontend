@@ -28,14 +28,6 @@ export default function MainPaymentPage() {
   console.log('selectedListingData at start of code is:');
   console.log(selectedListingData);
 
-  // Redirect user to error page if not signed in
-  useEffect(() => {
-    const loggedInUserId = getUserIdFromCookie();
-    if (!loggedInUserId) {
-      window.location = '/error';
-    }
-  }, []);
-
   useEffect(() => {
     if (Object.keys(selectedListingData).length < 1) {
       dispatch(selectListingAction(tempSelectedData));

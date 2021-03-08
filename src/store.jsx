@@ -407,5 +407,8 @@ export function recordPurchase(dispatch, uploadedFile, listingPK, qtyOrdered) {
 export function getAllPurchasesAssociatedWUser(userName) {
   return axios.post(`${BACKEND_URL}/allPurchases`, { userName })
     .then(({ data }) => data)
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      console.log(error);
+      window.location = '/error';
+    });
 }

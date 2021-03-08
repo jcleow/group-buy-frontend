@@ -25,11 +25,10 @@ export default function SignInForm({ handleClose, setFormDisplay }) {
       .then((result) => {
         setUsernameInput('');
         setPasswordInput('');
-        window.location = '/';
         if (result.data.auth) {
           dispatch(setLoggedInUsername(result.data.user.username));
           dispatch(setLoggedInUserId(result.data.user.id));
-          window.location.reload();
+          window.location = '/';
         }
         handleClose();
       })
