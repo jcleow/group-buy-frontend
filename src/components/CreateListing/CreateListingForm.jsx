@@ -9,6 +9,8 @@ import {
   CreateListingProvider, formModes, CREATE_LISTING_FORM, CreateListingContext,
 } from '../../createListingStore.jsx';
 
+import { getUserIdFromCookie } from '../../helper.js';
+
 export default function CreateListingForm() {
   // Modes of the form
   const {
@@ -21,6 +23,14 @@ export default function CreateListingForm() {
 
   // Track which mode the form is at
   const [existingMode] = useLocalStorage(FORM_STEP);
+
+  // Redirect user to error page if not signed in
+  useEffect(() => {
+    const loggedInUserId = getUserIdFromCookie();
+    if (!loggedInUserId) {
+      window.location = '/error';
+    }
+  }, []);
 
   // If the existing mode suggets a different mode, switch to that mode
   useEffect(() => {

@@ -7,6 +7,7 @@ import UploadReceipt from './UploadReceipt.jsx';
 import PaymentInstructions from './PaymentInstructions.jsx';
 import PAGE_NAMES from '../utility/paymentPageNames.js';
 import { GroupBuyContext, selectListingAction, setTotalQuantityOrdered } from '../../store.jsx';
+import { getUserIdFromCookie } from '../../helper.js';
 
 const {
   PURCHASE_SUMMARY,
@@ -26,6 +27,14 @@ export default function MainPaymentPage() {
 
   console.log('selectedListingData at start of code is:');
   console.log(selectedListingData);
+
+  // Redirect user to error page if not signed in
+  useEffect(() => {
+    const loggedInUserId = getUserIdFromCookie();
+    if (!loggedInUserId) {
+      window.location = '/error';
+    }
+  }, []);
 
   useEffect(() => {
     if (Object.keys(selectedListingData).length < 1) {

@@ -10,7 +10,6 @@ export default function AllMyListings() {
   useEffect(() => {
     loadMyListings(dispatchMyListings);
   }, []);
-  console.log(myListingsStore.myListings, 'myListings');
 
   return (
     <div className="my-listings-page">

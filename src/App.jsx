@@ -11,6 +11,7 @@ import MyListings from './components/MyListings/MyListings.jsx';
 import MainPaymentPage from './components/Payments/MainPaymentPage.jsx';
 import ViewAllListings from './components/ViewAllListings/ViewAllListings.jsx';
 import MainMyPurchasesPage from './components/MyPurchases/MainMyPurchasesPage.jsx';
+import NotSignedInErrorPage from './components/NotSignedInErrorPage.jsx';
 
 // import MainPaymentPage from './components/Payments/MainPaymentPage.jsx';
 import CampaignProgress from './components/CampaignProgress/CampaignProgressContainer.jsx';
@@ -23,16 +24,17 @@ function App() {
         <NavbarComponent />
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route path="/createListing" component={CreateListingForm} />
           <Route path="/listingdetails/:listingId" component={ViewListing} />
-          <Route path="/payment" component={MainPaymentPage} />
           <Route path="/viewAllListings" component={ViewAllListings} />
+          {/* Routes that require cookies/authentication to access */}
+          <Route path="/payment" component={MainPaymentPage} />
+          <Route path="/createListing" component={CreateListingForm} />
           <Route path="/MyListings" component={MyListings} />
           <Route path="/MyPurchases" component={MainMyPurchasesPage} />
-          {/* <Route path="/viewAllMyPurchases" component={ViewAllMyPurchases} /> */}
-          <Route path="/editListing/:listingId" component={EditListing} />
           <Route path="/viewProgress/:listingId/" component={CampaignProgress} />
+          <Route path="/editListing/:listingId" component={EditListing} />
           <Route path="/delete/:listingId/" component={HomePage} />
+          <Route path="/error" component={NotSignedInErrorPage} />
         </Switch>
       </Router>
     </GroupBuyProvider>
