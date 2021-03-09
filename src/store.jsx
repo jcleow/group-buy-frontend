@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import { writeStorage, useLocalStorage, deleteFromStorage } from '@rehooks/local-storage';
 
-export const BACKEND_URL = process.env.NODE_ENV === 'production' ? 'https://group-buy-backend-7087.herokuapp.com' : 'http://localhost:3004';
+export const BACKEND_URL = process.env.NODE_ENV === 'production' ? 'https://backend.groupbuy.site' : 'http://localhost:3004';
 
 export const LISTING_VIEW_MODES = {
   BUYER_LISTING_VIEW: 'BUYER_LISTING_VIEW',
@@ -407,5 +407,8 @@ export function recordPurchase(dispatch, uploadedFile, listingPK, qtyOrdered) {
 export function getAllPurchasesAssociatedWUser(userName) {
   return axios.post(`${BACKEND_URL}/allPurchases`, { userName })
     .then(({ data }) => data)
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      console.log(error);
+      window.location = '/error';
+    });
 }

@@ -7,6 +7,7 @@ import UploadReceipt from './UploadReceipt.jsx';
 import PaymentInstructions from './PaymentInstructions.jsx';
 import PAGE_NAMES from '../utility/paymentPageNames.js';
 import { GroupBuyContext, selectListingAction, setTotalQuantityOrdered } from '../../store.jsx';
+import { getUserIdFromCookie } from '../../helper.js';
 
 const {
   PURCHASE_SUMMARY,
