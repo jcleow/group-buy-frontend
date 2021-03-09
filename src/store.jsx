@@ -412,3 +412,14 @@ export function getAllPurchasesAssociatedWUser(userName) {
       window.location = '/error';
     });
 }
+
+export function deleteListing(listingId) {
+  // Delete the listing
+  return axios.delete(`${BACKEND_URL}/listing/${listingId}/delete`).then((result) =>
+  {
+    console.log('deleted successfully: ', result.data);
+  })
+    .catch((error) => {
+      console.log(error);
+    });
+}
