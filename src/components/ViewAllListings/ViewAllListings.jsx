@@ -60,7 +60,7 @@ export default function ViewAllListings() {
   };
 
   return (
-    <div className="mt-4 container-sm">
+    <div className="mt-4 container-sm viewAllListingsContainer">
       <div className="row ml-auto mr-auto">
         <div className="col-8">
           <h3 className="ml-3">All Listings</h3>
