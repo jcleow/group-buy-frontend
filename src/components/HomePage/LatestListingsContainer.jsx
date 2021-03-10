@@ -19,7 +19,7 @@ export default function LatestListingsContainer({ latestListings }) {
   };
 
   return (
-    <div className="container-sm mt-4 latestListingContainer">
+    <div className="container-sm mt-4 latest-listing-container">
       <div className="row mb-3 pt-2">
         <div className="col-9">
           <h6>Latest Listings</h6>
