@@ -1,16 +1,16 @@
-.latestListingContainer{
+.latest-listing-container{
   background-color: var(--palette-lightPurple);
   border-radius: 25px;
   padding:1em 1em 1em
   /* background-color: red; */
 }
 
-.latestListingContainer .btn:focus, .btn:active{
+.latest-listing-container .btn:focus, .btn:active{
   outline: none !important;
   box-shadow: none;
   
 }
 
- .latestListingContainer .btn{
+ .latest-listing-container .btn{
   color:var(--palette-darkBlue)
 }
