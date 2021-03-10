@@ -28,7 +28,7 @@ export default function CategoriesContainer({ selectCategoryProps }) {
   };
 
   return (
-    <div className="container-sm mt-4 categoriesContainer shadow">
+    <div className="container-sm mt-4 categories-container shadow">
       <div className="row ml-auto">
         <div className="col">
           <h6>Categories</h6>

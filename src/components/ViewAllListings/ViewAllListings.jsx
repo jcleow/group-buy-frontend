@@ -60,7 +60,7 @@ export default function ViewAllListings() {
   };
 
   return (
-    <div className=" container-sm viewAllListingsContainer">
+    <div className=" container-sm view-all-listings-container">
       <div className="row ml-auto mr-auto">
         <div className="col-8">
           <h3 className="ml-3">All Listings</h3>
@@ -72,7 +72,7 @@ export default function ViewAllListings() {
         </div>
       </div>
       <div className="row">
-        <div className="col listingsContainer">
+        <div className="col listings-container">
           <InfiniteScroll
             className="infinite-scroll-container"
             dataLength={currListingsDisplayed.length}

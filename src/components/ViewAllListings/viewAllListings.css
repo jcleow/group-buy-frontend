@@ -52,13 +52,13 @@
 }
 
 
-.viewAllListingsCategoriesContainer{
+.view-all-listings-container{
   background-color:#F8F9FA;
   border-radius: 25px;
   padding: 0 .5em .5em;
 }
 
-.listingsContainer{
+.listings-container{
   margin-top: 25px;
   background-color: var(--palette-lightPurple);
   border-radius: 25px;
