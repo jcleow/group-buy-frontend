@@ -70,7 +70,8 @@ export default function ViewListing() {
 
   const handleDelete = () => {
     // Delete the listing
-    deleteListing(listingId);
+    deleteListing(dispatch, listingId);
+    selectListing(dispatch, listingId);
   };
 
   const handleDisplayePerMode = () => {
@@ -103,7 +104,7 @@ export default function ViewListing() {
             </div>
             <div className={`${colClasses} mb-1 `}>
               <LinkContainer to="/" onClick={handleDelete}>
-                <span className="btn btn-sm  btn-warning">Delete Listing</span>
+                <span className="btn btn-sm btn-warning">Delete Listing</span>
               </LinkContainer>
             </div>
             <div className={`${colClasses} mb-1 `}>
