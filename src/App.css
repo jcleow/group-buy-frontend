@@ -94,3 +94,7 @@ font-family: 'Recursive', sans-serif;
 font-weight: 600;
 display:inline-block
 }
+
+#root{
+background-color:#fefefa;  
+}

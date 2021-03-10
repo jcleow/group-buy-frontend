@@ -60,22 +60,30 @@ export default function ViewAllListings() {
   };
 
   return (
-    <div className="mt-4 container-sm viewAllListingsContainer">
+    <div className=" container-sm viewAllListingsContainer">
       <div className="row ml-auto mr-auto">
         <div className="col-8">
           <h3 className="ml-3">All Listings</h3>
         </div>
       </div>
-      <CategoriesContainer selectCategoryProps={selectCategoryProps} />
-      <InfiniteScroll
-        className="infinite-scroll-container"
-        dataLength={currListingsDisplayed.length}
-        next={fetchMoreData}
-        hasMore
-        // loader={<h4 className="text-center">Loading...</h4>}
-      >
-        {displayRows()}
-      </InfiniteScroll>
+      <div className="row">
+        <div className="col">
+          <CategoriesContainer selectCategoryProps={selectCategoryProps} />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col listingsContainer">
+          <InfiniteScroll
+            className="infinite-scroll-container"
+            dataLength={currListingsDisplayed.length}
+            next={fetchMoreData}
+            hasMore
+          >
+            {displayRows()}
+          </InfiniteScroll>
+
+        </div>
+      </div>
     </div>
   );
 }

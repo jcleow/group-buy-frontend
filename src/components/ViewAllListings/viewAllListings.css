@@ -51,13 +51,16 @@
   margin-top: 0.5%;
 }
 
-.viewAllListingsContainer{
-  background-color: var(--palette-lightPurple);
-
-}
 
 .viewAllListingsCategoriesContainer{
   background-color:#F8F9FA;
   border-radius: 25px;
+  padding: 0 .5em .5em;
+}
+
+.listingsContainer{
+  margin-top: 25px;
+  background-color: var(--palette-lightPurple);
   border-radius: 25px;
-  padding: 0 .5em .5em}
+  padding: 0 .5em .5em
+}
