@@ -8,10 +8,6 @@ export const tableColumns = [
     text: 'S/N',
     editable: false,
   },
-  // {
-  //   dataField: 'id',
-  //   text: 'UUID',
-  // },
   {
     dataField: 'username',
     text: 'Username',
@@ -62,10 +58,6 @@ export const generatePaginationOptions = (indexAllPurchases) => {
   const paginationOptions = {
     paginationSize: 4,
     pageStartIndex: 0,
-    // alwaysShowAllBtns: true, // Always show next and previous button
-    // withFirstAndLast: false, // Hide the going to First and Last page button
-    // hideSizePerPage: true, // Hide the sizePerPage dropdown always
-    // hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
     firstPageText: 'First',
     prePageText: 'Back',
     nextPageText: 'Next',
@@ -91,18 +83,24 @@ export const generatePaginationOptions = (indexAllPurchases) => {
 // Helper that generates yAxis Tick Values
 export const generateYAxisTickValues = (campaignStore) => {
   const individualPurchaseCount = campaignStore.pastSevenDaysCount.map((dayCount) => dayCount.y);
+  console.log(individualPurchaseCount, 'individualPurchaseCount');
 
-  const maxVal = Math.max(...individualPurchaseCount);
-  const minVal = Math.min(...individualPurchaseCount);
+  const maxVal = Math.max(...individualPurchaseCount, 0);
+  const minVal = Math.min(...individualPurchaseCount, 0);
   const purchaseCountRange = maxVal - minVal;
+  console.log(purchaseCountRange, 'purchaseCountRange');
 
   const yAxisInterval = Math.floor(purchaseCountRange / 5);
   const yAxisTickValues = [];
   // To ensure that second highest value is not too close to the top axis label
-  for (let i = 0; i < purchaseCountRange - yAxisInterval; i += yAxisInterval) {
-    yAxisTickValues.push(i);
+  if (purchaseCountRange > 0 && yAxisInterval > 0) {
+    for (let i = 0; i < purchaseCountRange - yAxisInterval; i += yAxisInterval) {
+      console.log(yAxisTickValues, 'yAxisTickValues');
+      yAxisTickValues.push(i);
+    }
   }
   // To ensure top of the graph always has the largest (label) value
+  console.log(yAxisTickValues, 'yAxisTickValues');
   yAxisTickValues.push(maxVal);
 
   return yAxisTickValues;

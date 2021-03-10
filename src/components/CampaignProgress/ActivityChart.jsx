@@ -37,8 +37,11 @@ export default function ActivityChart() {
     setValue(val);
   };
 
+  // Error Lies in here
   const xAxisTickValues = generatePastSevenDays();
+
   const yAxisTickValues = generateYAxisTickValues(campaignStore);
+
   const datesAndPurchasesCount = campaignStore.pastSevenDaysCount;
   const YLOW = getLowestYVal(datesAndPurchasesCount);
 
