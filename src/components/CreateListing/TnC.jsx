@@ -28,7 +28,7 @@ export default function TnC({ setMode }) {
       }
     });
 
-    return axios.post(`${BACKEND_URL}/listings/${listingId}/uploadCampaignPictures`, data)
+    return axios.post(`${BACKEND_URL}/listings/${listingId}/uploadCampaignPictures`, data, { withCredentials: true })
       .catch((err) => console.log(err));
   };
 
