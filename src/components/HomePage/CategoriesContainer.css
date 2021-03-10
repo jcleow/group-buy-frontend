@@ -1,7 +1,7 @@
 .btn-category::first-letter {
   text-transform: capitalize;
 }
-.categoriesContainer{
+.categories-container{
   /* background-color: var(#F8F9FA); */
   background-color:#F8F9FA;
   border-radius: 25px;

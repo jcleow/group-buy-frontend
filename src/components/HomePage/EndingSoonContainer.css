@@ -3,7 +3,7 @@
   height: 25rem;
 }
 
-.endingSoonContainer{
+.ending-soon-container{
   background-color: var(--palette-lightOrange);
   border-radius: 25px;
   padding:.5em;
@@ -11,11 +11,11 @@
   box-shadow: none;
 }
 
-.endingSoonContainer .btn:focus, .btn:active{
+.ending-soon-container .btn:focus, .btn:active{
   outline: none !important;
   box-shadow: none;
 }
-.endingSoonContainer .btn{
+.ending-soon-container .btn{
   color:var(--palette-darkBlue)
 }
 
