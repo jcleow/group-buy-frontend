@@ -6,6 +6,7 @@ import { writeStorage, deleteFromStorage } from '@rehooks/local-storage';
 import { CreateListingContext, CREATE_LISTING_FORM, formModes } from '../../createListingStore.jsx';
 import { BACKEND_URL, selectListing, GroupBuyContext } from '../../store.jsx';
 
+axios.defaults.withCredentials = true;
 export default function TnC({ setMode }) {
   const {
     formStore, handleOnChange, dispatchListingForm, formLocalStorage,
@@ -27,7 +28,7 @@ export default function TnC({ setMode }) {
       }
     });
 
-    return axios.post(`${BACKEND_URL}/listings/${listingId}/uploadCampaignPictures`, data)
+    return axios.post(`${BACKEND_URL}/listings/${listingId}/uploadCampaignPictures`, data, { withCredentials: true })
       .catch((err) => console.log(err));
   };
 
